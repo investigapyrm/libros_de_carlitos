@@ -1,5 +1,6 @@
 assets/pages/
 assets/source_extracted/
 server.*.log
+_preview*.png
 .DS_Store
 Thumbs.db

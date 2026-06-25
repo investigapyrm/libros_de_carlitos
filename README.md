@@ -16,13 +16,27 @@ Este repositorio fue clonado desde `investigapyrm/libros_de_carlitos`, que al mo
 
 ```text
 index.html              Appweb estatica para GitHub Pages.
-styles.css              Diseno visual responsive con hero, tarjetas y detalle.
-app.js                  Render del libro desde JSON local o GAS opcional.
+styles.css              Diseno responsive con hero animado, misiones, tarjetas y detalle.
+app.js                  Render del libro desde JSON local o GAS opcional, interacciones y modo lectura.
 data/book.json          Contenido editorial y rutas de imagenes.
 assets/generated/       Imagenes finales de la appweb.
 docs/                   Instructivos de generacion visual.
 gas_src/                Backend Google Apps Script clonado y preparado.
 ```
+
+## Mejora visual 2026-06-25
+
+La version `v0.2.0` incorpora una experiencia mas atractiva para ninos y docentes:
+
+* hero con imagen real de Carlitos, movimiento suave y ruta de aprendizaje;
+* misiones verdes interactivas: separar, medir, transformar y emprender;
+* tarjetas visuales con transiciones livianas;
+* progreso de lectura por escena;
+* modo de lectura persistente `Normal / Comoda / Grande`;
+* versionado de `styles.css` y `app.js` para reducir problemas de cache en GitHub Pages;
+* soporte `prefers-reduced-motion` para usuarios que prefieren menos movimiento.
+
+Estas decisiones reutilizan criterios de MASTER: animacion didactica con sentido, legibilidad movil, zoom/modo lectura, version visible y visuales evidentes dentro del flujo principal.
 
 ## Imagenes integradas
 
@@ -64,6 +78,16 @@ La app carga por defecto `data/book.json`. Si luego se despliega el Apps Script 
 ```js
 const GAS_ENDPOINT = "";
 ```
+
+Servidor local usado en esta preparacion:
+
+```powershell
+python -m http.server 8787 --bind 127.0.0.1
+```
+
+URL local:
+
+`http://127.0.0.1:8787/`
 
 ## Apps Script
 

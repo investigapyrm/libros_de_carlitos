@@ -17,6 +17,36 @@
     { "label": "Actividades", "value": "4" },
     { "label": "Fuente editorial", "value": "Sheets + JSON" }
   ],
+  "missions": [
+    {
+      "id": "separar",
+      "title": "Separar",
+      "tagline": "Ordenar para descubrir valor.",
+      "description": "Carlitos empieza mirando que materiales hay y donde debe ir cada uno.",
+      "orden": 4
+    },
+    {
+      "id": "medir",
+      "title": "Medir",
+      "tagline": "Contar para tomar mejores decisiones.",
+      "description": "La clase pesa, anota y compara lo que recupera semana a semana.",
+      "orden": 6
+    },
+    {
+      "id": "transformar",
+      "title": "Transformar",
+      "tagline": "Convertir residuos en vida nueva.",
+      "description": "Las cascaras y hojas secas se vuelven compost para la huerta escolar.",
+      "orden": 5
+    },
+    {
+      "id": "emprender",
+      "title": "Emprender",
+      "tagline": "Crear oportunidades verdes.",
+      "description": "Los datos ayudan a imaginar ferias, servicios y pequenos proyectos sostenibles.",
+      "orden": 7
+    }
+  ],
   "items": [
     {
       "orden": 1,

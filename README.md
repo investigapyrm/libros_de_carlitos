@@ -12,9 +12,9 @@ Libro piloto:
 
 Este repositorio fue clonado desde `investigapyrm/libros_de_carlitos`, que al inicio de esta preparacion estaba vacio y sin rama por defecto.
 
-La rama `main` ya fue inicializada y empujada al remoto. Ultimo commit verificado:
+La rama `main` ya fue inicializada, empujada al remoto y sincronizada con `origin/main`.
 
-`15b48cb3f7cd46adc0acc694be4e14b02ee92aaa` - `Mejora experiencia visual Carlitos`
+Hito actual verificado: `v0.3.1`, correccion de navegacion de botones y cache-busting de assets.
 
 Pendiente: confirmar GitHub Pages, autorizaciones editoriales/legales y despliegue GAS si se decide usar la hoja online como fuente publica.
 

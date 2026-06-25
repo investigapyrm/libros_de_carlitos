@@ -1,49 +1,49 @@
 {
   "title": "Carlitos y los residuos que se convierten en oportunidad",
   "subtitle": "Una appweb educativa para separar, medir, transformar y emprender cuidando el ambiente.",
-  "sourceLabel": "Datos locales de muestra",
+  "sourceLabel": "Contenido editorial local v0.3.0",
   "heroImage": "assets/generated/hero_carlitos_residuos_oportunidad_1920x1080.png",
   "characterSheet": "assets/generated/carlitos_character_sheet_v01.png",
   "closingImage": "assets/generated/cierre_feria_segundas_vidas_1920x1080.png",
   "rightsNote": "Borrador interno. Las imagenes y el personaje requieren autorizacion de uso antes de cualquier publicacion.",
   "summary": {
-    "audience": "Escuelas, familias, comunidades y jovenes emprendedores.",
+    "audience": "Escuelas, familias, comunidades, docentes y jovenes emprendedores.",
     "purpose": "Mostrar que los residuos bien gestionados pueden convertirse en aprendizaje, compost, reciclaje, ahorro, trabajo local y oportunidades verdes.",
-    "method": "Observar, separar, registrar, transformar, medir y presentar resultados."
+    "method": "Observar, separar, registrar, transformar, medir, evaluar y presentar resultados comunitarios."
   },
   "metrics": [
     { "label": "Imagenes integradas", "value": "8" },
-    { "label": "Capitulos piloto", "value": "5" },
-    { "label": "Actividades", "value": "4" },
-    { "label": "Fuente editorial", "value": "Sheets + JSON" }
+    { "label": "Secciones editoriales", "value": "8" },
+    { "label": "Misiones verdes", "value": "4" },
+    { "label": "Bloques didacticos", "value": "7" }
   ],
   "missions": [
     {
       "id": "separar",
       "title": "Separar",
       "tagline": "Ordenar para descubrir valor.",
-      "description": "Carlitos empieza mirando que materiales hay y donde debe ir cada uno.",
+      "description": "Carlitos empieza mirando que materiales hay, como se separan y por que mezclar reduce las oportunidades.",
       "orden": 4
     },
     {
       "id": "medir",
       "title": "Medir",
       "tagline": "Contar para tomar mejores decisiones.",
-      "description": "La clase pesa, anota y compara lo que recupera semana a semana.",
+      "description": "La clase pesa, anota y compara lo que recupera semana a semana para convertir la intuicion en evidencia.",
       "orden": 6
     },
     {
       "id": "transformar",
       "title": "Transformar",
       "tagline": "Convertir residuos en vida nueva.",
-      "description": "Las cascaras y hojas secas se vuelven compost para la huerta escolar.",
+      "description": "Las cascaras y hojas secas se vuelven compost si hay paciencia, higiene, aire, humedad y registro.",
       "orden": 5
     },
     {
       "id": "emprender",
       "title": "Emprender",
       "tagline": "Crear oportunidades verdes.",
-      "description": "Los datos ayudan a imaginar ferias, servicios y pequenos proyectos sostenibles.",
+      "description": "Los datos ayudan a imaginar ferias, servicios, alianzas y pequenos proyectos sostenibles con beneficio ambiental.",
       "orden": 7
     }
   ],
@@ -53,9 +53,38 @@
       "tipo": "portada",
       "titulo": "Carlitos y los residuos que se convierten en oportunidad",
       "subtitulo": "Una historia para aprender haciendo",
-      "contenido": "Carlitos descubre que algunos residuos pueden tener una segunda vida si se separan, registran y gestionan correctamente.",
+      "contenido": "Carlitos descubre que algunos residuos pueden tener una segunda vida si se separan, registran y gestionan correctamente. La historia propone mirar la escuela y la comunidad como un laboratorio sencillo de economia ambiental sostenible.",
+      "objetivo": "Presentar la idea central del libro: los residuos dejan de ser solo un problema cuando se observan, separan, miden y conectan con soluciones reales.",
+      "preguntaGuia": "Que oportunidades hay escondidas en los residuos de nuestra escuela o comunidad?",
+      "aprendizajes": [
+        "Comprender que separar es el primer paso para recuperar valor.",
+        "Reconocer que medir permite tomar decisiones mas justas y claras.",
+        "Relacionar residuos con compost, reciclaje, ahorro y emprendimientos verdes."
+      ],
+      "desarrollo": [
+        "La portada introduce a Carlitos como companero de exploracion. No llega con respuestas cerradas: llega con preguntas, una libreta y ganas de mirar mejor lo que todos ven todos los dias.",
+        "La appweb acompana el libro con escenas, misiones y evidencias. Cada seccion puede usarse en aula, taller comunitario o presentacion institucional."
+      ],
+      "pasos": [
+        "Mostrar la portada y preguntar que objetos aparecen en la escena.",
+        "Pedir a los estudiantes que nombren residuos que ven en su entorno cercano.",
+        "Elegir una primera mision: separar, medir, transformar o emprender."
+      ],
+      "materiales": [
+        "Pantalla o proyector.",
+        "Cuaderno o ficha de registro.",
+        "Tarjetas de colores para ideas iniciales."
+      ],
+      "evidencias": [
+        "Lista inicial de residuos observados.",
+        "Foto o captura de la primera conversacion de aula.",
+        "Pregunta guia elegida por el grupo."
+      ],
+      "paraDocente": "Usar la portada como disparador. Conviene evitar empezar con culpa o dramatismo; la entrada mas potente es la curiosidad.",
+      "paraComunidad": "La misma pregunta puede llevarse a una reunion barrial o feria escolar para identificar oportunidades locales.",
+      "cuidado": "No manipular residuos reales sin guantes, supervision adulta y criterios de higiene.",
       "actividad": "Presentar la pregunta: que oportunidades hay escondidas en los residuos de nuestra escuela o comunidad.",
-      "indicador": "Libro piloto creado, portada definida y fuente visual incorporada.",
+      "indicador": "Pregunta guia formulada y primer listado de residuos frecuentes.",
       "asset": "assets/generated/hero_carlitos_residuos_oportunidad_1920x1080.png",
       "estado": "borrador"
     },
@@ -64,9 +93,38 @@
       "tipo": "personaje",
       "titulo": "Carlitos aprende mirando con atencion",
       "subtitulo": "El personaje conductor de la appweb",
-      "contenido": "La hoja visual de Carlitos ayuda a mantener consistencia en gestos, personalidad y tono educativo a lo largo de toda la serie.",
+      "contenido": "Carlitos representa una forma de aprender: saluda, observa, pregunta, explica y registra. Su papel no es dar una leccion desde lejos, sino acompanar a ninos, jovenes y docentes mientras descubren soluciones ambientales posibles.",
+      "objetivo": "Definir a Carlitos como guia pedagogico de la serie y como puente entre juego, evidencia y responsabilidad ambiental.",
+      "preguntaGuia": "Que hace Carlitos cuando quiere entender un problema ambiental?",
+      "aprendizajes": [
+        "Reconocer la observacion como una habilidad ambiental.",
+        "Valorar el registro antes de opinar o decidir.",
+        "Diferenciar explicar, imponer y aprender en equipo."
+      ],
+      "desarrollo": [
+        "Carlitos mira primero y habla despues. Esa actitud permite que el cuento no sea una orden, sino una investigacion sencilla.",
+        "En la app, cada gesto de Carlitos puede transformarse en una accion concreta: observar una bolsa, ordenar una mesa, anotar pesos, visitar un acopio o presentar una idea."
+      ],
+      "pasos": [
+        "Observar las cuatro poses de Carlitos.",
+        "Asociar cada pose con una accion: saludar, observar, explicar y registrar.",
+        "Elegir que pose representa mejor el trabajo ambiental de la clase."
+      ],
+      "materiales": [
+        "Hoja de personaje.",
+        "Tarjetas con verbos de accion.",
+        "Pizarra o mural de misiones."
+      ],
+      "evidencias": [
+        "Mapa de acciones de Carlitos.",
+        "Frases creadas por estudiantes sobre como aprender mirando.",
+        "Acuerdo de aula para registrar antes de decidir."
+      ],
+      "paraDocente": "Usar el personaje para ordenar el metodo: mirar, preguntar, separar, medir, transformar y compartir.",
+      "paraComunidad": "Carlitos puede funcionar como vocero amable de campanas escolares de separacion y ferias ambientales.",
+      "cuidado": "Confirmar autorizacion de uso del personaje antes de publicar materiales fuera del prototipo interno.",
       "actividad": "Reconocer las cuatro acciones de Carlitos: saludar, observar, explicar y registrar.",
-      "indicador": "Hoja de personaje disponible para futuras escenas.",
+      "indicador": "Acciones del personaje vinculadas con practicas ambientales concretas.",
       "asset": "assets/generated/carlitos_character_sheet_v01.png",
       "estado": "borrador"
     },
@@ -76,8 +134,42 @@
       "titulo": "La bolsa que hablaba bajito",
       "subtitulo": "Cuando mezclamos, perdemos valor",
       "contenido": "La profesora abre una bolsa de residuos sobre una lona limpia. Carlitos descubre organicos, reciclables, no reciclables y residuos especiales. La bolsa parecia un problema, pero en realidad guardaba pistas.",
+      "objetivo": "Mostrar que una bolsa mezclada oculta informacion valiosa y que separar permite reconocer materiales, riesgos y oportunidades.",
+      "preguntaGuia": "Que nos dice una bolsa de residuos cuando la miramos con cuidado?",
+      "aprendizajes": [
+        "Identificar residuos organicos, reciclables, no reciclables y especiales.",
+        "Comprender que mezclar materiales reduce su valor y aumenta el trabajo posterior.",
+        "Practicar una observacion segura, ordenada y respetuosa."
+      ],
+      "desarrollo": [
+        "La bolsa no habla con palabras: habla con pistas. Una cascara cuenta algo sobre alimentos; una botella cuenta algo sobre consumo; un papel cuenta algo sobre habitos de estudio o administracion.",
+        "Carlitos propone mirar sin juzgar. Antes de decir que todo es basura, invita a separar y preguntar: de donde vino, que le paso y que podria pasar ahora?",
+        "La escena debe trabajarse con residuos simulados o limpios. El objetivo no es exponer a los estudiantes a suciedad, sino entender que el orden cambia el destino de los materiales."
+      ],
+      "pasos": [
+        "Preparar una lona limpia y residuos simulados o previamente higienizados.",
+        "Observar la bolsa sin tocar y nombrar lo que se ve.",
+        "Separar en cuatro grupos: organicos, reciclables, no reciclables y especiales.",
+        "Contar cuantos elementos quedaron en cada grupo.",
+        "Conversar que materiales podrian recuperar valor si no estuvieran mezclados."
+      ],
+      "materiales": [
+        "Lona o mesa limpia.",
+        "Guantes o pinzas si se usan materiales reales limpios.",
+        "Tarjetas de categoria.",
+        "Cuaderno de registro.",
+        "Recipientes o cajas para clasificar."
+      ],
+      "evidencias": [
+        "Foto de los cuatro grupos separados.",
+        "Conteo de elementos por categoria.",
+        "Lista de dudas sobre materiales dificiles de clasificar."
+      ],
+      "paraDocente": "Conviene iniciar con residuos simulados para evitar riesgos sanitarios y centrar la clase en la decision ambiental.",
+      "paraComunidad": "La actividad puede repetirse en una reunion familiar con residuos limpios de un dia, registrando que se podria separar mejor.",
+      "cuidado": "No abrir bolsas reales de basura comun con ninos. No manipular vidrios, pilas, medicamentos ni envases peligrosos.",
       "actividad": "Clasificar una bolsa simulada en cuatro grupos: organicos, reciclables, no reciclables y especiales.",
-      "indicador": "Numero de residuos correctamente clasificados.",
+      "indicador": "Numero de residuos correctamente clasificados y dudas registradas para investigar.",
       "asset": "assets/generated/cap01_bolsa_hablaba_bajito.png",
       "estado": "borrador"
     },
@@ -87,8 +179,43 @@
       "titulo": "La mesa de los colores",
       "subtitulo": "Separar tambien protege la salud",
       "contenido": "Carlitos aprende que los colores y etiquetas ayudan a separar desde el origen, pero tambien que una pila, un envase toxico o un material contaminado requieren cuidado especial.",
-      "actividad": "Disenar un punto de separacion con colores, responsables, frecuencia de revision y destino de cada material.",
-      "indicador": "Puntos de separacion disenados o instalados.",
+      "objetivo": "Disenar un punto de separacion claro, seguro y facil de usar por estudiantes, docentes y familias.",
+      "preguntaGuia": "Como hacemos para que separar sea facil, seguro y constante?",
+      "aprendizajes": [
+        "Comprender que el diseno del punto de separacion influye en el comportamiento.",
+        "Distinguir materiales comunes de residuos que requieren manejo especial.",
+        "Asignar responsables, frecuencia de revision y destino de cada recipiente."
+      ],
+      "desarrollo": [
+        "La mesa de los colores ayuda a que la separacion no dependa de la memoria de una sola persona. Los colores, iconos y ubicacion comunican rapidamente que hacer.",
+        "Carlitos descubre que separar no es solo poner tachos lindos. Hay que decidir donde estaran, quien los revisa, que se acepta, que no se acepta y que pasa cuando se llenan.",
+        "Tambien aparece una regla clave: algunos residuos no deben mezclarse ni improvisarse, como pilas, lamparas, medicamentos o envases peligrosos."
+      ],
+      "pasos": [
+        "Elegir cuatro categorias operativas para la escuela.",
+        "Definir color o icono para cada categoria sin depender solo del color.",
+        "Ubicar los recipientes en un lugar visible y protegido.",
+        "Nombrar responsables por semana.",
+        "Crear una regla simple para materiales dudosos: separar, consultar y registrar."
+      ],
+      "materiales": [
+        "Recipientes o cajas limpias.",
+        "Iconos sin texto o carteles aprobados.",
+        "Lista de materiales permitidos.",
+        "Ficha de responsable semanal.",
+        "Guantes para revision adulta."
+      ],
+      "evidencias": [
+        "Croquis del punto de separacion.",
+        "Foto del punto instalado o simulado.",
+        "Registro semanal de revision.",
+        "Lista de materiales especiales detectados."
+      ],
+      "paraDocente": "Usar ejemplos cotidianos y evitar que los colores sean la unica pista, porque algunas personas pueden no distinguirlos bien.",
+      "paraComunidad": "El mismo esquema puede adaptarse a una plaza, capilla, club o feria barrial.",
+      "cuidado": "Los residuos especiales deben almacenarse aparte y gestionarse con adultos responsables o instituciones competentes.",
+      "actividad": "Disenar un punto de separacion con colores, iconos, responsables, frecuencia de revision y destino de cada material.",
+      "indicador": "Puntos de separacion disenados, instalados o evaluados.",
       "asset": "assets/generated/cap02_mesa_colores.png",
       "estado": "borrador"
     },
@@ -98,8 +225,45 @@
       "titulo": "El secreto de las cascaras",
       "subtitulo": "Los organicos pueden volver a la tierra",
       "contenido": "En una compostera escolar, Carlitos aprende que las cascaras y hojas secas pueden transformarse con paciencia, higiene, humedad y registro.",
-      "actividad": "Iniciar una compostera piloto y registrar fecha, tipo de organico y peso aproximado.",
-      "indicador": "Kg de organicos separados para compost.",
+      "objetivo": "Explicar como los residuos organicos pueden transformarse en compost util para huertas, jardines o plantines escolares.",
+      "preguntaGuia": "Que necesita una cascara para volver a alimentar la tierra?",
+      "aprendizajes": [
+        "Reconocer que los organicos no son inutiles si se gestionan bien.",
+        "Entender condiciones basicas del compost: mezcla, aire, humedad, tiempo y cuidado.",
+        "Registrar cantidades para estimar cuanto residuo se evita enviar a disposicion final."
+      ],
+      "desarrollo": [
+        "Carlitos mira una cascara y descubre que no es el final de la historia. Si se mezcla con hojas secas y se cuida bien, puede convertirse en alimento para la tierra.",
+        "La compostera ensena paciencia. No todo cambia de un dia para otro: hay que observar olor, humedad, presencia de insectos y textura.",
+        "El registro convierte la experiencia en aprendizaje: cuantos kilos entran, cada cuanto se revuelve y que resultado se obtiene."
+      ],
+      "pasos": [
+        "Elegir un lugar ventilado, sombreado y seguro.",
+        "Separar organicos permitidos: cascaras, restos vegetales y hojas secas.",
+        "Alternar capas humedas y secas.",
+        "Revisar humedad y aireacion una vez por semana.",
+        "Registrar fecha, tipo de material y peso aproximado.",
+        "Usar el compost maduro en plantines o huerta escolar."
+      ],
+      "materiales": [
+        "Compostera o cajon de madera.",
+        "Hojas secas.",
+        "Cascaras de frutas o verduras.",
+        "Pala pequena.",
+        "Balanza opcional.",
+        "Cuaderno de registro."
+      ],
+      "evidencias": [
+        "Registro de organicos ingresados por semana.",
+        "Fotos de seguimiento de la compostera.",
+        "Observaciones de olor, humedad y textura.",
+        "Plantin abonado con compost maduro."
+      ],
+      "paraDocente": "Explicar que compostar no es tirar todo lo organico en un cajon; requiere criterio, equilibrio y cuidado.",
+      "paraComunidad": "Las familias pueden iniciar composteras pequenas con restos vegetales, hojas secas y supervision adulta.",
+      "cuidado": "Evitar carnes, grasas, lacteos, residuos sanitarios y materiales contaminados. Lavarse las manos despues de la actividad.",
+      "actividad": "Iniciar una compostera piloto y registrar fecha, tipo de organico, peso aproximado y observaciones.",
+      "indicador": "Kg de organicos separados para compost y numero de revisiones realizadas.",
       "asset": "assets/generated/cap03_compost_cascaras.png",
       "estado": "borrador"
     },
@@ -109,8 +273,44 @@
       "titulo": "El viaje de la botella",
       "subtitulo": "Cada material cuenta, pero importa como llega",
       "contenido": "Carlitos visita un punto de acopio y aprende que los reciclables limpios, secos y separados tienen mas posibilidades de valorizarse.",
+      "objetivo": "Comprender la ruta de los reciclables desde la separacion escolar hasta el acopio, la medicion y un destino responsable.",
+      "preguntaGuia": "Que debe pasar para que una botella tenga una segunda vida?",
+      "aprendizajes": [
+        "Relacionar separacion en origen con recuperacion de materiales.",
+        "Comprender la importancia de entregar reciclables limpios, secos y compactados cuando corresponda.",
+        "Valorar el trabajo de recicladores, referentes comunitarios y puntos de acopio."
+      ],
+      "desarrollo": [
+        "La botella viaja mejor cuando llega limpia y seca. Si llega mezclada con restos organicos, puede ensuciar otros materiales y perder oportunidad.",
+        "Carlitos aprende que no basta con juntar: hay que organizar, pesar, registrar y coordinar el destino.",
+        "El punto de acopio muestra una economia ambiental posible: materiales que antes ocupaban espacio pueden convertirse en informacion, alianzas y trabajo local."
+      ],
+      "pasos": [
+        "Definir que materiales reciclables se aceptaran en el piloto.",
+        "Acordar condiciones: limpio, seco, aplastado o atado segun el material.",
+        "Instalar un punto de acopio temporal con responsable adulto.",
+        "Pesar materiales por categoria durante cuatro semanas.",
+        "Registrar destino y contacto del receptor o referente.",
+        "Comparar resultados al cierre del mes."
+      ],
+      "materiales": [
+        "Cajas o bolsas diferenciadas.",
+        "Balanza.",
+        "Guantes para adulto responsable.",
+        "Planilla de registro.",
+        "Carton, plasticos y latas limpios."
+      ],
+      "evidencias": [
+        "Kg recuperados por categoria.",
+        "Registro de fecha y responsable.",
+        "Foto del acopio ordenado.",
+        "Comprobante o nota del destino del material, si existe."
+      ],
+      "paraDocente": "Trabajar la idea de trazabilidad: no alcanza con retirar materiales, se necesita saber a donde van.",
+      "paraComunidad": "Invitar a un reciclador o referente comunitario puede ayudar a comprender mejor condiciones reales de acopio.",
+      "cuidado": "No almacenar materiales con restos de comida, liquidos, vidrios rotos o elementos cortantes sin manejo adulto.",
       "actividad": "Pesar papel, carton, plasticos y latas durante cuatro semanas.",
-      "indicador": "Kg de reciclables recuperados por semana.",
+      "indicador": "Kg de reciclables recuperados por semana y destino registrado.",
       "asset": "assets/generated/cap04_viaje_botella_acopio.png",
       "estado": "borrador"
     },
@@ -120,8 +320,46 @@
       "titulo": "La oportunidad no aparece sola",
       "subtitulo": "Se construye separando, organizando, midiendo y cuidando",
       "contenido": "Con datos en la mano, la clase descubre que una oportunidad verde necesita responsables, recursos, medicion, destino claro y cuidado ambiental.",
+      "objetivo": "Transformar observaciones y datos en una idea simple de emprendimiento verde o iniciativa ambiental sostenible.",
+      "preguntaGuia": "Que idea verde podriamos construir con lo que ya aprendimos y medimos?",
+      "aprendizajes": [
+        "Diferenciar una buena intencion de una iniciativa organizada.",
+        "Usar datos basicos para estimar recursos, costos, beneficios y riesgos.",
+        "Reconocer que una oportunidad verde debe cuidar el ambiente y tambien a las personas."
+      ],
+      "desarrollo": [
+        "Carlitos descubre que una oportunidad no aparece por magia. Primero hubo separacion, luego medicion, despues preguntas y finalmente una idea.",
+        "La clase arma un mini canvas verde: problema, materiales, aliados, costos, beneficios ambientales, cuidados y evidencia.",
+        "El emprendimiento verde no se presenta como negocio facil, sino como una forma responsable de resolver un problema con aprendizaje, organizacion y comunidad."
+      ],
+      "pasos": [
+        "Elegir un residuo o material observado durante el recorrido.",
+        "Definir el problema que genera cuando se mezcla o desperdicia.",
+        "Imaginar una solucion pequena y realizable.",
+        "Listar recursos, responsables y aliados.",
+        "Estimar costos y beneficios ambientales.",
+        "Definir como se medira el resultado.",
+        "Preparar una presentacion breve para la feria."
+      ],
+      "materiales": [
+        "Mini canvas verde.",
+        "Datos de separacion o peso.",
+        "Tarjetas de ideas.",
+        "Calculadora simple.",
+        "Cuaderno de costos.",
+        "Muestra del material recuperado."
+      ],
+      "evidencias": [
+        "Canvas completado.",
+        "Lista de responsables y aliados.",
+        "Estimacion de materiales recuperables.",
+        "Indicador ambiental elegido por el grupo."
+      ],
+      "paraDocente": "Ayudar a que las ideas sean pequenas, medibles y honestas. Evitar promesas ambientales exageradas.",
+      "paraComunidad": "Una idea verde puede conectar escuela, familias, recicladores, viveros, huertas, comercios y organizaciones locales.",
+      "cuidado": "No presentar como rentable una iniciativa que aun no tiene datos suficientes. Diferenciar piloto, propuesta y emprendimiento real.",
       "actividad": "Completar un mini canvas verde para una idea basada en residuos.",
-      "indicador": "Ideas verdes generadas y canvas completados.",
+      "indicador": "Ideas verdes generadas, canvas completados y criterios de medicion definidos.",
       "asset": "assets/generated/cap05_oportunidad_emprendimiento_verde.png",
       "estado": "borrador"
     },
@@ -131,6 +369,43 @@
       "titulo": "La feria de las segundas vidas",
       "subtitulo": "Compartir resultados tambien es parte del aprendizaje",
       "contenido": "La comunidad presenta compost, plantines, materiales recuperados y pequenas ideas verdes. Carlitos entiende que los residuos bien gestionados pueden convertirse en aprendizaje, comunidad y oportunidad economica.",
+      "objetivo": "Cerrar el recorrido con una feria escolar-comunitaria donde se presenten evidencias, aprendizajes, resultados e ideas verdes.",
+      "preguntaGuia": "Como contamos lo que aprendimos para que otras personas tambien puedan actuar?",
+      "aprendizajes": [
+        "Comunicar resultados ambientales de forma clara y honesta.",
+        "Valorar evidencias: fotos, registros, pesos, plantines, compost e ideas.",
+        "Construir compromisos comunitarios realistas para continuar."
+      ],
+      "desarrollo": [
+        "La feria no es solo una celebracion. Es el momento de mostrar que la clase observo, separo, midio, transformo y penso oportunidades.",
+        "Carlitos invita a contar tambien los errores: que fue dificil separar, que materiales generaron dudas, que no se pudo resolver todavia.",
+        "Una buena feria deja compromisos pequenos: mantener el punto de separacion, continuar la compostera, repetir mediciones o mejorar una idea verde."
+      ],
+      "pasos": [
+        "Organizar mesas por tema: separacion, compost, reciclables, datos e ideas verdes.",
+        "Preparar evidencias visuales sin exponer datos personales.",
+        "Ensayar explicaciones breves por grupo.",
+        "Invitar a familias y referentes comunitarios.",
+        "Registrar compromisos y proximos pasos.",
+        "Cerrar con una evaluacion simple: que aprendimos, que falta y quien continua."
+      ],
+      "materiales": [
+        "Mesas o stands.",
+        "Muestras limpias de materiales.",
+        "Compost o plantines.",
+        "Registros resumidos.",
+        "Tarjetas de compromisos.",
+        "Camara o celular para evidencia institucional."
+      ],
+      "evidencias": [
+        "Numero de participantes.",
+        "Kg recuperados o compostados durante el piloto.",
+        "Ideas verdes presentadas.",
+        "Compromisos asumidos por grupos o comunidad."
+      ],
+      "paraDocente": "La feria debe cuidar la verdad del proceso: mostrar avances y limitaciones fortalece la confianza.",
+      "paraComunidad": "Puede convertirse en punto de partida para alianzas con municipios, recicladores, viveros, empresas o instituciones educativas.",
+      "cuidado": "No exhibir datos personales de estudiantes ni usar logos/marcas sin autorizacion.",
       "actividad": "Organizar una feria escolar-comunitaria con resultados, evidencias y compromisos.",
       "indicador": "Participantes, materiales recuperados, ideas verdes presentadas y compromisos asumidos.",
       "asset": "assets/generated/cierre_feria_segundas_vidas_1920x1080.png",

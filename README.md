@@ -51,6 +51,21 @@ La version `v0.2.0` incorpora una experiencia mas atractiva para ninos y docente
 
 Estas decisiones reutilizan criterios de MASTER: animacion didactica con sentido, legibilidad movil, zoom/modo lectura, version visible y visuales evidentes dentro del flujo principal.
 
+## Contenido didactico 2026-06-25
+
+La version `v0.3.0` amplia cada seccion del libro/appweb con contenido editorial de aula:
+
+* objetivo pedagogico;
+* pregunta guia;
+* aprendizajes esperados;
+* guia narrativa;
+* pasos para hacer;
+* materiales;
+* evidencias;
+* notas para docentes, comunidad y cuidado.
+
+La app muestra estos bloques solo cuando existen en `data/book.json`, por lo que mantiene compatibilidad con una fuente GAS/Sheets mas simple.
+
 ## Imagenes integradas
 
 Las imagenes fueron tomadas de:

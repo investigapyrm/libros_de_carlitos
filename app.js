@@ -1,4 +1,4 @@
-const APP_VERSION = "v0.2.0";
+const APP_VERSION = "v0.3.0";
 const APP_BUILD_DATE = "2026-06-25";
 const GAS_ENDPOINT = "";
 const LOCAL_DATA_URL = "data/book.json";
@@ -120,6 +120,16 @@ function normalizeBook(raw) {
       titulo: item.titulo || `Seccion ${index + 1}`,
       subtitulo: item.subtitulo || "",
       contenido: item.contenido || "",
+      objetivo: item.objetivo || "",
+      preguntaGuia: item.preguntaGuia || "",
+      aprendizajes: normalizeStringList(item.aprendizajes),
+      desarrollo: normalizeStringList(item.desarrollo),
+      pasos: normalizeStringList(item.pasos),
+      materiales: normalizeStringList(item.materiales),
+      evidencias: normalizeStringList(item.evidencias),
+      paraDocente: item.paraDocente || "",
+      paraComunidad: item.paraComunidad || "",
+      cuidado: item.cuidado || "",
       actividad: item.actividad || "",
       indicador: item.indicador || "",
       asset: item.asset || "",
@@ -167,7 +177,7 @@ function renderApp() {
         <p>${escapeHtml(book.subtitle)}</p>
         <div class="hero-actions">
           <a href="#misiones" class="primary-action">Empezar mision</a>
-          <a href="#recorrido" class="secondary-action">Explorar escenas</a>
+          <a href="#recorrido" class="secondary-action">Ver contenidos</a>
         </div>
         <div class="story-rail" aria-label="Ruta de aprendizaje">
           <span>Separar</span>
@@ -193,9 +203,9 @@ function renderApp() {
 
       <section class="content-band" id="recorrido">
         <div class="section-heading" data-reveal>
-          <p class="eyebrow">Recorrido visual</p>
+          <p class="eyebrow">Recorrido didactico</p>
           <h2>Del residuo mezclado a la oportunidad verde</h2>
-          <p>Cada escena muestra una decision concreta para cuidar el ambiente y crear aprendizaje comunitario.</p>
+          <p>Cada seccion combina relato, actividad, evidencia y una decision concreta para cuidar el ambiente y crear aprendizaje comunitario.</p>
         </div>
         <div class="chapter-grid">
           ${chapters.map((item, index) => renderChapterCard(item, index)).join("")}
@@ -217,13 +227,14 @@ function renderApp() {
 
     <footer class="footer">
       <span>${escapeHtml(book.sourceLabel)}</span>
-      <span class="version-pill">${APP_VERSION} · ${APP_BUILD_DATE}</span>
+      <span class="version-pill">${APP_VERSION} | ${APP_BUILD_DATE}</span>
       <span>${escapeHtml(book.rightsNote)}</span>
     </footer>
   `;
 
   bindEvents();
   initMotion();
+  scrollToHashTarget();
 }
 
 function bindEvents() {
@@ -405,6 +416,8 @@ function renderDetail(item) {
       <h2>${escapeHtml(item.titulo)}</h2>
       <p class="subtitle">${escapeHtml(item.subtitulo)}</p>
       <p>${escapeHtml(item.contenido)}</p>
+      ${renderInlineCallout("Objetivo", item.objetivo)}
+      ${renderInlineCallout("Pregunta guia", item.preguntaGuia)}
       <div class="action-grid">
         <section>
           <h3>Actividad</h3>
@@ -416,6 +429,67 @@ function renderDetail(item) {
         </section>
       </div>
     </article>
+    <div class="detail-full" data-reveal style="--reveal-delay:180ms">
+      ${renderParagraphSection("Guia narrativa", item.desarrollo)}
+      ${renderListSection("Aprendizajes esperados", item.aprendizajes)}
+      ${renderListSection("Pasos para hacer", item.pasos)}
+      ${renderListSection("Materiales", item.materiales)}
+      ${renderListSection("Evidencias", item.evidencias)}
+      ${renderNoteGrid(item)}
+    </div>
+  `;
+}
+
+function renderInlineCallout(label, value) {
+  if (!value) return "";
+  return `
+    <div class="inline-callout">
+      <strong>${escapeHtml(label)}</strong>
+      <span>${escapeHtml(value)}</span>
+    </div>
+  `;
+}
+
+function renderParagraphSection(title, paragraphs) {
+  if (!paragraphs.length) return "";
+  return `
+    <section class="detail-block detail-block-wide">
+      <h3>${escapeHtml(title)}</h3>
+      ${paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("")}
+    </section>
+  `;
+}
+
+function renderListSection(title, entries) {
+  if (!entries.length) return "";
+  return `
+    <section class="detail-block">
+      <h3>${escapeHtml(title)}</h3>
+      <ul>
+        ${entries.map((entry) => `<li>${escapeHtml(entry)}</li>`).join("")}
+      </ul>
+    </section>
+  `;
+}
+
+function renderNoteGrid(item) {
+  const notes = [
+    ["Para docentes", item.paraDocente],
+    ["Para comunidad", item.paraComunidad],
+    ["Cuidado", item.cuidado],
+  ].filter(([, value]) => value);
+
+  if (!notes.length) return "";
+
+  return `
+    <section class="detail-notes">
+      ${notes.map(([title, value]) => `
+        <article>
+          <h3>${escapeHtml(title)}</h3>
+          <p>${escapeHtml(value)}</p>
+        </article>
+      `).join("")}
+    </section>
   `;
 }
 
@@ -440,21 +514,10 @@ function revealOnScroll() {
 }
 
 function animateMetrics() {
-  if (prefersReducedMotion()) return;
   document.querySelectorAll("[data-count]").forEach((node) => {
     const target = Number(node.dataset.count);
     if (!Number.isFinite(target)) return;
-    const duration = 850;
-    const start = performance.now();
-
-    function tick(now) {
-      const progress = Math.min(1, (now - start) / duration);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      node.textContent = String(Math.round(target * eased));
-      if (progress < 1) requestAnimationFrame(tick);
-    }
-
-    requestAnimationFrame(tick);
+    node.textContent = String(target);
   });
 }
 
@@ -479,6 +542,18 @@ function initImageParallax() {
 function updateViewScaleButtons() {
   document.querySelectorAll("[data-view-scale]").forEach((button) => {
     button.setAttribute("aria-pressed", String(button.dataset.viewScale === state.viewScale));
+  });
+}
+
+function scrollToHashTarget() {
+  const id = decodeURIComponent(window.location.hash.replace("#", ""));
+  if (!id) return;
+  const target = document.getElementById(id);
+  if (!target) return;
+  requestAnimationFrame(() => {
+    window.setTimeout(() => {
+      target.scrollIntoView({ behavior: "auto", block: "start" });
+    }, 250);
   });
 }
 
@@ -511,6 +586,20 @@ function normalizeMissionId(id, missions) {
 
 function normalizeViewScale(value) {
   return VIEW_SCALES.includes(value) ? value : "normal";
+}
+
+function normalizeStringList(value) {
+  if (Array.isArray(value)) {
+    return value
+      .map((entry) => String(entry || "").trim())
+      .filter(Boolean);
+  }
+
+  if (typeof value === "string" && value.trim()) {
+    return [value.trim()];
+  }
+
+  return [];
 }
 
 function metricNumber(value) {

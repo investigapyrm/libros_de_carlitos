@@ -694,6 +694,27 @@ h3 {
   font-weight: 800;
 }
 
+.inline-callout {
+  background: var(--green-100);
+  border-left: 4px solid var(--gold);
+  border-radius: 8px;
+  display: grid;
+  gap: 0.25rem;
+  margin-top: 1rem;
+  padding: 0.85rem 1rem;
+}
+
+.inline-callout strong {
+  color: var(--green-800);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.inline-callout span {
+  color: var(--ink);
+  font-weight: 700;
+}
+
 .action-grid {
   display: grid;
   gap: 1rem;
@@ -709,6 +730,55 @@ h3 {
 .action-grid h3 {
   color: var(--green-800);
   margin-bottom: 0.35rem;
+}
+
+.detail-full {
+  display: grid;
+  gap: 1rem;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.detail-block,
+.detail-notes article {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 12px 28px rgba(5, 39, 25, 0.06);
+  padding: 1.1rem;
+}
+
+.detail-block-wide,
+.detail-notes {
+  grid-column: 1 / -1;
+}
+
+.detail-block h3,
+.detail-notes h3 {
+  color: var(--green-800);
+  margin-bottom: 0.55rem;
+}
+
+.detail-block p:last-child,
+.detail-notes p:last-child {
+  margin-bottom: 0;
+}
+
+.detail-block ul {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+  padding-left: 1.15rem;
+}
+
+.detail-block li {
+  color: var(--muted);
+}
+
+.detail-notes {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .closing-band {
@@ -961,6 +1031,8 @@ h3 {
   .mission-actions,
   .chapter-grid,
   .detail-band,
+  .detail-full,
+  .detail-notes,
   .action-grid {
     grid-template-columns: 1fr;
   }

@@ -1,0 +1,110 @@
+{
+  "title": "Carlitos y los residuos que se convierten en oportunidad",
+  "subtitle": "Una appweb educativa para separar, medir, transformar y emprender cuidando el ambiente.",
+  "sourceLabel": "Datos locales de muestra",
+  "heroImage": "assets/generated/hero_carlitos_residuos_oportunidad_1920x1080.png",
+  "characterSheet": "assets/generated/carlitos_character_sheet_v01.png",
+  "closingImage": "assets/generated/cierre_feria_segundas_vidas_1920x1080.png",
+  "rightsNote": "Borrador interno. Las imagenes y el personaje requieren autorizacion de uso antes de cualquier publicacion.",
+  "summary": {
+    "audience": "Escuelas, familias, comunidades y jovenes emprendedores.",
+    "purpose": "Mostrar que los residuos bien gestionados pueden convertirse en aprendizaje, compost, reciclaje, ahorro, trabajo local y oportunidades verdes.",
+    "method": "Observar, separar, registrar, transformar, medir y presentar resultados."
+  },
+  "metrics": [
+    { "label": "Imagenes integradas", "value": "8" },
+    { "label": "Capitulos piloto", "value": "5" },
+    { "label": "Actividades", "value": "4" },
+    { "label": "Fuente editorial", "value": "Sheets + JSON" }
+  ],
+  "items": [
+    {
+      "orden": 1,
+      "tipo": "portada",
+      "titulo": "Carlitos y los residuos que se convierten en oportunidad",
+      "subtitulo": "Una historia para aprender haciendo",
+      "contenido": "Carlitos descubre que algunos residuos pueden tener una segunda vida si se separan, registran y gestionan correctamente.",
+      "actividad": "Presentar la pregunta: que oportunidades hay escondidas en los residuos de nuestra escuela o comunidad.",
+      "indicador": "Libro piloto creado, portada definida y fuente visual incorporada.",
+      "asset": "assets/generated/hero_carlitos_residuos_oportunidad_1920x1080.png",
+      "estado": "borrador"
+    },
+    {
+      "orden": 2,
+      "tipo": "personaje",
+      "titulo": "Carlitos aprende mirando con atencion",
+      "subtitulo": "El personaje conductor de la appweb",
+      "contenido": "La hoja visual de Carlitos ayuda a mantener consistencia en gestos, personalidad y tono educativo a lo largo de toda la serie.",
+      "actividad": "Reconocer las cuatro acciones de Carlitos: saludar, observar, explicar y registrar.",
+      "indicador": "Hoja de personaje disponible para futuras escenas.",
+      "asset": "assets/generated/carlitos_character_sheet_v01.png",
+      "estado": "borrador"
+    },
+    {
+      "orden": 3,
+      "tipo": "capitulo",
+      "titulo": "La bolsa que hablaba bajito",
+      "subtitulo": "Cuando mezclamos, perdemos valor",
+      "contenido": "La profesora abre una bolsa de residuos sobre una lona limpia. Carlitos descubre organicos, reciclables, no reciclables y residuos especiales. La bolsa parecia un problema, pero en realidad guardaba pistas.",
+      "actividad": "Clasificar una bolsa simulada en cuatro grupos: organicos, reciclables, no reciclables y especiales.",
+      "indicador": "Numero de residuos correctamente clasificados.",
+      "asset": "assets/generated/cap01_bolsa_hablaba_bajito.png",
+      "estado": "borrador"
+    },
+    {
+      "orden": 4,
+      "tipo": "capitulo",
+      "titulo": "La mesa de los colores",
+      "subtitulo": "Separar tambien protege la salud",
+      "contenido": "Carlitos aprende que los colores y etiquetas ayudan a separar desde el origen, pero tambien que una pila, un envase toxico o un material contaminado requieren cuidado especial.",
+      "actividad": "Disenar un punto de separacion con colores, responsables, frecuencia de revision y destino de cada material.",
+      "indicador": "Puntos de separacion disenados o instalados.",
+      "asset": "assets/generated/cap02_mesa_colores.png",
+      "estado": "borrador"
+    },
+    {
+      "orden": 5,
+      "tipo": "capitulo",
+      "titulo": "El secreto de las cascaras",
+      "subtitulo": "Los organicos pueden volver a la tierra",
+      "contenido": "En una compostera escolar, Carlitos aprende que las cascaras y hojas secas pueden transformarse con paciencia, higiene, humedad y registro.",
+      "actividad": "Iniciar una compostera piloto y registrar fecha, tipo de organico y peso aproximado.",
+      "indicador": "Kg de organicos separados para compost.",
+      "asset": "assets/generated/cap03_compost_cascaras.png",
+      "estado": "borrador"
+    },
+    {
+      "orden": 6,
+      "tipo": "capitulo",
+      "titulo": "El viaje de la botella",
+      "subtitulo": "Cada material cuenta, pero importa como llega",
+      "contenido": "Carlitos visita un punto de acopio y aprende que los reciclables limpios, secos y separados tienen mas posibilidades de valorizarse.",
+      "actividad": "Pesar papel, carton, plasticos y latas durante cuatro semanas.",
+      "indicador": "Kg de reciclables recuperados por semana.",
+      "asset": "assets/generated/cap04_viaje_botella_acopio.png",
+      "estado": "borrador"
+    },
+    {
+      "orden": 7,
+      "tipo": "capitulo",
+      "titulo": "La oportunidad no aparece sola",
+      "subtitulo": "Se construye separando, organizando, midiendo y cuidando",
+      "contenido": "Con datos en la mano, la clase descubre que una oportunidad verde necesita responsables, recursos, medicion, destino claro y cuidado ambiental.",
+      "actividad": "Completar un mini canvas verde para una idea basada en residuos.",
+      "indicador": "Ideas verdes generadas y canvas completados.",
+      "asset": "assets/generated/cap05_oportunidad_emprendimiento_verde.png",
+      "estado": "borrador"
+    },
+    {
+      "orden": 8,
+      "tipo": "cierre",
+      "titulo": "La feria de las segundas vidas",
+      "subtitulo": "Compartir resultados tambien es parte del aprendizaje",
+      "contenido": "La comunidad presenta compost, plantines, materiales recuperados y pequenas ideas verdes. Carlitos entiende que los residuos bien gestionados pueden convertirse en aprendizaje, comunidad y oportunidad economica.",
+      "actividad": "Organizar una feria escolar-comunitaria con resultados, evidencias y compromisos.",
+      "indicador": "Participantes, materiales recuperados, ideas verdes presentadas y compromisos asumidos.",
+      "asset": "assets/generated/cierre_feria_segundas_vidas_1920x1080.png",
+      "estado": "borrador"
+    }
+  ]
+}

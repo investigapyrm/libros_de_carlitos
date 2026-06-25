@@ -1,0 +1,5 @@
+assets/pages/
+assets/source_extracted/
+server.*.log
+.DS_Store
+Thumbs.db

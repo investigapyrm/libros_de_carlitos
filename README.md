@@ -10,7 +10,13 @@ Libro piloto:
 
 ## Estado
 
-Este repositorio fue clonado desde `investigapyrm/libros_de_carlitos`, que al momento de esta preparacion estaba vacio y sin rama por defecto. La sesion GitHub actual (`diegomezapy`) tiene permiso `READ`, por lo que los archivos quedaron preparados localmente para revision y posterior publicacion cuando exista permiso de escritura.
+Este repositorio fue clonado desde `investigapyrm/libros_de_carlitos`, que al inicio de esta preparacion estaba vacio y sin rama por defecto.
+
+La rama `main` ya fue inicializada y empujada al remoto. Ultimo commit verificado:
+
+`15b48cb3f7cd46adc0acc694be4e14b02ee92aaa` - `Mejora experiencia visual Carlitos`
+
+Pendiente: confirmar GitHub Pages, autorizaciones editoriales/legales y despliegue GAS si se decide usar la hoja online como fuente publica.
 
 ## Contenido de la appweb
 
@@ -113,8 +119,8 @@ No usar este prototipo como publicacion final sin validacion editorial, legal e 
 
 ## Proximo paso
 
-1. Solicitar permiso de escritura en `investigapyrm/libros_de_carlitos`.
-2. Confirmar si se puede usar oficialmente la figura de Carlitos.
-3. Publicar una rama inicial `main`.
-4. Desplegar GitHub Pages.
-5. Desplegar GAS como Web App y conectar `GAS_ENDPOINT`.
+1. Confirmar si se puede usar oficialmente la figura de Carlitos.
+2. Activar o verificar GitHub Pages sobre la rama `main`.
+3. Optimizar imagenes para web antes de difusion publica.
+4. Desplegar GAS como Web App y conectar `GAS_ENDPOINT`.
+5. Agregar PWA/offline si la app se usara en aulas con conectividad irregular.

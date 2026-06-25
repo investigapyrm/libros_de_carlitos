@@ -66,6 +66,18 @@ La version `v0.3.0` amplia cada seccion del libro/appweb con contenido editorial
 
 La app muestra estos bloques solo cuando existen en `data/book.json`, por lo que mantiene compatibilidad con una fuente GAS/Sheets mas simple.
 
+## Correccion de navegacion 2026-06-25
+
+La version `v0.3.1` corrige los botones de navegacion:
+
+* los botones del hero llevan a `#misiones` y `#recorrido`;
+* la ruta superior de aprendizaje ahora usa botones reales y selecciona la mision correspondiente;
+* las misiones y tarjetas de capitulos llevan al detalle correcto en `#detalle`;
+* el hash de la URL se actualiza con cada salto para reducir confusion en GitHub Pages;
+* `index.html` actualiza el cache-busting de `styles.css` y `app.js` a `v0.3.1`.
+
+Validacion local realizada: `node --check app.js`, parseo de `data/book.json`, `git diff --check`, captura Playwright CLI y prueba headless de clics sobre `http://127.0.0.1:8787/`.
+
 ## Imagenes integradas
 
 Las imagenes fueron tomadas de:

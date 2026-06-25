@@ -1,4 +1,4 @@
-const APP_VERSION = "v0.3.0";
+const APP_VERSION = "v0.3.1";
 const APP_BUILD_DATE = "2026-06-25";
 const GAS_ENDPOINT = "";
 const LOCAL_DATA_URL = "data/book.json";
@@ -66,6 +66,7 @@ async function loadBook(forceLocal = false) {
     state.selectedOrden = firstContentItem(state.book).orden;
     state.selectedMission = normalizeMissionId(state.selectedMission, getMissions(state.book));
     renderApp();
+    scrollToHashTarget();
   } catch (error) {
     app.innerHTML = `
       <main class="error-view">
@@ -160,30 +161,31 @@ function renderApp() {
   const activeMission = missions.find((mission) => mission.id === state.selectedMission) || missions[0];
 
   app.innerHTML = `
-    <header class="hero" style="--hero-image: url('${escapeAttribute(book.heroImage)}')">
+    <header class="hero" id="inicio" style="--hero-image: url('${escapeAttribute(book.heroImage)}')">
       <div class="hero-ambient" aria-hidden="true">
         ${renderFloatingBits()}
       </div>
       <nav class="topnav" aria-label="Navegacion principal">
-        <a class="brand" href="#inicio" aria-label="Ir al inicio">Carlitos DES</a>
+        <a class="brand" href="#inicio" data-nav-target="inicio" aria-label="Ir al inicio">Carlitos DES</a>
         <div class="topnav-actions">
           ${renderViewControl()}
           <button type="button" class="nav-button" id="reloadBtn">Actualizar</button>
         </div>
       </nav>
-      <section class="hero-copy" id="inicio">
+      <section class="hero-copy">
         <p class="eyebrow">Appweb educativa</p>
         <h1>${escapeHtml(book.title)}</h1>
         <p>${escapeHtml(book.subtitle)}</p>
         <div class="hero-actions">
-          <a href="#misiones" class="primary-action">Empezar mision</a>
-          <a href="#recorrido" class="secondary-action">Ver contenidos</a>
+          <a href="#misiones" class="primary-action" data-nav-target="misiones">Empezar mision</a>
+          <a href="#recorrido" class="secondary-action" data-nav-target="recorrido">Ver contenidos</a>
         </div>
         <div class="story-rail" aria-label="Ruta de aprendizaje">
-          <span>Separar</span>
-          <span>Medir</span>
-          <span>Transformar</span>
-          <span>Emprender</span>
+          ${missions.map((mission) => `
+            <button type="button" data-mission-jump="${escapeAttribute(mission.id)}">
+              ${escapeHtml(mission.title)}
+            </button>
+          `).join("")}
         </div>
       </section>
     </header>
@@ -234,11 +236,26 @@ function renderApp() {
 
   bindEvents();
   initMotion();
-  scrollToHashTarget();
 }
 
 function bindEvents() {
   document.querySelector("#reloadBtn").addEventListener("click", () => loadBook(true));
+
+  document.querySelectorAll("[data-nav-target]").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      navigateTo(link.dataset.navTarget);
+    });
+  });
+
+  document.querySelectorAll("[data-mission-jump]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const missions = getMissions(state.book);
+      const mission = missions.find((entry) => entry.id === button.dataset.missionJump);
+      if (!mission) return;
+      selectMission(mission, "detalle");
+    });
+  });
 
   document.querySelectorAll("[data-orden]").forEach((button) => {
     button.addEventListener("click", () => {
@@ -251,14 +268,7 @@ function bindEvents() {
       const missions = getMissions(state.book);
       const mission = missions.find((entry) => entry.id === button.dataset.mission);
       if (!mission) return;
-      state.selectedMission = mission.id;
-      writeStorage(STORAGE_KEYS.mission, mission.id);
-      state.selectedOrden = mission.orden || state.selectedOrden;
-      renderApp();
-      document.querySelector("#misiones").scrollIntoView({
-        behavior: prefersReducedMotion() ? "auto" : "smooth",
-        block: "start",
-      });
+      selectMission(mission, "detalle");
     });
   });
 
@@ -283,10 +293,15 @@ function selectChapter(orden, shouldScroll) {
   state.selectedOrden = orden;
   renderApp();
   if (!shouldScroll) return;
-  document.querySelector("#detalle").scrollIntoView({
-    behavior: prefersReducedMotion() ? "auto" : "smooth",
-    block: "start",
-  });
+  navigateTo("detalle");
+}
+
+function selectMission(mission, targetId) {
+  state.selectedMission = mission.id;
+  state.selectedOrden = mission.orden || state.selectedOrden;
+  writeStorage(STORAGE_KEYS.mission, mission.id);
+  renderApp();
+  navigateTo(targetId || "detalle");
 }
 
 function renderViewControl() {
@@ -555,6 +570,24 @@ function scrollToHashTarget() {
       target.scrollIntoView({ behavior: "auto", block: "start" });
     }, 250);
   });
+}
+
+function navigateTo(id, behavior = "smooth") {
+  if (!id) return;
+  const target = document.getElementById(id);
+  if (!target) return;
+
+  updateHash(id);
+  target.scrollIntoView({
+    behavior: prefersReducedMotion() ? "auto" : behavior,
+    block: "start",
+  });
+}
+
+function updateHash(id) {
+  const nextHash = `#${encodeURIComponent(id)}`;
+  if (window.location.hash === nextHash) return;
+  window.history.pushState(null, "", nextHash);
 }
 
 function firstContentItem(book) {

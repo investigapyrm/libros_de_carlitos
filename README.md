@@ -30,6 +30,13 @@ docs/                   Instructivos de generacion visual.
 gas_src/                Backend Google Apps Script clonado y preparado.
 ```
 
+Instructivos visuales disponibles:
+
+```text
+docs/INSTRUCCIONES_IMAGENES_CARLITOS_APPWEB_2026-06-25.md
+docs/INSTRUCCIONES_ICONOS_CARLITOS_APPWEB_2026-06-25.md
+```
+
 ## Mejora visual 2026-06-25
 
 La version `v0.2.0` incorpora una experiencia mas atractiva para ninos y docentes:

@@ -74,6 +74,12 @@
 * Prueba funcional headless `_tmp_v050_iniciativas_check.js`.
 * `npx --yes playwright screenshot --full-page http://127.0.0.1:8787/#iniciativas _preview_v050_iniciativas.png`
 * `npx --yes playwright screenshot --viewport-size="390,1400" --full-page http://127.0.0.1:8787/#iniciativas _preview_v050_iniciativas_mobile.png`
+* `git commit -m "Ajusta iniciativas a propuesta Paracel FACEN"`
+* `git push origin main`
+* `Invoke-WebRequest -UseBasicParsing https://investigapyrm.github.io/libros_de_carlitos/?v=0.5.0&commit=70b3ac1`
+* `Invoke-WebRequest -UseBasicParsing https://investigapyrm.github.io/libros_de_carlitos/app.js?v=0.5.0&commit=70b3ac1`
+* `Invoke-WebRequest -UseBasicParsing https://investigapyrm.github.io/libros_de_carlitos/data/book.json?v=0.5.0&commit=70b3ac1`
+* Prueba publica headless `_tmp_public_v050_check.js`.
 
 ### Resultados verificados
 
@@ -98,6 +104,13 @@
   * `v0.5.0`.
 * La prueba verifico 10 tarjetas de cuentos, 5 capitulos tecnicos y al menos 4 metadatos institucionales.
 * Capturas local desktop y movil revisadas visualmente sin solapes criticos.
+* Commit creado y empujado: `70b3ac10d84c4671654fb40f902cdea0318a40b6`.
+* GitHub Pages responde `200` en `https://investigapyrm.github.io/libros_de_carlitos/?v=0.5.0&commit=70b3ac1#iniciativas`.
+* La URL publica sirve HTML con `app.js?v=0.5.0` y `styles.css?v=0.5.0`.
+* La URL publica sirve `app.js` con `APP_VERSION = "v0.5.0"`.
+* La URL publica sirve `data/book.json` con `FACEN-UNA`, `31`, `30%` y `El bosque magico que atrapa el calor`.
+* La prueba publica resulto `public libros Carlitos v0.5.0 iniciativas OK`.
+* Captura publica de `#iniciativas` revisada visualmente con la seccion tecnica-editorial renderizada.
 
 ### Pruebas realizadas
 
@@ -120,7 +133,6 @@
 
 ### Pendientes
 
-* Verificar URL publica con cache-busting luego del push.
 * Confirmar autorizaciones editoriales y legales antes de publicar como version final.
 * Si corresponde, actualizar Google Sheets/GAS para que estos campos tambien existan en la fuente online.
 

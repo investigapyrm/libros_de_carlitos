@@ -1,5 +1,5 @@
-const APP_VERSION = "v0.4.0";
-const APP_BUILD_DATE = "2026-06-25";
+const APP_VERSION = "v0.5.0";
+const APP_BUILD_DATE = "2026-06-26";
 const GAS_ENDPOINT = "";
 const LOCAL_DATA_URL = "data/book.json";
 
@@ -383,8 +383,12 @@ function renderMetrics(metrics) {
 }
 
 function renderEnterpriseFocus(focus) {
+  const metadata = Array.isArray(focus.metadata) ? focus.metadata : [];
   const pillars = Array.isArray(focus.pillars) ? focus.pillars : [];
   const cases = Array.isArray(focus.cases) ? focus.cases : [];
+  const anthology = Array.isArray(focus.anthology) ? focus.anthology : [];
+  const technicalChapters = Array.isArray(focus.technicalChapters) ? focus.technicalChapters : [];
+  const valueProposition = Array.isArray(focus.valueProposition) ? focus.valueProposition : [];
 
   return `
     <div class="enterprise-inner">
@@ -395,11 +399,34 @@ function renderEnterpriseFocus(focus) {
         ${focus.disclaimer ? `<span class="enterprise-note">${escapeHtml(focus.disclaimer)}</span>` : ""}
       </div>
       <div class="enterprise-content">
+        ${metadata.length ? `
+          <div class="enterprise-meta-grid">
+            ${metadata.map((item, index) => renderEnterpriseMeta(item, index)).join("")}
+          </div>
+        ` : ""}
         ${pillars.length ? `
           <div class="enterprise-grid">
             ${pillars.map((item, index) => renderEnterpriseCard(item, index)).join("")}
           </div>
         ` : ""}
+        ${anthology.length ? renderEnterpriseCollection(
+          "Propuesta A",
+          "Antologia de 10 cuentos infantiles (4 a 10 anos)",
+          anthology,
+          renderEnterpriseStory,
+        ) : ""}
+        ${technicalChapters.length ? renderEnterpriseCollection(
+          "Propuesta B",
+          "Texto tecnico por capitulos (7mo grado al 3er ano de la Media)",
+          technicalChapters,
+          renderEnterpriseTechnicalChapter,
+        ) : ""}
+        ${valueProposition.length ? renderEnterpriseCollection(
+          "Valor para Paracel",
+          "Co-branding, inversion social y medicion educativa",
+          valueProposition,
+          renderEnterpriseValuePoint,
+        ) : ""}
         ${cases.length ? `
           <div class="enterprise-case-grid">
             ${cases.map((item, index) => renderEnterpriseCase(item, index)).join("")}
@@ -410,11 +437,67 @@ function renderEnterpriseFocus(focus) {
   `;
 }
 
+function renderEnterpriseMeta(item, index) {
+  return `
+    <article class="enterprise-meta" data-reveal style="--reveal-delay:${index * 60}ms">
+      <span>${escapeHtml(item.label || "")}</span>
+      <strong>${escapeHtml(item.value || "")}</strong>
+    </article>
+  `;
+}
+
 function renderEnterpriseCard(item, index) {
   return `
     <article class="enterprise-card" data-reveal style="--reveal-delay:${index * 70}ms">
       <span>${escapeHtml(item.tag || "Eje")}</span>
       <h3>${escapeHtml(item.title || "")}</h3>
+      <p>${escapeHtml(item.text || "")}</p>
+    </article>
+  `;
+}
+
+function renderEnterpriseCollection(eyebrow, title, items, renderer) {
+  return `
+    <section class="enterprise-collection" data-reveal>
+      <div class="enterprise-collection-head">
+        <span>${escapeHtml(eyebrow)}</span>
+        <h3>${escapeHtml(title)}</h3>
+      </div>
+      <div class="enterprise-collection-list">
+        ${items.map((item, index) => renderer(item, index)).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderEnterpriseStory(item, index) {
+  return `
+    <article class="enterprise-story" data-reveal style="--reveal-delay:${index * 45}ms">
+      <b>${String(index + 1).padStart(2, "0")}</b>
+      <div>
+        <strong>${escapeHtml(item.title || "")}</strong>
+        <span>${escapeHtml(item.concept || "")}</span>
+        <p>${escapeHtml(item.focus || "")}</p>
+      </div>
+    </article>
+  `;
+}
+
+function renderEnterpriseTechnicalChapter(item, index) {
+  return `
+    <article class="enterprise-technical" data-reveal style="--reveal-delay:${index * 55}ms">
+      <b>Capitulo ${index + 1}</b>
+      <h4>${escapeHtml(item.title || "")}</h4>
+      <p><strong>Contenido:</strong> ${escapeHtml(item.content || "")}</p>
+      <p><strong>Caso Paracel:</strong> ${escapeHtml(item.case || "")}</p>
+    </article>
+  `;
+}
+
+function renderEnterpriseValuePoint(item, index) {
+  return `
+    <article class="enterprise-value" data-reveal style="--reveal-delay:${index * 60}ms">
+      <strong>${escapeHtml(item.title || "")}</strong>
       <p>${escapeHtml(item.text || "")}</p>
     </article>
   `;

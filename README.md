@@ -14,7 +14,7 @@ Este repositorio fue clonado desde `investigapyrm/libros_de_carlitos`, que al in
 
 La rama `main` ya fue inicializada, empujada al remoto y sincronizada con `origin/main`.
 
-Hito actual verificado: `v0.4.0`, eje editorial de empresas e iniciativas ambientales con evidencia.
+Hito actual verificado: `v0.5.0`, propuesta tecnica-editorial Paracel-FACEN integrada en la seccion `#iniciativas`.
 
 Pendiente: confirmar GitHub Pages, autorizaciones editoriales/legales y despliegue GAS si se decide usar la hoja online como fuente publica.
 
@@ -89,6 +89,23 @@ La version `v0.4.0` incorpora el puente que faltaba entre residuos, educacion am
 * se actualiza el recorrido para presentar residuos, emprendimientos, productores y empresas ambientalmente responsables como parte de una misma narrativa educativa.
 
 Esta version prepara la appweb para solicitar apoyo editorial a una empresa aliada: el patrocinio puede financiar publicaciones infantiles sobre iniciativas reales que cuidan ambiente y comunidad, siempre que cada caso tenga autorizacion y evidencia verificable.
+
+## Propuesta tecnica-editorial Paracel-FACEN 2026-06-26
+
+La version `v0.5.0` ajusta la seccion publica `#iniciativas` con base en el PDF local:
+
+`J:\Mi unidad\carlitos\propuesta_tecnica_carlitos_paracel_sostenibilidad.pdf`
+
+Cambios principales:
+
+* la seccion se presenta como `Serie Carlitos y el Desarrollo Sostenible integrada a la Estrategia Socioambiental de Paracel`;
+* se incorpora la institucion de origen FACEN-UNA y el equipo de autores;
+* se registra la linea de enfoque: sostenibilidad industrial, gestion forestal, captura de carbono y monitoreo de biodiversidad;
+* se destacan los 31 programas socioambientales de Paracel y el criterio de mas del 30% de contenidos vinculados a sustentabilidad ambiental y social del sector forestal-industrial;
+* se incorpora la Propuesta A: antologia de 10 cuentos infantiles para 4 a 10 anos;
+* se incorpora la Propuesta B: texto tecnico por capitulos para 7mo grado al 3er ano de la Media;
+* se agrega propuesta de valor para area de influencia, inversion social, educacion ambiental, medicion mediante encuestas y uso potencial en reportes de sostenibilidad;
+* se mantiene advertencia editorial/legal antes de publicar como material final.
 
 ## Imagenes integradas
 

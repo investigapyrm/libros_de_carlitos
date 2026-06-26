@@ -1,65 +1,158 @@
 {
   "title": "Carlitos y los residuos que se convierten en oportunidad",
-  "subtitle": "Una appweb educativa para descubrir residuos, iniciativas verdes y empresas que producen cuidando ambiente y comunidad.",
-  "sourceLabel": "Contenido editorial local v0.4.0",
+  "subtitle": "Prototipo editorial para conectar educacion ambiental, desarrollo sostenible y la estrategia socioambiental de Paracel.",
+  "sourceLabel": "Contenido adaptado desde propuesta tecnica editorial Paracel-FACEN v0.5.0",
   "heroImage": "assets/generated/hero_carlitos_residuos_oportunidad_1920x1080.png",
   "characterSheet": "assets/generated/carlitos_character_sheet_v01.png",
   "closingImage": "assets/generated/cierre_feria_segundas_vidas_1920x1080.png",
   "rightsNote": "Borrador interno. Las imagenes y el personaje requieren autorizacion de uso antes de cualquier publicacion.",
   "summary": {
-    "audience": "Escuelas, familias, comunidades, docentes, jovenes emprendedores, empresas aliadas y productores locales.",
-    "purpose": "Mostrar que los residuos bien gestionados pueden convertirse en aprendizaje, compost, reciclaje, ahorro, trabajo local, oportunidades verdes y relatos de empresas que cuidan el ambiente.",
-    "method": "Observar, separar, registrar, transformar, medir, verificar evidencias y presentar iniciativas ambientales con beneficio comunitario."
+    "audience": "Ninos de 4 a 10 anos, estudiantes de 7mo grado al 3er ano de la Media, docentes, comunidades del area de influencia, autores FACEN-UNA y equipos socioambientales.",
+    "purpose": "Adaptar la serie Carlitos al Desarrollo Sostenible para traducir sostenibilidad industrial, gestion forestal, captura de carbono, biodiversidad y valor social en materiales educativos.",
+    "method": "Combinar cuentos infantiles, texto tecnico por capitulos, casos de Paracel, evidencias verificables, encuestas escolares e integracion con programas socioambientales alineados a los ODS."
   },
   "metrics": [
-    { "label": "Imagenes integradas", "value": "8" },
-    { "label": "Secciones editoriales", "value": "10" },
-    { "label": "Misiones verdes", "value": "5" },
-    { "label": "Fichas de iniciativas", "value": "4" }
+    { "label": "Programas socioambientales Paracel considerados", "value": "31" },
+    { "label": "Contenido directo sobre sostenibilidad forestal-industrial", "value": "30%" },
+    { "label": "Cuentos infantiles propuestos", "value": "10" },
+    { "label": "Capitulos tecnicos propuestos", "value": "5" }
   ],
   "enterpriseFocus": {
-    "eyebrow": "Empresas e iniciativas",
-    "title": "La coleccion puede contar historias reales de quienes producen cuidando",
-    "intro": "Carlitos no solo aprende a separar residuos: tambien puede visitar empresas, productores, cooperativas, recicladores, viveros, huertas, industrias y emprendimientos que demuestran con evidencias como reducen impactos, recuperan materiales, fortalecen empleo local o mejoran la relacion con la comunidad.",
-    "disclaimer": "La regla editorial es simple: no publicar propaganda. Cada caso debe mostrar accion concreta, evidencia verificable, indicador ambiental y beneficio comunitario.",
-    "pillars": [
+    "eyebrow": "Propuesta tecnica y editorial",
+    "title": "Serie Carlitos y el Desarrollo Sostenible integrada a la Estrategia Socioambiental de Paracel",
+    "intro": "La propuesta adapta la serie Carlitos para que mas del 30% de sus contenidos se vinculen directamente con la sustentabilidad ambiental y social del sector forestal-industrial. El puente editorial une conocimiento cientifico-tecnico de FACEN-UNA con impactos medibles de Paracel: captura de carbono, fomento forestal, monitoreo de biodiversidad y desarrollo de comunidades en el area de influencia.",
+    "disclaimer": "Base documental: propuesta_tecnica_carlitos_paracel_sostenibilidad.pdf, 2026-06-26. Antes de difusion final se requiere validacion editorial, legal, tecnica y autorizacion de autores, personaje, marcas, imagenes y casos institucionales.",
+    "metadata": [
       {
-        "tag": "Produccion responsable",
-        "title": "Procesos que reducen impactos",
-        "text": "Empresas que ahorran agua o energia, gestionan residuos, restauran areas, usan materiales renovables o mejoran sus practicas productivas pueden convertirse en relatos claros para ninos y familias."
+        "label": "Institucion de origen",
+        "value": "Facultad de Ciencias Exactas y Naturales - Universidad Nacional de Asuncion (FACEN-UNA)"
       },
       {
-        "tag": "Comunidad",
-        "title": "Valor social medible",
-        "text": "Una iniciativa sostenible tambien debe mirar empleo local, capacitacion, salud, seguridad, participacion, compras locales y beneficios concretos para la comunidad."
+        "label": "Equipo de autores",
+        "value": "Lic. Maria del Pilar Azcona Pereira; Lic. Antonia Felicia Benitez Duarte; Lic. Andrea Mabel Fleitas Zayas; Lic. Joaquin Ariel Ramirez Avalos"
       },
       {
-        "tag": "Economia circular",
-        "title": "Materiales con segunda vida",
-        "text": "Reciclaje, compostaje, reutilizacion, acopio responsable y diseno de nuevos productos permiten explicar economia ambiental con ejemplos cercanos."
+        "label": "Linea de enfoque",
+        "value": "Sostenibilidad industrial, gestion forestal, captura de carbono y monitoreo de biodiversidad"
       },
       {
-        "tag": "Evidencia",
-        "title": "Datos antes que promesas",
-        "text": "Cada historia debe responder que se hizo, donde, con quienes, que cambio, como se midio y que falta mejorar."
+        "label": "Alianza propuesta",
+        "value": "Carlitos + FACEN-UNA + Paracel como herramienta educativa para inversion social, educacion ambiental y reporte de sostenibilidad"
       }
     ],
-    "cases": [
+    "pillars": [
       {
-        "title": "Empresa que mide",
-        "text": "Registra residuos, consumo, capacitaciones o restauracion y comparte resultados comprensibles."
+        "tag": "Clima",
+        "title": "Carbono y plantaciones planificadas",
+        "text": "Explicar con lenguaje infantil como las plantaciones forestales planificadas pueden actuar como sumideros biologicos de CO2 y ayudar a mitigar el cambio climatico."
       },
       {
-        "title": "Produccion amigable",
-        "text": "Mejora procesos para reducir impactos y proteger recursos naturales."
+        "tag": "Bosques",
+        "title": "Fomento forestal y pequenos productores",
+        "text": "Presentar el fomento forestal como oportunidad para fincas rurales, economia familiar y arboles manejados con criterios sostenibles."
       },
       {
-        "title": "Emprendimiento verde",
-        "text": "Convierte materiales, servicios o saberes locales en oportunidad economica."
+        "tag": "Biodiversidad",
+        "title": "Reservas, camaras trampa y especies",
+        "text": "Mostrar monitoreo de biodiversidad, reservas de bosque nativo, conectividad de habitats y cuidado de animales silvestres amenazados."
       },
       {
-        "title": "Alianza comunitaria",
-        "text": "Une escuela, familias, empresa, productores y referentes locales en una accion verificable."
+        "tag": "Valor social",
+        "title": "Comunidades, seguridad y dialogo",
+        "text": "Vincular seguridad vial, relacionamiento comunitario, mano de obra local, comunidades indigenas y mesas de dialogo con indicadores sociales verificables."
+      }
+    ],
+    "anthology": [
+      {
+        "title": "El bosque magico que atrapa el calor",
+        "concept": "Accion por el Clima (ODS 13) - Proyecto Carbono y captura de CO2",
+        "focus": "Carlitos descubre como las plantaciones forestales planificadas actuan como pulmones gigantes que absorben carbono del aire."
+      },
+      {
+        "title": "El vecino de las mil plantitas",
+        "concept": "Fin de la Pobreza (ODS 1) - Programa de Fomento Forestal",
+        "focus": "Un pequeno productor rural implementa fomento forestal en su finca junto a Carlitos y mejora la economia familiar con arboles sostenibles."
+      },
+      {
+        "title": "Los amigos secretos de Carlitos",
+        "concept": "Vida de Ecosistemas Terrestres (ODS 15) - Monitoreo de Biodiversidad",
+        "focus": "Carlitos recorre reservas de bosque nativo y ayuda a colocar camaras trampa para registrar animales silvestres amenazados."
+      },
+      {
+        "title": "El gran viaje de los camiones verdes",
+        "concept": "Salud y Bienestar (ODS 3) - Programa de Seguridad Vial",
+        "focus": "Carlitos aprende sobre logistica, rutas y seguridad vial, mostrando respeto por comunidades y normas de transito."
+      },
+      {
+        "title": "El secreto de las tres R",
+        "concept": "Produccion y Consumo Responsable (ODS 12)",
+        "focus": "Gestion integral y clasificacion de residuos solidos en barrios urbanos de Paraguay."
+      },
+      {
+        "title": "El abono de la abuela yacare",
+        "concept": "Ciudades Sostenibles (ODS 11)",
+        "focus": "Valorizacion de residuos organicos domesticos mediante compostaje."
+      },
+      {
+        "title": "Los guardianes del arroyo",
+        "concept": "Agua Limpia y Saneamiento (ODS 6)",
+        "focus": "Proteccion de cuencas hidricas locales frente a efluentes y contaminacion."
+      },
+      {
+        "title": "La fabrica de juguetes del reves",
+        "concept": "Eco-diseno y reutilizacion (ODS 12)",
+        "focus": "Creacion ludica con materiales reciclados y descartes de pallets o plasticos."
+      },
+      {
+        "title": "El sol que cocina el chipa",
+        "concept": "Energia Asequible (ODS 7)",
+        "focus": "Introduccion practica a energias renovables y eficiencia energetica del hogar."
+      },
+      {
+        "title": "El gran congreso del estanque",
+        "concept": "Alianzas para lograr Objetivos (ODS 17)",
+        "focus": "Gobernanza comunitaria y mesas de dialogo participativo entre industrias y comisiones vecinales."
+      }
+    ],
+    "technicalChapters": [
+      {
+        "title": "Fundamentos del Desarrollo Sostenible",
+        "content": "Limites planetarios, ODS 2030, huella ecologica y legislacion ambiental paraguaya (Ley 1561/00).",
+        "case": "Analisis de como grandes industrias paraguayas reportan metas mediante reportes de sostenibilidad integrales."
+      },
+      {
+        "title": "Sostenibilidad Forestal y Captura de Carbono",
+        "content": "Biomasa forestal, ciclo biogeoquimico del carbono, silvicultura sostenible y estandares de certificacion internacional.",
+        "case": "Modelo Paracel: Proyecto Carbono y gestion integral de residuos forestales como sumideros biologicos de CO2."
+      },
+      {
+        "title": "Ecologia Industrial y Conservacion de Ecosistemas",
+        "content": "Eco-eficiencia, recomposicion paisajistica, conectividad de habitats y corredores biologicos en matrices productivas.",
+        "case": "Programa de Conservacion de la Biodiversidad en areas forestales y planes de restauracion en predios industriales."
+      },
+      {
+        "title": "Tecnologias de Produccion Limpia (TPL)",
+        "content": "Balances de masa y energia, Sistemas de Gestion Ambiental ISO 14001, auditorias e indicadores alternativos de impacto.",
+        "case": "Gestion de materiales peligrosos, almacenamiento controlado y reutilizacion interna de subproductos de procesos."
+      },
+      {
+        "title": "Planificacion Territorial y Valor Social",
+        "content": "Gobernanza, relacionamiento comunitario transparente, inventario de pasivos e indicadores socioeconomicos locales.",
+        "case": "Evaluacion de impacto social, Mano de Obra Local y Relacionamiento con Comunidades Indigenas."
+      }
+    ],
+    "valueProposition": [
+      {
+        "title": "Foco en area de influencia",
+        "text": "Los cuentos y materiales tecnicos pueden servir como herramientas didacticas directas para inversion social y educacion ambiental en zonas operativas como Concepcion y Region Oriental."
+      },
+      {
+        "title": "Medicion de impacto educativo",
+        "text": "La serie puede medir apropiacion en escuelas intervenidas mediante encuestas, generando datos utiles para el proximo Reporte de Sostenibilidad corporativo."
+      },
+      {
+        "title": "Co-branding responsable",
+        "text": "La alianza debe presentar evidencias, indicadores y beneficios educativos sin reemplazar la validacion tecnica, editorial y legal de cada afirmacion ambiental."
       }
     ]
   },

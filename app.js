@@ -1,4 +1,4 @@
-const APP_VERSION = "v0.3.1";
+const APP_VERSION = "v0.4.0";
 const APP_BUILD_DATE = "2026-06-25";
 const GAS_ENDPOINT = "";
 const LOCAL_DATA_URL = "data/book.json";
@@ -38,6 +38,13 @@ const DEFAULT_MISSIONS = [
     tagline: "Crear oportunidades verdes.",
     description: "Los datos ayudan a imaginar ferias, servicios y pequenos proyectos sostenibles.",
     orden: 7,
+  },
+  {
+    id: "conectar",
+    title: "Conectar",
+    tagline: "Unir empresas, escuela y comunidad.",
+    description: "Las iniciativas ambientales se cuentan mejor cuando muestran evidencias, aliados e impactos.",
+    orden: 8,
   },
 ];
 
@@ -147,6 +154,7 @@ function normalizeBook(raw) {
     sourceLabel: raw.sourceLabel || "Datos locales",
     rightsNote: raw.rightsNote || "",
     summary: raw.summary || {},
+    enterpriseFocus: raw.enterpriseFocus || null,
     metrics: Array.isArray(raw.metrics) ? raw.metrics : [],
     missions: Array.isArray(raw.missions) ? raw.missions : DEFAULT_MISSIONS,
     items,
@@ -178,6 +186,7 @@ function renderApp() {
         <p>${escapeHtml(book.subtitle)}</p>
         <div class="hero-actions">
           <a href="#misiones" class="primary-action" data-nav-target="misiones">Empezar mision</a>
+          <a href="#iniciativas" class="secondary-action" data-nav-target="iniciativas">Ver iniciativas</a>
           <a href="#recorrido" class="secondary-action" data-nav-target="recorrido">Ver contenidos</a>
         </div>
         <div class="story-rail" aria-label="Ruta de aprendizaje">
@@ -199,6 +208,12 @@ function renderApp() {
         ${renderMetrics(book.metrics)}
       </section>
 
+      ${book.enterpriseFocus ? `
+        <section class="enterprise-band" id="iniciativas">
+          ${renderEnterpriseFocus(book.enterpriseFocus)}
+        </section>
+      ` : ""}
+
       <section class="mission-band" id="misiones">
         ${renderMissionBand(missions, activeMission)}
       </section>
@@ -206,8 +221,8 @@ function renderApp() {
       <section class="content-band" id="recorrido">
         <div class="section-heading" data-reveal>
           <p class="eyebrow">Recorrido didactico</p>
-          <h2>Del residuo mezclado a la oportunidad verde</h2>
-          <p>Cada seccion combina relato, actividad, evidencia y una decision concreta para cuidar el ambiente y crear aprendizaje comunitario.</p>
+          <h2>Del residuo mezclado a las iniciativas que cuidan</h2>
+          <p>Cada seccion combina relato, actividad, evidencia y una decision concreta para conectar escuela, comunidad, emprendimientos y empresas responsables.</p>
         </div>
         <div class="chapter-grid">
           ${chapters.map((item, index) => renderChapterCard(item, index)).join("")}
@@ -222,7 +237,7 @@ function renderApp() {
         <div class="closing-copy" data-reveal>
           <p class="eyebrow">Cierre comunitario</p>
           <h2>La feria de las segundas vidas</h2>
-          <p>El prototipo muestra como una escuela o comunidad puede pasar de separar residuos a presentar resultados, evidencias e ideas de emprendimiento verde.</p>
+          <p>El prototipo muestra como una escuela o comunidad puede pasar de separar residuos a presentar resultados, evidencias, alianzas e iniciativas productivas con beneficio ambiental y social.</p>
         </div>
       </section>
     </main>
@@ -365,6 +380,53 @@ function renderMetrics(metrics) {
       </article>
     `;
   }).join("");
+}
+
+function renderEnterpriseFocus(focus) {
+  const pillars = Array.isArray(focus.pillars) ? focus.pillars : [];
+  const cases = Array.isArray(focus.cases) ? focus.cases : [];
+
+  return `
+    <div class="enterprise-inner">
+      <div class="enterprise-copy" data-reveal>
+        <p class="eyebrow">${escapeHtml(focus.eyebrow || "Empresas e iniciativas")}</p>
+        <h2>${escapeHtml(focus.title || "Iniciativas que cuidan ambiente y comunidad")}</h2>
+        <p>${escapeHtml(focus.intro || "")}</p>
+        ${focus.disclaimer ? `<span class="enterprise-note">${escapeHtml(focus.disclaimer)}</span>` : ""}
+      </div>
+      <div class="enterprise-content">
+        ${pillars.length ? `
+          <div class="enterprise-grid">
+            ${pillars.map((item, index) => renderEnterpriseCard(item, index)).join("")}
+          </div>
+        ` : ""}
+        ${cases.length ? `
+          <div class="enterprise-case-grid">
+            ${cases.map((item, index) => renderEnterpriseCase(item, index)).join("")}
+          </div>
+        ` : ""}
+      </div>
+    </div>
+  `;
+}
+
+function renderEnterpriseCard(item, index) {
+  return `
+    <article class="enterprise-card" data-reveal style="--reveal-delay:${index * 70}ms">
+      <span>${escapeHtml(item.tag || "Eje")}</span>
+      <h3>${escapeHtml(item.title || "")}</h3>
+      <p>${escapeHtml(item.text || "")}</p>
+    </article>
+  `;
+}
+
+function renderEnterpriseCase(item, index) {
+  return `
+    <article class="enterprise-case" data-reveal style="--reveal-delay:${index * 80}ms">
+      <strong>${escapeHtml(item.title || "")}</strong>
+      <p>${escapeHtml(item.text || "")}</p>
+    </article>
+  `;
 }
 
 function renderMissionBand(missions, activeMission) {

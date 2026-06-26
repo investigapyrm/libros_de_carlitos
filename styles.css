@@ -340,7 +340,7 @@ h3 {
   align-items: center;
   display: grid;
   gap: 0.55rem;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
   margin-top: 2rem;
   max-width: 680px;
   position: relative;
@@ -458,6 +458,107 @@ h3 {
 .metric span {
   position: relative;
   z-index: 1;
+}
+
+.enterprise-band {
+  background:
+    linear-gradient(135deg, rgba(232, 243, 238, 0.96), rgba(215, 238, 248, 0.72)),
+    var(--green-100);
+  margin: 1rem 0 0;
+  padding: 3rem 1.25rem;
+}
+
+.enterprise-inner {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: minmax(260px, 0.82fr) minmax(0, 1.18fr);
+  margin: 0 auto;
+  max-width: 1180px;
+}
+
+.enterprise-copy {
+  align-self: start;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.enterprise-copy .eyebrow {
+  color: var(--green-800);
+}
+
+.enterprise-copy h2 {
+  color: var(--green-950);
+  margin-bottom: 0;
+}
+
+.enterprise-copy p {
+  color: var(--ink);
+  font-size: 1.05rem;
+}
+
+.enterprise-note {
+  background: rgba(255, 255, 255, 0.72);
+  border-left: 4px solid var(--gold);
+  border-radius: 8px;
+  color: var(--green-950);
+  display: block;
+  font-weight: 800;
+  padding: 0.75rem 0.9rem;
+}
+
+.enterprise-content {
+  display: grid;
+  gap: 1rem;
+}
+
+.enterprise-grid,
+.enterprise-case-grid {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.enterprise-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.enterprise-case-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.enterprise-card,
+.enterprise-case {
+  background: var(--white);
+  border: 1px solid rgba(11, 93, 59, 0.14);
+  border-radius: 8px;
+  box-shadow: 0 12px 28px rgba(5, 39, 25, 0.06);
+  padding: 1rem;
+}
+
+.enterprise-card span {
+  color: var(--gold);
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 900;
+  margin-bottom: 0.35rem;
+  text-transform: uppercase;
+}
+
+.enterprise-card h3,
+.enterprise-case strong {
+  color: var(--green-800);
+}
+
+.enterprise-card p,
+.enterprise-case p {
+  color: var(--muted);
+  margin-bottom: 0;
+}
+
+.enterprise-case strong {
+  display: block;
+  font-size: 0.94rem;
+  line-height: 1.2;
+  margin-bottom: 0.35rem;
 }
 
 .mission-band {
@@ -963,6 +1064,7 @@ h3 {
 
   .intro-band,
   .metrics-band,
+  .enterprise-inner,
   .chapter-grid,
   .detail-band {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1034,6 +1136,9 @@ h3 {
   .story-rail,
   .intro-band,
   .metrics-band,
+  .enterprise-inner,
+  .enterprise-grid,
+  .enterprise-case-grid,
   .mission-band,
   .mission-actions,
   .chapter-grid,

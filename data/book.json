@@ -1,22 +1,68 @@
 {
   "title": "Carlitos y los residuos que se convierten en oportunidad",
-  "subtitle": "Una appweb educativa para separar, medir, transformar y emprender cuidando el ambiente.",
-  "sourceLabel": "Contenido editorial local v0.3.0",
+  "subtitle": "Una appweb educativa para descubrir residuos, iniciativas verdes y empresas que producen cuidando ambiente y comunidad.",
+  "sourceLabel": "Contenido editorial local v0.4.0",
   "heroImage": "assets/generated/hero_carlitos_residuos_oportunidad_1920x1080.png",
   "characterSheet": "assets/generated/carlitos_character_sheet_v01.png",
   "closingImage": "assets/generated/cierre_feria_segundas_vidas_1920x1080.png",
   "rightsNote": "Borrador interno. Las imagenes y el personaje requieren autorizacion de uso antes de cualquier publicacion.",
   "summary": {
-    "audience": "Escuelas, familias, comunidades, docentes y jovenes emprendedores.",
-    "purpose": "Mostrar que los residuos bien gestionados pueden convertirse en aprendizaje, compost, reciclaje, ahorro, trabajo local y oportunidades verdes.",
-    "method": "Observar, separar, registrar, transformar, medir, evaluar y presentar resultados comunitarios."
+    "audience": "Escuelas, familias, comunidades, docentes, jovenes emprendedores, empresas aliadas y productores locales.",
+    "purpose": "Mostrar que los residuos bien gestionados pueden convertirse en aprendizaje, compost, reciclaje, ahorro, trabajo local, oportunidades verdes y relatos de empresas que cuidan el ambiente.",
+    "method": "Observar, separar, registrar, transformar, medir, verificar evidencias y presentar iniciativas ambientales con beneficio comunitario."
   },
   "metrics": [
     { "label": "Imagenes integradas", "value": "8" },
-    { "label": "Secciones editoriales", "value": "8" },
-    { "label": "Misiones verdes", "value": "4" },
-    { "label": "Bloques didacticos", "value": "7" }
+    { "label": "Secciones editoriales", "value": "10" },
+    { "label": "Misiones verdes", "value": "5" },
+    { "label": "Fichas de iniciativas", "value": "4" }
   ],
+  "enterpriseFocus": {
+    "eyebrow": "Empresas e iniciativas",
+    "title": "La coleccion puede contar historias reales de quienes producen cuidando",
+    "intro": "Carlitos no solo aprende a separar residuos: tambien puede visitar empresas, productores, cooperativas, recicladores, viveros, huertas, industrias y emprendimientos que demuestran con evidencias como reducen impactos, recuperan materiales, fortalecen empleo local o mejoran la relacion con la comunidad.",
+    "disclaimer": "La regla editorial es simple: no publicar propaganda. Cada caso debe mostrar accion concreta, evidencia verificable, indicador ambiental y beneficio comunitario.",
+    "pillars": [
+      {
+        "tag": "Produccion responsable",
+        "title": "Procesos que reducen impactos",
+        "text": "Empresas que ahorran agua o energia, gestionan residuos, restauran areas, usan materiales renovables o mejoran sus practicas productivas pueden convertirse en relatos claros para ninos y familias."
+      },
+      {
+        "tag": "Comunidad",
+        "title": "Valor social medible",
+        "text": "Una iniciativa sostenible tambien debe mirar empleo local, capacitacion, salud, seguridad, participacion, compras locales y beneficios concretos para la comunidad."
+      },
+      {
+        "tag": "Economia circular",
+        "title": "Materiales con segunda vida",
+        "text": "Reciclaje, compostaje, reutilizacion, acopio responsable y diseno de nuevos productos permiten explicar economia ambiental con ejemplos cercanos."
+      },
+      {
+        "tag": "Evidencia",
+        "title": "Datos antes que promesas",
+        "text": "Cada historia debe responder que se hizo, donde, con quienes, que cambio, como se midio y que falta mejorar."
+      }
+    ],
+    "cases": [
+      {
+        "title": "Empresa que mide",
+        "text": "Registra residuos, consumo, capacitaciones o restauracion y comparte resultados comprensibles."
+      },
+      {
+        "title": "Produccion amigable",
+        "text": "Mejora procesos para reducir impactos y proteger recursos naturales."
+      },
+      {
+        "title": "Emprendimiento verde",
+        "text": "Convierte materiales, servicios o saberes locales en oportunidad economica."
+      },
+      {
+        "title": "Alianza comunitaria",
+        "text": "Une escuela, familias, empresa, productores y referentes locales en una accion verificable."
+      }
+    ]
+  },
   "missions": [
     {
       "id": "separar",
@@ -45,6 +91,13 @@
       "tagline": "Crear oportunidades verdes.",
       "description": "Los datos ayudan a imaginar ferias, servicios, alianzas y pequenos proyectos sostenibles con beneficio ambiental.",
       "orden": 7
+    },
+    {
+      "id": "conectar",
+      "title": "Conectar",
+      "tagline": "Unir empresas, escuela y comunidad.",
+      "description": "Carlitos aprende a contar iniciativas ambientales sin exagerar: con evidencia, indicadores, aliados y beneficios para el territorio.",
+      "orden": 8
     }
   ],
   "items": [
@@ -53,22 +106,23 @@
       "tipo": "portada",
       "titulo": "Carlitos y los residuos que se convierten en oportunidad",
       "subtitulo": "Una historia para aprender haciendo",
-      "contenido": "Carlitos descubre que algunos residuos pueden tener una segunda vida si se separan, registran y gestionan correctamente. La historia propone mirar la escuela y la comunidad como un laboratorio sencillo de economia ambiental sostenible.",
-      "objetivo": "Presentar la idea central del libro: los residuos dejan de ser solo un problema cuando se observan, separan, miden y conectan con soluciones reales.",
-      "preguntaGuia": "Que oportunidades hay escondidas en los residuos de nuestra escuela o comunidad?",
+      "contenido": "Carlitos descubre que algunos residuos pueden tener una segunda vida si se separan, registran y gestionan correctamente. La historia propone mirar la escuela, la comunidad y las empresas responsables como un laboratorio sencillo de economia ambiental sostenible.",
+      "objetivo": "Presentar la idea central del libro: los residuos dejan de ser solo un problema cuando se observan, separan, miden y conectan con soluciones reales de escuelas, comunidades, emprendimientos y empresas que cuidan.",
+      "preguntaGuia": "Que oportunidades hay escondidas en los residuos y en las iniciativas ambientales de nuestra comunidad?",
       "aprendizajes": [
         "Comprender que separar es el primer paso para recuperar valor.",
         "Reconocer que medir permite tomar decisiones mas justas y claras.",
-        "Relacionar residuos con compost, reciclaje, ahorro y emprendimientos verdes."
+        "Relacionar residuos con compost, reciclaje, ahorro, emprendimientos verdes e iniciativas empresariales responsables."
       ],
       "desarrollo": [
         "La portada introduce a Carlitos como companero de exploracion. No llega con respuestas cerradas: llega con preguntas, una libreta y ganas de mirar mejor lo que todos ven todos los dias.",
-        "La appweb acompana el libro con escenas, misiones y evidencias. Cada seccion puede usarse en aula, taller comunitario o presentacion institucional."
+        "La appweb acompana el libro con escenas, misiones y evidencias. Cada seccion puede usarse en aula, taller comunitario o presentacion institucional.",
+        "El recorrido tambien prepara una coleccion editorial: contar, con lenguaje infantil y datos simples, como algunas empresas, productores y emprendimientos reducen impactos y aportan al bienestar comunitario."
       ],
       "pasos": [
         "Mostrar la portada y preguntar que objetos aparecen en la escena.",
         "Pedir a los estudiantes que nombren residuos que ven en su entorno cercano.",
-        "Elegir una primera mision: separar, medir, transformar o emprender."
+        "Elegir una primera mision: separar, medir, transformar, emprender o conectar con iniciativas reales."
       ],
       "materiales": [
         "Pantalla o proyector.",
@@ -81,10 +135,10 @@
         "Pregunta guia elegida por el grupo."
       ],
       "paraDocente": "Usar la portada como disparador. Conviene evitar empezar con culpa o dramatismo; la entrada mas potente es la curiosidad.",
-      "paraComunidad": "La misma pregunta puede llevarse a una reunion barrial o feria escolar para identificar oportunidades locales.",
+      "paraComunidad": "La misma pregunta puede llevarse a una reunion barrial, feria escolar o encuentro con empresas aliadas para identificar oportunidades locales.",
       "cuidado": "No manipular residuos reales sin guantes, supervision adulta y criterios de higiene.",
-      "actividad": "Presentar la pregunta: que oportunidades hay escondidas en los residuos de nuestra escuela o comunidad.",
-      "indicador": "Pregunta guia formulada y primer listado de residuos frecuentes.",
+      "actividad": "Presentar la pregunta: que oportunidades hay escondidas en los residuos y en las iniciativas ambientales de nuestra comunidad.",
+      "indicador": "Pregunta guia formulada, listado de residuos frecuentes y primeras iniciativas verdes identificadas.",
       "asset": "assets/generated/hero_carlitos_residuos_oportunidad_1920x1080.png",
       "estado": "borrador"
     },
@@ -318,19 +372,21 @@
       "orden": 7,
       "tipo": "capitulo",
       "titulo": "La oportunidad no aparece sola",
-      "subtitulo": "Se construye separando, organizando, midiendo y cuidando",
-      "contenido": "Con datos en la mano, la clase descubre que una oportunidad verde necesita responsables, recursos, medicion, destino claro y cuidado ambiental.",
-      "objetivo": "Transformar observaciones y datos en una idea simple de emprendimiento verde o iniciativa ambiental sostenible.",
-      "preguntaGuia": "Que idea verde podriamos construir con lo que ya aprendimos y medimos?",
+      "subtitulo": "Se construye separando, organizando, midiendo, produciendo mejor y cuidando",
+      "contenido": "Con datos en la mano, la clase descubre que una oportunidad verde necesita responsables, recursos, medicion, destino claro, cuidado ambiental y aliados que quieran producir o trabajar de manera mas sostenible.",
+      "objetivo": "Transformar observaciones y datos en una idea simple de emprendimiento verde, iniciativa empresarial responsable o alianza ambiental sostenible.",
+      "preguntaGuia": "Que idea verde podriamos construir con lo que ya aprendimos, medimos y observamos en empresas o iniciativas locales?",
       "aprendizajes": [
         "Diferenciar una buena intencion de una iniciativa organizada.",
         "Usar datos basicos para estimar recursos, costos, beneficios y riesgos.",
-        "Reconocer que una oportunidad verde debe cuidar el ambiente y tambien a las personas."
+        "Reconocer que una oportunidad verde debe cuidar el ambiente y tambien a las personas.",
+        "Identificar empresas, productores o emprendimientos que puedan demostrar practicas responsables con evidencia."
       ],
       "desarrollo": [
         "Carlitos descubre que una oportunidad no aparece por magia. Primero hubo separacion, luego medicion, despues preguntas y finalmente una idea.",
-        "La clase arma un mini canvas verde: problema, materiales, aliados, costos, beneficios ambientales, cuidados y evidencia.",
-        "El emprendimiento verde no se presenta como negocio facil, sino como una forma responsable de resolver un problema con aprendizaje, organizacion y comunidad."
+        "La clase arma un mini canvas verde: problema, materiales, aliados, costos, beneficios ambientales, cuidados, evidencia y posible empresa o institucion aliada.",
+        "El emprendimiento verde no se presenta como negocio facil, sino como una forma responsable de resolver un problema con aprendizaje, organizacion y comunidad.",
+        "Carlitos tambien aprende a mirar empresas: no pregunta solo que venden, sino que cuidan, que miden, que devuelven al territorio y como lo pueden demostrar."
       ],
       "pasos": [
         "Elegir un residuo o material observado durante el recorrido.",
@@ -339,7 +395,8 @@
         "Listar recursos, responsables y aliados.",
         "Estimar costos y beneficios ambientales.",
         "Definir como se medira el resultado.",
-        "Preparar una presentacion breve para la feria."
+        "Preparar una presentacion breve para la feria.",
+        "Identificar una empresa, emprendimiento o productor local que podria contar una iniciativa ambiental con evidencia."
       ],
       "materiales": [
         "Mini canvas verde.",
@@ -347,45 +404,144 @@
         "Tarjetas de ideas.",
         "Calculadora simple.",
         "Cuaderno de costos.",
-        "Muestra del material recuperado."
+        "Muestra del material recuperado.",
+        "Ficha simple de iniciativa empresarial o comunitaria."
       ],
       "evidencias": [
         "Canvas completado.",
         "Lista de responsables y aliados.",
         "Estimacion de materiales recuperables.",
-        "Indicador ambiental elegido por el grupo."
+        "Indicador ambiental elegido por el grupo.",
+        "Lista de posibles iniciativas o empresas aliadas para documentar."
       ],
       "paraDocente": "Ayudar a que las ideas sean pequenas, medibles y honestas. Evitar promesas ambientales exageradas.",
-      "paraComunidad": "Una idea verde puede conectar escuela, familias, recicladores, viveros, huertas, comercios y organizaciones locales.",
-      "cuidado": "No presentar como rentable una iniciativa que aun no tiene datos suficientes. Diferenciar piloto, propuesta y emprendimiento real.",
-      "actividad": "Completar un mini canvas verde para una idea basada en residuos.",
-      "indicador": "Ideas verdes generadas, canvas completados y criterios de medicion definidos.",
+      "paraComunidad": "Una idea verde puede conectar escuela, familias, recicladores, viveros, huertas, comercios, productores, industrias y organizaciones locales.",
+      "cuidado": "No presentar como rentable ni sostenible una iniciativa que aun no tiene datos suficientes. Diferenciar piloto, propuesta, caso documentado y emprendimiento real.",
+      "actividad": "Completar un mini canvas verde para una idea basada en residuos o en una iniciativa productiva responsable.",
+      "indicador": "Ideas verdes generadas, canvas completados, posibles aliados identificados y criterios de medicion definidos.",
       "asset": "assets/generated/cap05_oportunidad_emprendimiento_verde.png",
       "estado": "borrador"
     },
     {
       "orden": 8,
+      "tipo": "capitulo",
+      "titulo": "Empresas que cuidan el territorio",
+      "subtitulo": "Producir tambien puede prevenir, reparar y mejorar",
+      "contenido": "Carlitos visita una iniciativa productiva y descubre que una empresa no se vuelve sostenible por decirlo, sino por demostrar como cuida el agua, el suelo, la biodiversidad, los residuos, el empleo local y la relacion con la comunidad.",
+      "objetivo": "Conectar el aprendizaje ambiental con casos reales de empresas, productores o emprendimientos que realizan acciones medibles para cuidar el ambiente y aportar al desarrollo comunitario.",
+      "preguntaGuia": "Como sabemos si una empresa o iniciativa realmente cuida el ambiente y a la comunidad?",
+      "aprendizajes": [
+        "Distinguir publicidad ambiental de evidencia verificable.",
+        "Reconocer acciones empresariales sostenibles: prevenir impactos, restaurar, medir, capacitar, comprar localmente y rendir cuentas.",
+        "Comprender que la sostenibilidad integra ambiente, economia, comunidad y mejora continua."
+      ],
+      "desarrollo": [
+        "Carlitos escucha una palabra grande: sostenibilidad. Al principio parece dificil, hasta que la docente la baja a preguntas sencillas: que se cuida, quien participa, que cambio y como se mide?",
+        "Una empresa puede producir madera, alimentos, servicios, tecnologia, compost, materiales reciclados o energia. La pregunta educativa es si esa produccion reduce impactos, respeta normas, mejora practicas y genera beneficios para la comunidad.",
+        "Carlitos aprende que una iniciativa amigable con el ambiente debe mostrar evidencias: registros, fotos, indicadores, alianzas, capacitaciones, restauracion, reduccion de residuos o mejoras en procesos."
+      ],
+      "pasos": [
+        "Elegir una empresa, productor, cooperativa, reciclador, vivero, industria o emprendimiento local.",
+        "Identificar que problema ambiental o comunitario intenta resolver.",
+        "Preguntar que acciones concretas realiza.",
+        "Solicitar evidencias simples: registros, fotos, mediciones, reportes, capacitaciones o testimonios.",
+        "Diferenciar beneficios ambientales, beneficios comunitarios y pendientes de mejora.",
+        "Preparar un relato para ninos: problema, accion, evidencia, resultado y aprendizaje."
+      ],
+      "materiales": [
+        "Ficha de entrevista.",
+        "Cuaderno de registro.",
+        "Camara o celular para evidencia autorizada.",
+        "Lista de indicadores simples.",
+        "Autorizacion para uso de imagen o nombre si se publicara el caso."
+      ],
+      "evidencias": [
+        "Ficha de iniciativa completada.",
+        "Indicador ambiental o comunitario seleccionado.",
+        "Evidencia autorizada del caso.",
+        "Lista de pendientes o compromisos de mejora."
+      ],
+      "paraDocente": "La clase debe aprender a preguntar con respeto y pensamiento critico. No se trata de acusar ni de aplaudir automaticamente, sino de entender con evidencia.",
+      "paraComunidad": "Este capitulo permite invitar a empresas locales a mostrar acciones reales, abrir conversaciones y construir alianzas educativas.",
+      "cuidado": "No publicar nombres, logos, imagenes, datos de trabajadores ni afirmaciones ambientales sin autorizacion y verificacion.",
+      "actividad": "Elegir una empresa o iniciativa local y completar una primera ficha de caso sostenible.",
+      "indicador": "Empresas o iniciativas identificadas, evidencias disponibles y beneficios ambientales/comunitarios registrados.",
+      "asset": "assets/generated/cap05_oportunidad_emprendimiento_verde.png",
+      "estado": "borrador"
+    },
+    {
+      "orden": 9,
+      "tipo": "capitulo",
+      "titulo": "La ficha de la iniciativa verde",
+      "subtitulo": "Contar con evidencia, no con promesas",
+      "contenido": "Carlitos arma una ficha para que cada historia de empresa o emprendimiento tenga la misma estructura: que hace, que problema atiende, que evidencia presenta, que indicador usa, a quien beneficia y que falta mejorar.",
+      "objetivo": "Crear una metodologia editorial sencilla para publicar ediciones sobre empresas e iniciativas ambientalmente amigables sin caer en propaganda ni afirmaciones sin respaldo.",
+      "preguntaGuia": "Que datos minimos necesitamos para contar una iniciativa verde de manera honesta?",
+      "aprendizajes": [
+        "Ordenar informacion de una iniciativa ambiental en una ficha comparable.",
+        "Usar indicadores simples para explicar resultados a ninos, familias y comunidad.",
+        "Reconocer pendientes y limites como parte de una comunicacion responsable."
+      ],
+      "desarrollo": [
+        "La ficha de Carlitos tiene seis casillas: iniciativa, problema, accion, evidencia, beneficio y proximo paso. Si una casilla queda vacia, la historia todavia necesita investigacion.",
+        "Una buena edicion no solo dice que una empresa cuida. Muestra como cuida, con quienes trabaja, que resultado obtuvo y que quiere mejorar.",
+        "La ficha tambien ayuda a seleccionar casos: no importa el tamano de la empresa, sino la claridad de la accion, la evidencia disponible y el beneficio ambiental o comunitario."
+      ],
+      "pasos": [
+        "Completar nombre de la iniciativa y responsable de contacto.",
+        "Describir el problema ambiental o comunitario en una frase.",
+        "Registrar la accion concreta realizada.",
+        "Anotar al menos una evidencia verificable.",
+        "Elegir un indicador simple: kg recuperados, arboles plantados, personas capacitadas, consumo reducido, hectareas restauradas u otro dato pertinente.",
+        "Indicar beneficio comunitario y pendiente de mejora.",
+        "Convertir la ficha en una pagina breve del libro o appweb."
+      ],
+      "materiales": [
+        "Modelo de ficha de iniciativa verde.",
+        "Entrevista breve.",
+        "Evidencias autorizadas.",
+        "Indicadores simples.",
+        "Revision editorial y legal."
+      ],
+      "evidencias": [
+        "Ficha validada por el equipo editorial.",
+        "Autorizacion de uso si se publica nombre, logo o imagen.",
+        "Indicador con fuente y fecha.",
+        "Version infantil del relato."
+      ],
+      "paraDocente": "La ficha puede usarse como actividad de investigacion: los estudiantes aprenden a pedir evidencia y a comunicar sin exagerar.",
+      "paraComunidad": "Permite construir una galeria de iniciativas locales: empresas, productores, recicladores, viveros, huertas, cooperativas y servicios ambientales.",
+      "cuidado": "Evitar lenguaje absoluto como 'empresa verde' si no hay auditoria integral. Preferir 'iniciativa documentada', 'practica responsable' o 'accion ambiental con evidencia'.",
+      "actividad": "Completar la ficha de una iniciativa verde con problema, accion, evidencia, indicador, beneficio y mejora pendiente.",
+      "indicador": "Fichas completas, evidencias verificadas y casos aptos para publicacion.",
+      "asset": "assets/generated/cierre_feria_segundas_vidas_1920x1080.png",
+      "estado": "borrador"
+    },
+    {
+      "orden": 10,
       "tipo": "cierre",
       "titulo": "La feria de las segundas vidas",
-      "subtitulo": "Compartir resultados tambien es parte del aprendizaje",
-      "contenido": "La comunidad presenta compost, plantines, materiales recuperados y pequenas ideas verdes. Carlitos entiende que los residuos bien gestionados pueden convertirse en aprendizaje, comunidad y oportunidad economica.",
-      "objetivo": "Cerrar el recorrido con una feria escolar-comunitaria donde se presenten evidencias, aprendizajes, resultados e ideas verdes.",
-      "preguntaGuia": "Como contamos lo que aprendimos para que otras personas tambien puedan actuar?",
+      "subtitulo": "Compartir resultados e iniciativas tambien es parte del aprendizaje",
+      "contenido": "La comunidad presenta compost, plantines, materiales recuperados, pequenas ideas verdes y fichas de empresas o iniciativas que cuidan el ambiente. Carlitos entiende que los residuos bien gestionados pueden convertirse en aprendizaje, comunidad, oportunidad economica y alianzas responsables.",
+      "objetivo": "Cerrar el recorrido con una feria escolar-comunitaria donde se presenten evidencias, aprendizajes, resultados, ideas verdes y casos de empresas o iniciativas ambientalmente amigables.",
+      "preguntaGuia": "Como contamos lo que aprendimos y que iniciativas reales pueden inspirar a otras personas a actuar?",
       "aprendizajes": [
         "Comunicar resultados ambientales de forma clara y honesta.",
         "Valorar evidencias: fotos, registros, pesos, plantines, compost e ideas.",
-        "Construir compromisos comunitarios realistas para continuar."
+        "Construir compromisos comunitarios realistas para continuar.",
+        "Presentar iniciativas productivas responsables con lenguaje claro, datos simples y autorizaciones."
       ],
       "desarrollo": [
-        "La feria no es solo una celebracion. Es el momento de mostrar que la clase observo, separo, midio, transformo y penso oportunidades.",
+        "La feria no es solo una celebracion. Es el momento de mostrar que la clase observo, separo, midio, transformo, penso oportunidades y dialogo con iniciativas reales.",
         "Carlitos invita a contar tambien los errores: que fue dificil separar, que materiales generaron dudas, que no se pudo resolver todavia.",
-        "Una buena feria deja compromisos pequenos: mantener el punto de separacion, continuar la compostera, repetir mediciones o mejorar una idea verde."
+        "Una buena feria deja compromisos pequenos: mantener el punto de separacion, continuar la compostera, repetir mediciones, mejorar una idea verde o documentar una empresa que cuida con evidencia."
       ],
       "pasos": [
-        "Organizar mesas por tema: separacion, compost, reciclables, datos e ideas verdes.",
+        "Organizar mesas por tema: separacion, compost, reciclables, datos, ideas verdes e iniciativas de empresas o productores.",
         "Preparar evidencias visuales sin exponer datos personales.",
         "Ensayar explicaciones breves por grupo.",
         "Invitar a familias y referentes comunitarios.",
+        "Presentar fichas de iniciativas verdes con autorizacion.",
         "Registrar compromisos y proximos pasos.",
         "Cerrar con una evaluacion simple: que aprendimos, que falta y quien continua."
       ],
@@ -395,19 +551,21 @@
         "Compost o plantines.",
         "Registros resumidos.",
         "Tarjetas de compromisos.",
+        "Fichas de iniciativas verdes.",
         "Camara o celular para evidencia institucional."
       ],
       "evidencias": [
         "Numero de participantes.",
         "Kg recuperados o compostados durante el piloto.",
         "Ideas verdes presentadas.",
+        "Fichas de empresas o iniciativas documentadas.",
         "Compromisos asumidos por grupos o comunidad."
       ],
       "paraDocente": "La feria debe cuidar la verdad del proceso: mostrar avances y limitaciones fortalece la confianza.",
-      "paraComunidad": "Puede convertirse en punto de partida para alianzas con municipios, recicladores, viveros, empresas o instituciones educativas.",
-      "cuidado": "No exhibir datos personales de estudiantes ni usar logos/marcas sin autorizacion.",
-      "actividad": "Organizar una feria escolar-comunitaria con resultados, evidencias y compromisos.",
-      "indicador": "Participantes, materiales recuperados, ideas verdes presentadas y compromisos asumidos.",
+      "paraComunidad": "Puede convertirse en punto de partida para alianzas con municipios, recicladores, viveros, empresas, productores o instituciones educativas.",
+      "cuidado": "No exhibir datos personales de estudiantes ni usar logos/marcas, imagenes o afirmaciones ambientales sin autorizacion y verificacion.",
+      "actividad": "Organizar una feria escolar-comunitaria con resultados, evidencias, fichas de iniciativas y compromisos.",
+      "indicador": "Participantes, materiales recuperados, ideas verdes presentadas, fichas documentadas y compromisos asumidos.",
       "asset": "assets/generated/cierre_feria_segundas_vidas_1920x1080.png",
       "estado": "borrador"
     }

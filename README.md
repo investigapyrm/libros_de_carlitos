@@ -14,7 +14,7 @@ Este repositorio fue clonado desde `investigapyrm/libros_de_carlitos`, que al in
 
 La rama `main` ya fue inicializada, empujada al remoto y sincronizada con `origin/main`.
 
-Hito actual verificado: `v0.3.1`, correccion de navegacion de botones y cache-busting de assets.
+Hito actual verificado: `v0.4.0`, eje editorial de empresas e iniciativas ambientales con evidencia.
 
 Pendiente: confirmar GitHub Pages, autorizaciones editoriales/legales y despliegue GAS si se decide usar la hoja online como fuente publica.
 
@@ -77,6 +77,18 @@ La version `v0.3.1` corrige los botones de navegacion:
 * `index.html` actualiza el cache-busting de `styles.css` y `app.js` a `v0.3.1`.
 
 Validacion local realizada: `node --check app.js`, parseo de `data/book.json`, `git diff --check`, captura Playwright CLI y prueba headless de clics sobre `http://127.0.0.1:8787/`.
+
+## Empresas e iniciativas ambientales 2026-06-25
+
+La version `v0.4.0` incorpora el puente que faltaba entre residuos, educacion ambiental y desarrollo economico sostenible:
+
+* se agrega la seccion `Empresas e iniciativas que cuidan`;
+* se incorpora la mision `Conectar`, orientada a unir escuela, empresa y comunidad;
+* se agregan dos capitulos: `Empresas que cuidan el territorio` y `La ficha de la iniciativa verde`;
+* se propone una metodologia editorial para publicar casos sin caer en propaganda: problema, accion, evidencia, indicador, beneficio comunitario y mejora pendiente;
+* se actualiza el recorrido para presentar residuos, emprendimientos, productores y empresas ambientalmente responsables como parte de una misma narrativa educativa.
+
+Esta version prepara la appweb para solicitar apoyo editorial a una empresa aliada: el patrocinio puede financiar publicaciones infantiles sobre iniciativas reales que cuidan ambiente y comunidad, siempre que cada caso tenga autorizacion y evidencia verificable.
 
 ## Imagenes integradas
 

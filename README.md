@@ -16,7 +16,7 @@ La rama `main` ya fue inicializada, empujada al remoto y sincronizada con `origi
 
 Hito actual verificado: `v0.5.0`, propuesta tecnica-editorial Paracel-FACEN integrada en la seccion `#iniciativas`.
 
-Avance editorial en rama `feature/cuento-dia-del-nino-2026`: borrador interno del cuento **Carlitos y el bosque que guarda abrazos**, pensado como pieza revisable para compartir por el Dia del Nino en Paraguay, 16 de agosto, con base en la antologia propuesta en el PDF Paracel-FACEN. La rama incluye tambien un paquete inicial de contenido y prompts para producir imagenes en GPT Imagen en linea.
+Avance editorial en rama `feature/cuento-dia-del-nino-2026`: borrador interno del cuento **Carlitos y el bosque que guarda abrazos**, pensado como pieza revisable para compartir por el Dia del Nino en Paraguay, 16 de agosto, con base en la antologia propuesta en el PDF Paracel-FACEN. La rama incluye tambien un paquete inicial de contenido, prompts para GPT Imagen y una vista de libro digital con imagenes reales.
 
 Pendiente: confirmar GitHub Pages, autorizaciones editoriales/legales y despliegue GAS si se decide usar la hoja online como fuente publica.
 
@@ -51,13 +51,13 @@ La rama `feature/cuento-dia-del-nino-2026` contiene dos documentos de trabajo:
 * `docs/CONTENIDO_INICIAL_PROMPTS_GPT_IMAGEN_CUENTO_DIA_DEL_NINO_2026-06-29.md`: contenido inicial, secuencia de laminas, prompts para GPT Imagen en linea, nombres sugeridos de archivos y control de calidad visual.
 * `docs/INVESTIGACION_LIBRERIAS_LIBRO_DIGITAL_INTERACTIVO_2026-06-29.md`: evaluacion de librerias libres para libro digital y criterio de integracion.
 
-La appweb incorpora una primera vista `#cuento-dia-nino` con formato de libro digital interactivo. La vista carga paginas desde `data/story-dia-nino.json`, ofrece controles de avance, indice, progreso y usa `StPageFlip` como mejora progresiva desde CDN cuando esta disponible. Si la libreria externa no carga, queda activo el lector HTML propio.
+La appweb incorpora una vista `#cuento-dia-nino` con formato de libro digital interactivo a pantalla completa. La vista carga 10 paginas desde `data/story-dia-nino.json`, usa las imagenes copiadas desde `J:\Mi unidad\carlitos\cuento_dia_Del_niño`, ofrece controles de avance y progreso, y reserva `StPageFlip` como mejora progresiva para pantallas muy anchas. En escritorio comun y movil prioriza un lector full-bleed propio para que el libro ocupe casi toda la vista.
 
 Uso recomendado:
 
 1. Validar autorizaciones del personaje, autores e instituciones antes de publicar.
-2. Generar primero portada, lamina 05 y lamina 12 para fijar estilo.
-3. Usar esas imagenes como referencia visual para producir las demas laminas.
+2. Revisar las 10 imagenes integradas con criterios editorial, legal, tecnico ambiental e institucional.
+3. Optimizar peso de imagenes si se publicara para celulares o aulas con baja conectividad.
 4. Revisar que no aparezcan textos, logos, marcas, escudos ni numeros deformes dentro de las imagenes.
 
 ## Mejora visual 2026-06-25

@@ -1,4 +1,4 @@
-const APP_VERSION = "v0.6.0";
+const APP_VERSION = "v0.6.1";
 const APP_BUILD_DATE = "2026-06-29";
 const GAS_ENDPOINT = "";
 const LOCAL_DATA_URL = "data/book.json";
@@ -415,7 +415,7 @@ function initStorybook() {
   destroyPageFlip();
   updateStorybookUI();
 
-  if (prefersReducedMotion() || window.matchMedia("(max-width: 760px)").matches) return;
+  if (prefersReducedMotion() || window.matchMedia("(max-width: 1500px)").matches) return;
 
   loadPageFlipScript()
     .then(() => {
@@ -426,13 +426,13 @@ function initStorybook() {
 
       try {
         state.pageFlip = new window.St.PageFlip(root, {
-          width: 430,
-          height: 610,
+          width: 620,
+          height: 430,
           size: "stretch",
-          minWidth: 290,
-          maxWidth: 520,
-          minHeight: 430,
-          maxHeight: 720,
+          minWidth: 320,
+          maxWidth: 720,
+          minHeight: 260,
+          maxHeight: 560,
           showCover: false,
           usePortrait: true,
           mobileScrollSupport: false,

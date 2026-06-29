@@ -84,25 +84,9 @@
     {
       "kicker": "Pagina 9",
       "title": "Plantar es prometer cuidado",
-      "body": "Don Tadeo recordo que no todos los arboles se plantan en cualquier lugar. Hay que mirar el suelo, el agua, los animales, los caminos y la comunidad.",
+      "body": "Don Tadeo recordo que no todos los arboles se plantan en cualquier lugar. Al volver, Carlitos pregunto: que futuro queremos cuidar juntos?",
       "image": "assets/generated/dia_nino_carlitos_bosque_abrazos_lamina_10_plantar_promesa.png",
       "futureImage": "assets/generated/dia_nino_carlitos_bosque_abrazos_lamina_10_plantar_promesa.png",
-      "tone": "Prometer"
-    },
-    {
-      "kicker": "Pagina 10",
-      "title": "Regalos que crecen",
-      "body": "En la celebracion, cada nino colgo una tarjeta con dibujos de arboles, agua, bicicletas, compost, animales del bosque y casas con sombra.",
-      "image": "assets/generated/dia_nino_carlitos_bosque_abrazos_lamina_11_mural_regalos_crecen.png",
-      "futureImage": "assets/generated/dia_nino_carlitos_bosque_abrazos_lamina_11_mural_regalos_crecen.png",
-      "tone": "Compartir"
-    },
-    {
-      "kicker": "Cierre",
-      "title": "Una pregunta para el futuro",
-      "body": "Carlitos puso su tarjeta en el centro y pregunto: que futuro queremos cuidar juntos? La pregunta era grande, pero cabia en manos pequenas.",
-      "image": "assets/generated/dia_nino_carlitos_bosque_abrazos_lamina_12_futuro_juntos.png",
-      "futureImage": "assets/generated/dia_nino_carlitos_bosque_abrazos_lamina_12_futuro_juntos.png",
       "tone": "Cuidar"
     }
   ]

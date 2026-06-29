@@ -435,3 +435,116 @@
 * Si se requiere offline o PWA, alojar localmente la libreria `page-flip.browser.min.js` y su licencia.
 * Mantener el contenido del cuento en JSON para futuras versiones o traducciones.
 * Generar primero tres imagenes piloto antes de completar toda la serie visual.
+
+## 2026-06-29 19:24
+
+### Proyecto
+
+* Nombre: Libros de Carlitos - Integracion de imagenes del cuento Dia del Nino
+* Cliente o institucion: PARACEL / FACEN-UNA / investigapyrm
+* Ruta local: `C:\Users\Diego\OneDrive - PARACEL S.A\MONITOREO_IMPACTO_SOCIAL_PARACEL\PROYECTO_CARLITOS\libros_de_carlitos`
+* Repositorio: `https://github.com/investigapyrm/libros_de_carlitos.git`
+* Fuente de imagenes: `J:\Mi unidad\carlitos\cuento_dia_Del_niño`
+* URL local de prueba: `http://127.0.0.1:8792/#cuento-dia-nino`
+* Rama de trabajo: `feature/cuento-dia-del-nino-2026`
+* Responsable: Codex
+* Version: `v0.6.1`
+
+### Objetivo de la intervencion
+
+* Aprovechar las imagenes generadas para el cuento de Dia del Nino y armar las paginas del libro dentro de la appweb.
+* Ajustar la vista para que el libro abarque casi toda la pantalla, especialmente en la seccion `#cuento-dia-nino`.
+
+### Diagnostico inicial
+
+* La carpeta fuente contenia 10 imagenes PNG generadas el 2026-06-29.
+* El JSON del cuento tenia 12 paginas previstas, por lo que las dos ultimas quedaban sin imagen real.
+* En escritorio la vista anterior funcionaba, pero se sentia como una tarjeta dentro de la pagina y no como libro de pantalla completa.
+* En movil habia que evitar grandes bloques vacios y mantener lectura clara.
+
+### Acciones realizadas
+
+* Se copiaron las 10 imagenes desde `J:\Mi unidad\carlitos\cuento_dia_Del_niño` a `assets/generated/` con nombres normalizados.
+* Se corrigio el orden natural de archivos para evitar que `(10)` quedara antes de `(8)` y `(9)`.
+* Se creo una hoja de contacto temporal para revisar la secuencia visual y luego se elimino.
+* Se ajusto `data/story-dia-nino.json` de 12 a 10 paginas visuales reales.
+* Se fusiono el cierre narrativo en la ultima pagina disponible.
+* Se actualizo `APP_VERSION` y cache-busting a `v0.6.1`.
+* Se redisenaron los estilos del lector para modo full-bleed: imagen grande, texto sobre/bajo pagina, controles claros y progreso.
+* Se mantuvo `StPageFlip` solo como mejora progresiva para pantallas muy anchas; en escritorio comun y movil se prioriza el lector propio a pantalla completa.
+
+### Archivos modificados
+
+* `index.html`
+* `app.js`
+* `styles.css`
+* `README.md`
+* `BITACORA_LIBROS_DE_CARLITOS_PARACEL_REPO.md`
+* `data/story-dia-nino.json`
+* `assets/generated/dia_nino_carlitos_bosque_abrazos_portada_16x9.png`
+* `assets/generated/dia_nino_carlitos_bosque_abrazos_lamina_02_pregunta_regalo_crece.png`
+* `assets/generated/dia_nino_carlitos_bosque_abrazos_lamina_03_regalar_sombra.png`
+* `assets/generated/dia_nino_carlitos_bosque_abrazos_lamina_04_camino_vivero.png`
+* `assets/generated/dia_nino_carlitos_bosque_abrazos_lamina_05_bosque_nativo_plantacion.png`
+* `assets/generated/dia_nino_carlitos_bosque_abrazos_lamina_06_calor_invisible.png`
+* `assets/generated/dia_nino_carlitos_bosque_abrazos_lamina_07_medir_cuidar.png`
+* `assets/generated/dia_nino_carlitos_bosque_abrazos_lamina_08_camara_trampa_biodiversidad.png`
+* `assets/generated/dia_nino_carlitos_bosque_abrazos_lamina_09_tarjetas_cuidado.png`
+* `assets/generated/dia_nino_carlitos_bosque_abrazos_lamina_10_plantar_promesa.png`
+* `G:\Mi unidad\MANUAL_MAESTRO_FORMATOS_FUNCIONES_APPWEB\APRENDIZAJE_CARLITOS_CUENTO_DIA_DEL_NINO_2026-06-29.md`
+
+### Comandos o scripts ejecutados
+
+* `Get-ChildItem -LiteralPath "J:\Mi unidad\carlitos\cuento_dia_Del_niño" -File`
+* `Copy-Item` con nombres normalizados en `assets/generated/`
+* `node --check app.js`
+* `node -e "JSON.parse(require('fs').readFileSync('data/story-dia-nino.json','utf8'))"`
+* `npx playwright screenshot --wait-for-timeout=3000 "http://127.0.0.1:8792/?v=0.6.1-final#cuento-dia-nino" ...`
+* `npx playwright screenshot --viewport-size="390,844" --wait-for-timeout=2000 "http://127.0.0.1:8792/?v=0.6.1-mobile-clean2#cuento-dia-nino" ...`
+
+### Resultados verificados
+
+* Las 10 imagenes se copiaron al repositorio con nombres consistentes.
+* Las imagenes tienen resoluciones entre `941x1672` y `1916x821`.
+* La vista de escritorio muestra el libro grande, con la ilustracion ocupando casi todo el escenario.
+* La vista movil muestra la imagen arriba y el texto abajo, sin bloque oscuro sobrante.
+* El contador de paginas ahora indica `Pagina 1 de 10`.
+
+### Pruebas realizadas
+
+* Validacion sintactica de JavaScript.
+* Validacion JSON del cuento.
+* Capturas Playwright de escritorio y movil.
+* Revision visual de capturas.
+* Eliminacion de capturas temporales antes de preparar el commit.
+
+### Errores o incidentes
+
+* El primer copiado ordeno `(10)` antes de `(8)` y `(9)` por orden alfabetico. Se corrigio usando orden natural numerico por parentesis.
+* El encabezado partia el titulo letra por letra porque los metadatos largos ocupaban demasiado ancho. Se compacto el encabezado.
+* En movil aparecia una franja oscura por reglas heredadas de altura y `aspect-ratio`; se ajusto la vista movil a flujo natural.
+
+### Soluciones aplicadas
+
+* Nombres ASCII normalizados para evitar problemas de ruta y publicacion.
+* Libro en modo full-bleed por defecto.
+* Imagenes en proporcion real en movil.
+* PageFlip limitado a pantallas muy anchas para evitar layouts torpes en 1280px o celulares.
+
+### Pendientes
+
+* Revisar legal/editorialmente las 10 imagenes antes de publicacion formal.
+* Optimizar peso de imagenes para web si se publicara masivamente.
+* Verificar GitHub Pages despues de fusionar o publicar la rama.
+
+### Riesgos
+
+* Las imagenes PNG pesan entre 1.7 MB y 2.7 MB cada una; pueden ser pesadas para celulares con baja conectividad.
+* La consistencia visual y derechos del personaje requieren validacion humana.
+* Si se requiere offline real, conviene optimizar y cachear assets.
+
+### Recomendaciones
+
+* Crear versiones WebP o JPG optimizadas antes de difusion publica.
+* Conservar los PNG originales como candidatos de alta calidad.
+* No publicar hasta cerrar autorizaciones de personaje, autoria e imagenes.

@@ -330,3 +330,108 @@
 * Generar pocas imagenes piloto antes de producir toda la serie.
 * Mantener una carpeta separada para imagenes candidatas y otra para imagenes aprobadas.
 * Registrar cada lote generado con fecha, prompt usado y observaciones de calidad.
+
+## 2026-06-29 19:04
+
+### Proyecto
+
+* Nombre: Libros de Carlitos - Vista de libro digital interactivo
+* Cliente o institucion: PARACEL / FACEN-UNA / investigapyrm
+* Ruta local: `C:\Users\Diego\OneDrive - PARACEL S.A\MONITOREO_IMPACTO_SOCIAL_PARACEL\PROYECTO_CARLITOS\libros_de_carlitos`
+* Repositorio: `https://github.com/investigapyrm/libros_de_carlitos.git`
+* URL local de prueba: `http://127.0.0.1:8792/#cuento-dia-nino`
+* Rama de trabajo: `feature/cuento-dia-del-nino-2026`
+* Responsable: Codex
+* Version: `v0.6.0`
+
+### Objetivo de la intervencion
+
+* Preparar una vista dentro de la appweb para alojar el cuento de Dia del Nino con formato de libro digital interactivo.
+* Investigar codigo libre en GitHub que pueda aprovecharse sin cambiar la arquitectura estatica HTML/CSS/JS compatible con GitHub Pages.
+
+### Diagnostico inicial
+
+* La app ya tenia visor editorial general y documentos del cuento, pero no una experiencia especifica de lectura tipo libro.
+* Las imagenes definitivas del cuento todavia no existen; usar imagenes del prototipo anterior podia introducir elementos no deseados.
+* La solucion debia funcionar aunque una libreria externa no cargara.
+
+### Acciones realizadas
+
+* Se investigo `Nodlik/StPageFlip`, libreria MIT para efecto de paso de pagina, sin dependencias y usable por script en navegador.
+* Se creo `data/story-dia-nino.json` con 12 paginas del cuento y rutas esperadas de imagenes definitivas.
+* Se agrego la vista `#cuento-dia-nino` a la app.
+* Se agregaron controles `Anterior` y `Siguiente`, indice numerico, barra de progreso, panel de lectura y actividad `Regalos que crecen`.
+* Se integro `StPageFlip` como mejora progresiva desde CDN fijo `page-flip@2.0.7`.
+* Se mantuvo fallback HTML/CSS si el CDN falla, si el usuario prefiere reducir movimiento o si se usa movil.
+* Se ajusto cache-busting de `index.html` a `v0.6.0`.
+* Se documento la investigacion en `docs/INVESTIGACION_LIBRERIAS_LIBRO_DIGITAL_INTERACTIVO_2026-06-29.md`.
+
+### Archivos modificados
+
+* `index.html`
+* `app.js`
+* `styles.css`
+* `README.md`
+* `BITACORA_LIBROS_DE_CARLITOS_PARACEL_REPO.md`
+* `data/story-dia-nino.json`
+* `docs/INVESTIGACION_LIBRERIAS_LIBRO_DIGITAL_INTERACTIVO_2026-06-29.md`
+* `G:\Mi unidad\MANUAL_MAESTRO_FORMATOS_FUNCIONES_APPWEB\APRENDIZAJE_CARLITOS_CUENTO_DIA_DEL_NINO_2026-06-29.md`
+
+### Comandos o scripts ejecutados
+
+* `Invoke-WebRequest` para verificar CDN `page-flip@2.0.7`.
+* `node --check app.js`
+* `node -e "JSON.parse(... data/book.json ...); JSON.parse(... data/story-dia-nino.json ...)"`
+* `git diff --check`
+* `python -m http.server 8792 --bind 127.0.0.1`
+* `npx playwright screenshot --wait-for-timeout=5000 "http://127.0.0.1:8792/?v=0.6.0-test#cuento-dia-nino" "tmp_storybook_desktop_v2.png"`
+* `npx playwright screenshot --viewport-size="390,844" --wait-for-timeout=3000 "http://127.0.0.1:8792/?v=0.6.0-mobile#cuento-dia-nino" "tmp_storybook_mobile.png"`
+
+### Resultados verificados
+
+* La app carga localmente con HTTP `200` en `http://127.0.0.1:8792/`.
+* `app.js` no presenta errores de sintaxis.
+* `data/book.json` y `data/story-dia-nino.json` parsean correctamente.
+* La vista `#cuento-dia-nino` aparece en escritorio y movil.
+* En escritorio se activa el formato de libro; en movil queda una vista simple por pagina.
+* Al faltar imagenes definitivas, se muestra placeholder visual sin logos, banderas ni imagenes ajenas.
+
+### Pruebas realizadas
+
+* Validacion sintactica JavaScript.
+* Validacion JSON.
+* Verificacion de whitespace con `git diff --check`.
+* Captura Playwright de escritorio.
+* Captura Playwright movil.
+* Revision visual de las capturas.
+
+### Errores o incidentes
+
+* El primer comando Playwright movil fallo por formato de `--viewport-size`; se corrigio usando `--viewport-size="390,844"`.
+* La primera captura mostro una imagen provisoria del prototipo anterior con elementos no deseados para el cuento; se reemplazaron las rutas por las imagenes definitivas esperadas y se activo placeholder visual.
+
+### Soluciones aplicadas
+
+* Integracion por mejora progresiva: lector propio primero, PageFlip solo si esta disponible.
+* Version fija de CDN para evitar cambios inesperados.
+* Fallback visual si las imagenes definitivas no existen.
+* Separacion de datos del cuento en JSON.
+
+### Pendientes
+
+* Generar y aprobar las 12 imagenes definitivas del cuento.
+* Reemplazar placeholders por imagenes finales optimizadas.
+* Revisar si el CDN externo es aceptable para publicacion final o si se debe copiar la libreria a `assets/vendor/` conservando licencia MIT.
+* Probar la URL publica de GitHub Pages cuando la rama se fusione o publique.
+
+### Riesgos
+
+* Dependencia de CDN en aulas sin conexion.
+* Derechos pendientes sobre personaje, autores, imagenes y marcas.
+* El efecto de pagina puede ser menos conveniente en pantallas pequenas; por eso se fuerza fallback movil.
+
+### Recomendaciones
+
+* Si se requiere offline o PWA, alojar localmente la libreria `page-flip.browser.min.js` y su licencia.
+* Mantener el contenido del cuento en JSON para futuras versiones o traducciones.
+* Generar primero tres imagenes piloto antes de completar toda la serie visual.

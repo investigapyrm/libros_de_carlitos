@@ -27,6 +27,7 @@ index.html              Appweb estatica para GitHub Pages.
 styles.css              Diseno responsive con hero animado, misiones, tarjetas y detalle.
 app.js                  Render del libro desde JSON local o GAS opcional, interacciones y modo lectura.
 data/book.json          Contenido editorial y rutas de imagenes.
+data/story-dia-nino.json Datos del cuento digital de Dia del Nino.
 assets/generated/       Imagenes finales de la appweb.
 docs/                   Instructivos de generacion visual.
 gas_src/                Backend Google Apps Script clonado y preparado.
@@ -39,6 +40,7 @@ docs/INSTRUCCIONES_IMAGENES_CARLITOS_APPWEB_2026-06-25.md
 docs/INSTRUCCIONES_ICONOS_CARLITOS_APPWEB_2026-06-25.md
 docs/CUENTO_DIA_DEL_NINO_CARLITOS_BOSQUE_GUARDA_ABRAZOS_2026-06-29.md
 docs/CONTENIDO_INICIAL_PROMPTS_GPT_IMAGEN_CUENTO_DIA_DEL_NINO_2026-06-29.md
+docs/INVESTIGACION_LIBRERIAS_LIBRO_DIGITAL_INTERACTIVO_2026-06-29.md
 ```
 
 ## Paquete Dia del Nino 2026
@@ -47,6 +49,9 @@ La rama `feature/cuento-dia-del-nino-2026` contiene dos documentos de trabajo:
 
 * `docs/CUENTO_DIA_DEL_NINO_CARLITOS_BOSQUE_GUARDA_ABRAZOS_2026-06-29.md`: borrador narrativo, actividad y criterios de revision.
 * `docs/CONTENIDO_INICIAL_PROMPTS_GPT_IMAGEN_CUENTO_DIA_DEL_NINO_2026-06-29.md`: contenido inicial, secuencia de laminas, prompts para GPT Imagen en linea, nombres sugeridos de archivos y control de calidad visual.
+* `docs/INVESTIGACION_LIBRERIAS_LIBRO_DIGITAL_INTERACTIVO_2026-06-29.md`: evaluacion de librerias libres para libro digital y criterio de integracion.
+
+La appweb incorpora una primera vista `#cuento-dia-nino` con formato de libro digital interactivo. La vista carga paginas desde `data/story-dia-nino.json`, ofrece controles de avance, indice, progreso y usa `StPageFlip` como mejora progresiva desde CDN cuando esta disponible. Si la libreria externa no carga, queda activo el lector HTML propio.
 
 Uso recomendado:
 

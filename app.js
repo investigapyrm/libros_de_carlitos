@@ -1,11 +1,14 @@
-const APP_VERSION = "v0.5.0";
-const APP_BUILD_DATE = "2026-06-26";
+const APP_VERSION = "v0.6.0";
+const APP_BUILD_DATE = "2026-06-29";
 const GAS_ENDPOINT = "";
 const LOCAL_DATA_URL = "data/book.json";
+const LOCAL_STORY_URL = "data/story-dia-nino.json";
+const PAGE_FLIP_SCRIPT_URL = "https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js";
 
 const STORAGE_KEYS = {
   viewScale: "carlitos:viewScale",
   mission: "carlitos:mission",
+  storyPage: "carlitos:storyPage:diaNino2026",
 };
 
 const VIEW_SCALES = ["normal", "comfort", "large"];
@@ -52,8 +55,12 @@ const app = document.querySelector("#app");
 
 const state = {
   book: null,
+  storybook: null,
   selectedOrden: null,
   selectedMission: readStorage(STORAGE_KEYS.mission, DEFAULT_MISSIONS[0].id),
+  selectedStoryPage: Number(readStorage(STORAGE_KEYS.storyPage, "0")) || 0,
+  pageFlip: null,
+  pageFlipLoading: null,
   viewScale: normalizeViewScale(readStorage(STORAGE_KEYS.viewScale, "normal")),
 };
 
@@ -65,13 +72,16 @@ async function loadBook(forceLocal = false) {
   app.innerHTML = `<main class="loading-view"><span class="loading-mark"></span><p>Cargando libro...</p></main>`;
 
   try {
-    const payload = forceLocal || !GAS_ENDPOINT
-      ? await fetchLocalBook()
-      : await fetchGasBook(GAS_ENDPOINT);
+    const [payload, storybookPayload] = await Promise.all([
+      forceLocal || !GAS_ENDPOINT ? fetchLocalBook() : fetchGasBook(GAS_ENDPOINT),
+      fetchLocalStorybook(),
+    ]);
 
     state.book = normalizeBook(payload);
+    state.storybook = normalizeStorybook(storybookPayload);
     state.selectedOrden = firstContentItem(state.book).orden;
     state.selectedMission = normalizeMissionId(state.selectedMission, getMissions(state.book));
+    state.selectedStoryPage = clampStoryPage(state.selectedStoryPage);
     renderApp();
     scrollToHashTarget();
   } catch (error) {
@@ -88,6 +98,16 @@ async function fetchLocalBook() {
   const response = await fetch(LOCAL_DATA_URL, { cache: "no-store" });
   if (!response.ok) throw new Error(`No se pudo leer ${LOCAL_DATA_URL}`);
   return response.json();
+}
+
+async function fetchLocalStorybook() {
+  try {
+    const response = await fetch(LOCAL_STORY_URL, { cache: "no-store" });
+    if (!response.ok) return null;
+    return response.json();
+  } catch (error) {
+    return null;
+  }
 }
 
 function fetchGasBook(endpoint) {
@@ -161,6 +181,32 @@ function normalizeBook(raw) {
   };
 }
 
+function normalizeStorybook(raw) {
+  if (!raw || !Array.isArray(raw.pages) || !raw.pages.length) return null;
+
+  const pages = raw.pages.map((page, index) => ({
+    kicker: page.kicker || `Pagina ${index + 1}`,
+    title: page.title || `Pagina ${index + 1}`,
+    body: page.body || "",
+    image: page.image || "",
+    futureImage: page.futureImage || "",
+    tone: page.tone || "",
+  }));
+
+  return {
+    id: raw.id || "cuento-dia-nino",
+    title: raw.title || "Carlitos y el bosque que guarda abrazos",
+    subtitle: raw.subtitle || "",
+    eyebrow: raw.eyebrow || "Libro digital interactivo",
+    audience: raw.audience || "",
+    status: raw.status || "",
+    sourceLabel: raw.sourceLabel || "",
+    activityTitle: raw.activityTitle || "Actividad",
+    activityText: raw.activityText || "",
+    pages,
+  };
+}
+
 function renderApp() {
   const book = state.book;
   const selected = selectedItem();
@@ -186,6 +232,7 @@ function renderApp() {
         <p>${escapeHtml(book.subtitle)}</p>
         <div class="hero-actions">
           <a href="#misiones" class="primary-action" data-nav-target="misiones">Empezar mision</a>
+          ${state.storybook ? `<a href="#cuento-dia-nino" class="secondary-action" data-nav-target="cuento-dia-nino">Leer cuento</a>` : ""}
           <a href="#iniciativas" class="secondary-action" data-nav-target="iniciativas">Ver iniciativas</a>
           <a href="#recorrido" class="secondary-action" data-nav-target="recorrido">Ver contenidos</a>
         </div>
@@ -207,6 +254,8 @@ function renderApp() {
       <section class="metrics-band" aria-label="Indicadores del prototipo">
         ${renderMetrics(book.metrics)}
       </section>
+
+      ${state.storybook ? renderStorybook(state.storybook) : ""}
 
       ${book.enterpriseFocus ? `
         <section class="enterprise-band" id="iniciativas">
@@ -295,6 +344,29 @@ function bindEvents() {
       updateViewScaleButtons();
     });
   });
+
+  document.querySelectorAll("[data-story-action]").forEach((button) => {
+    button.addEventListener("click", () => {
+      if (button.dataset.storyAction === "next") selectStoryPage(state.selectedStoryPage + 1);
+      if (button.dataset.storyAction === "prev") selectStoryPage(state.selectedStoryPage - 1);
+    });
+  });
+
+  document.querySelectorAll("[data-story-page]").forEach((button) => {
+    button.addEventListener("click", () => {
+      selectStoryPage(Number(button.dataset.storyPage));
+    });
+  });
+
+  document.querySelectorAll(".storybook-page-visual img").forEach((image) => {
+    image.addEventListener("error", () => {
+      image.hidden = true;
+      image.closest(".storybook-page")?.classList.add("image-missing");
+    }, { once: true });
+  });
+
+  document.removeEventListener("keydown", handleStorybookKeyboard);
+  document.addEventListener("keydown", handleStorybookKeyboard);
 }
 
 function initMotion() {
@@ -302,6 +374,7 @@ function initMotion() {
   revealOnScroll();
   animateMetrics();
   initImageParallax();
+  initStorybook();
 }
 
 function selectChapter(orden, shouldScroll) {
@@ -317,6 +390,161 @@ function selectMission(mission, targetId) {
   writeStorage(STORAGE_KEYS.mission, mission.id);
   renderApp();
   navigateTo(targetId || "detalle");
+}
+
+function selectStoryPage(index, syncFlip = true) {
+  if (!state.storybook) return;
+  const nextPage = clampStoryPage(index);
+  state.selectedStoryPage = nextPage;
+  writeStorage(STORAGE_KEYS.storyPage, String(nextPage));
+  updateStorybookUI();
+
+  if (syncFlip && state.pageFlip && typeof state.pageFlip.flip === "function") {
+    try {
+      state.pageFlip.flip(nextPage, "bottom");
+    } catch (error) {
+      // The fallback reader already updated the visible page.
+    }
+  }
+}
+
+function initStorybook() {
+  const root = document.querySelector("#storybookFlip");
+  if (!root || !state.storybook) return;
+
+  destroyPageFlip();
+  updateStorybookUI();
+
+  if (prefersReducedMotion() || window.matchMedia("(max-width: 760px)").matches) return;
+
+  loadPageFlipScript()
+    .then(() => {
+      if (!window.St || typeof window.St.PageFlip !== "function") return;
+
+      const pages = root.querySelectorAll(".storybook-page");
+      if (!pages.length) return;
+
+      try {
+        state.pageFlip = new window.St.PageFlip(root, {
+          width: 430,
+          height: 610,
+          size: "stretch",
+          minWidth: 290,
+          maxWidth: 520,
+          minHeight: 430,
+          maxHeight: 720,
+          showCover: false,
+          usePortrait: true,
+          mobileScrollSupport: false,
+          maxShadowOpacity: 0.2,
+          flippingTime: 760,
+          startPage: state.selectedStoryPage,
+          drawShadow: true,
+        });
+
+        root.classList.remove("fallback");
+        root.classList.add("is-pageflip");
+        state.pageFlip.loadFromHTML(pages);
+        state.pageFlip.on("flip", (event) => {
+          selectStoryPage(Number(event.data), false);
+        });
+      } catch (error) {
+        root.classList.add("fallback");
+        root.classList.remove("is-pageflip");
+        destroyPageFlip();
+      }
+    })
+    .catch(() => {
+      root.classList.add("fallback");
+    });
+}
+
+function loadPageFlipScript() {
+  if (window.St && window.St.PageFlip) return Promise.resolve();
+  if (state.pageFlipLoading) return state.pageFlipLoading;
+
+  state.pageFlipLoading = new Promise((resolve, reject) => {
+    const existing = document.querySelector(`script[src="${PAGE_FLIP_SCRIPT_URL}"]`);
+    if (existing) {
+      existing.addEventListener("load", resolve, { once: true });
+      existing.addEventListener("error", reject, { once: true });
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = PAGE_FLIP_SCRIPT_URL;
+    script.async = true;
+    script.onload = resolve;
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+
+  return state.pageFlipLoading;
+}
+
+function destroyPageFlip() {
+  if (state.pageFlip && typeof state.pageFlip.destroy === "function") {
+    try {
+      state.pageFlip.destroy();
+    } catch (error) {
+      // The DOM is recreated during render; a failed destroy is not fatal.
+    }
+  }
+  state.pageFlip = null;
+}
+
+function updateStorybookUI() {
+  if (!state.storybook) return;
+  const currentIndex = clampStoryPage(state.selectedStoryPage);
+  const currentPage = state.storybook.pages[currentIndex];
+  const total = state.storybook.pages.length;
+  const progress = Math.round(((currentIndex + 1) / total) * 100);
+  const reader = document.querySelector(".storybook-reader");
+
+  document.querySelectorAll("[data-story-page-view]").forEach((page) => {
+    page.classList.toggle("is-active", Number(page.dataset.storyPageView) === currentIndex);
+  });
+
+  document.querySelectorAll("[data-story-page]").forEach((button) => {
+    button.setAttribute("aria-pressed", String(Number(button.dataset.storyPage) === currentIndex));
+  });
+
+  document.querySelectorAll("[data-story-action='prev']").forEach((button) => {
+    button.disabled = currentIndex === 0;
+  });
+
+  document.querySelectorAll("[data-story-action='next']").forEach((button) => {
+    button.disabled = currentIndex === total - 1;
+  });
+
+  setText("[data-story-status]", `Pagina ${currentIndex + 1} de ${total}`);
+  setText("[data-story-kicker]", currentPage.kicker);
+  setText("[data-story-title]", currentPage.title);
+  setText("[data-story-body]", currentPage.body);
+  setText("[data-story-tone]", currentPage.tone);
+
+  if (reader) {
+    reader.style.setProperty("--story-progress", `${progress}%`);
+  }
+}
+
+function handleStorybookKeyboard(event) {
+  if (!state.storybook || event.altKey || event.ctrlKey || event.metaKey) return;
+  const active = document.activeElement;
+  if (active && ["INPUT", "TEXTAREA", "SELECT"].includes(active.tagName)) return;
+
+  const reader = document.querySelector(".storybook-reader");
+  if (!reader || !isElementMostlyVisible(reader)) return;
+
+  if (event.key === "ArrowRight") {
+    event.preventDefault();
+    selectStoryPage(state.selectedStoryPage + 1);
+  }
+
+  if (event.key === "ArrowLeft") {
+    event.preventDefault();
+    selectStoryPage(state.selectedStoryPage - 1);
+  }
 }
 
 function renderViewControl() {
@@ -380,6 +608,85 @@ function renderMetrics(metrics) {
       </article>
     `;
   }).join("");
+}
+
+function renderStorybook(storybook) {
+  const currentIndex = clampStoryPage(state.selectedStoryPage);
+  const currentPage = storybook.pages[currentIndex] || storybook.pages[0];
+  const progress = Math.round(((currentIndex + 1) / storybook.pages.length) * 100);
+
+  return `
+    <section class="storybook-band" id="cuento-dia-nino" aria-label="Cuento digital de Dia del Nino">
+      <div class="storybook-heading" data-reveal>
+        <p class="eyebrow">${escapeHtml(storybook.eyebrow)}</p>
+        <h2>${escapeHtml(storybook.title)}</h2>
+        <p>${escapeHtml(storybook.subtitle)}</p>
+        <div class="storybook-meta">
+          <span>${escapeHtml(storybook.audience)}</span>
+          <span>${escapeHtml(storybook.status)}</span>
+        </div>
+      </div>
+
+      <div class="storybook-reader" data-reveal style="--reveal-delay:120ms">
+        <div class="storybook-toolbar" aria-label="Controles del cuento">
+          <button type="button" class="storybook-control" data-story-action="prev">Anterior</button>
+          <div class="storybook-progress" style="--story-progress:${progress}%">
+            <span data-story-status>Pagina ${currentIndex + 1} de ${storybook.pages.length}</span>
+            <i></i>
+          </div>
+          <button type="button" class="storybook-control" data-story-action="next">Siguiente</button>
+        </div>
+
+        <div class="storybook-layout">
+          <div class="storybook-stage">
+            <div class="storybook-flip fallback" id="storybookFlip">
+              ${storybook.pages.map((page, index) => renderStorybookPage(page, index, currentIndex)).join("")}
+            </div>
+          </div>
+
+          <aside class="storybook-side">
+            <span class="storybook-side-kicker" data-story-kicker>${escapeHtml(currentPage.kicker)}</span>
+            <h3 data-story-title>${escapeHtml(currentPage.title)}</h3>
+            <p data-story-body>${escapeHtml(currentPage.body)}</p>
+            <div class="storybook-tone" data-story-tone>${escapeHtml(currentPage.tone)}</div>
+            <div class="storybook-index" aria-label="Indice del cuento">
+              ${storybook.pages.map((page, index) => `
+                <button
+                  type="button"
+                  data-story-page="${index}"
+                  aria-pressed="${index === currentIndex}"
+                  aria-label="Ir a ${escapeAttribute(page.kicker)}"
+                >
+                  ${index + 1}
+                </button>
+              `).join("")}
+            </div>
+            <div class="storybook-activity">
+              <strong>${escapeHtml(storybook.activityTitle)}</strong>
+              <p>${escapeHtml(storybook.activityText)}</p>
+            </div>
+            <small>${escapeHtml(storybook.sourceLabel)}</small>
+          </aside>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function renderStorybookPage(page, index, currentIndex) {
+  const isActive = index === currentIndex ? " is-active" : "";
+  return `
+    <article class="storybook-page${isActive}" data-story-page-view="${index}">
+      <div class="storybook-page-visual">
+        ${page.image ? `<img src="${escapeAttribute(page.image)}" data-future-image="${escapeAttribute(page.futureImage)}" alt="${escapeAttribute(page.title)}" loading="lazy">` : ""}
+      </div>
+      <div class="storybook-page-copy">
+        <span>${escapeHtml(page.kicker)}</span>
+        <h3>${escapeHtml(page.title)}</h3>
+        <p>${escapeHtml(page.body)}</p>
+      </div>
+    </article>
+  `;
 }
 
 function renderEnterpriseFocus(focus) {
@@ -762,6 +1069,13 @@ function normalizeMissionId(id, missions) {
   return missions.some((mission) => mission.id === id) ? id : missions[0].id;
 }
 
+function clampStoryPage(index) {
+  if (!state.storybook || !state.storybook.pages.length) return 0;
+  const number = Number(index);
+  if (!Number.isFinite(number)) return 0;
+  return Math.min(Math.max(Math.round(number), 0), state.storybook.pages.length - 1);
+}
+
 function normalizeViewScale(value) {
   return VIEW_SCALES.includes(value) ? value : "normal";
 }
@@ -801,6 +1115,19 @@ function writeStorage(key, value) {
   } catch (error) {
     // LocalStorage can be disabled in private browsing; the app still works.
   }
+}
+
+function setText(selector, value) {
+  const node = document.querySelector(selector);
+  if (node) node.textContent = value || "";
+}
+
+function isElementMostlyVisible(element) {
+  const rect = element.getBoundingClientRect();
+  const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+  const visibleTop = Math.max(rect.top, 0);
+  const visibleBottom = Math.min(rect.bottom, windowHeight);
+  return visibleBottom - visibleTop > Math.min(rect.height * 0.28, 180);
 }
 
 function prefersReducedMotion() {

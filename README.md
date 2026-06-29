@@ -16,6 +16,8 @@ La rama `main` ya fue inicializada, empujada al remoto y sincronizada con `origi
 
 Hito actual verificado: `v0.5.0`, propuesta tecnica-editorial Paracel-FACEN integrada en la seccion `#iniciativas`.
 
+Avance editorial en rama `feature/cuento-dia-del-nino-2026`: borrador interno del cuento **Carlitos y el bosque que guarda abrazos**, pensado como pieza revisable para compartir por el Dia del Nino en Paraguay, 16 de agosto, con base en la antologia propuesta en el PDF Paracel-FACEN.
+
 Pendiente: confirmar GitHub Pages, autorizaciones editoriales/legales y despliegue GAS si se decide usar la hoja online como fuente publica.
 
 ## Contenido de la appweb
@@ -35,6 +37,7 @@ Instructivos visuales disponibles:
 ```text
 docs/INSTRUCCIONES_IMAGENES_CARLITOS_APPWEB_2026-06-25.md
 docs/INSTRUCCIONES_ICONOS_CARLITOS_APPWEB_2026-06-25.md
+docs/CUENTO_DIA_DEL_NINO_CARLITOS_BOSQUE_GUARDA_ABRAZOS_2026-06-29.md
 ```
 
 ## Mejora visual 2026-06-25
@@ -182,8 +185,10 @@ No usar este prototipo como publicacion final sin validacion editorial, legal e 
 
 ## Proximo paso
 
-1. Confirmar si se puede usar oficialmente la figura de Carlitos.
-2. Activar o verificar GitHub Pages sobre la rama `main`.
-3. Optimizar imagenes para web antes de difusion publica.
-4. Desplegar GAS como Web App y conectar `GAS_ENDPOINT`.
-5. Agregar PWA/offline si la app se usara en aulas con conectividad irregular.
+1. Revisar editorial, tecnica y legalmente el cuento de Dia del Nino.
+2. Confirmar si se puede usar oficialmente la figura de Carlitos.
+3. Definir si la pieza publica mencionara a Paracel o quedara como cuento educativo sin marcas visibles.
+4. Activar o verificar GitHub Pages sobre la rama `main`.
+5. Optimizar imagenes para web antes de difusion publica.
+6. Desplegar GAS como Web App y conectar `GAS_ENDPOINT`.
+7. Agregar PWA/offline si la app se usara en aulas con conectividad irregular.

@@ -148,3 +148,95 @@
 * Solicitar validacion tecnica de contenidos ambientales y forestales.
 * Solicitar revision legal/editorial antes de difusion formal.
 * Mantener version visible y evidencia de verificacion publica en cada hito.
+
+## 2026-06-29 18:38
+
+### Proyecto
+
+* Nombre: Libros de Carlitos - Cuento para Dia del Nino
+* Cliente o institucion: PARACEL / FACEN-UNA / investigapyrm
+* Ruta local: `C:\Users\Diego\OneDrive - PARACEL S.A\MONITOREO_IMPACTO_SOCIAL_PARACEL\PROYECTO_CARLITOS\libros_de_carlitos`
+* Repositorio: `https://github.com/investigapyrm/libros_de_carlitos.git`
+* Fuente documental: `J:\Mi unidad\carlitos\propuesta_tecnica_carlitos_paracel_sostenibilidad.pdf`
+* Rama de trabajo: `feature/cuento-dia-del-nino-2026`
+* Responsable: Codex
+* Version: borrador editorial interno
+
+### Objetivo de la intervencion
+
+* Considerar y avanzar una pieza narrativa de Carlitos para compartir por el Dia del Nino en Paraguay, 16 de agosto.
+* Alinear el cuento con la propuesta tecnica-editorial Paracel-FACEN ya integrada al repositorio.
+
+### Diagnostico inicial
+
+* El repositorio estaba limpio y sincronizado con `origin/main`.
+* La app ya contenia la propuesta tecnica-editorial Paracel-FACEN en `data/book.json`.
+* El PDF fuente propone una antologia de 10 cuentos infantiles, incluyendo `El bosque magico que atrapa el calor`.
+* Para Dia del Nino conviene una pieza breve, afectiva y compartible, no una ficha tecnica ni una comunicacion corporativa directa.
+
+### Acciones realizadas
+
+* Se creo la rama `feature/cuento-dia-del-nino-2026`.
+* Se redacto el borrador `Carlitos y el bosque que guarda abrazos`.
+* Se adapto el enfoque del cuento 1 de la antologia: clima, captura de carbono y plantaciones planificadas.
+* Se mantuvo una distincion explicita entre bosque nativo protegido y plantacion planificada.
+* Se agrego actividad breve para aula/comunidad: `Regalos que crecen`.
+* Se agregaron criterios de revision legal, editorial y tecnica antes de difundir.
+* Se agregaron prompts visuales para portada, escena interior y cierre.
+* Se actualizo `README.md` con el avance editorial.
+
+### Archivos modificados
+
+* `README.md`
+* `BITACORA_LIBROS_DE_CARLITOS_PARACEL_REPO.md`
+* `docs/CUENTO_DIA_DEL_NINO_CARLITOS_BOSQUE_GUARDA_ABRAZOS_2026-06-29.md`
+* `G:\Mi unidad\MANUAL_MAESTRO_FORMATOS_FUNCIONES_APPWEB\APRENDIZAJE_CARLITOS_CUENTO_DIA_DEL_NINO_2026-06-29.md`
+
+### Comandos o scripts ejecutados
+
+* `git status --branch --short`
+* `pdftotext "J:\Mi unidad\carlitos\propuesta_tecnica_carlitos_paracel_sostenibilidad.pdf" -`
+* `git switch -c feature/cuento-dia-del-nino-2026`
+* `git diff --check`
+
+### Resultados verificados
+
+* El PDF fuente fue leido y contiene la antologia de 10 cuentos infantiles.
+* El cuento creado se alinea con `El bosque magico que atrapa el calor`, ODS 13, captura de CO2 y sostenibilidad forestal.
+* El borrador evita logos, marcas graficas y afirmaciones ambientales absolutas.
+* El documento incluye actividad, criterios de revision y prompts visuales.
+
+### Pruebas realizadas
+
+* Revision estructural del documento Markdown.
+* Verificacion de whitespace con `git diff --check`.
+
+### Errores o incidentes
+
+* No se detectaron errores tecnicos.
+* Queda pendiente validacion humana editorial, tecnica, legal e institucional.
+
+### Soluciones aplicadas
+
+* Se eligio un cuento afectivo y didactico para Dia del Nino, no una pieza promocional.
+* Se uso lenguaje prudente: propuesta, cuidado, medicion, planificacion y evidencia.
+* Se separo claramente el borrador interno de una publicacion final.
+
+### Pendientes
+
+* Revisar si el cuento debe mencionar explicitamente a Paracel o mantenerse sin marcas visibles.
+* Validar derechos de uso de Carlitos, autoria e imagenes.
+* Revisar tecnicamente la explicacion de captura de carbono.
+* Decidir formato final: pagina web, PDF ilustrado, carrusel, lectura breve o pieza imprimible.
+
+### Riesgos
+
+* Difundir sin autorizacion formal del personaje o autores.
+* Presentar plantaciones como reemplazo de bosque nativo.
+* Convertir el cuento en propaganda si se agregan marcas o afirmaciones no verificadas.
+
+### Recomendaciones
+
+* Usar este borrador como base de revision con autores y equipo socioambiental.
+* Preparar una version corta para lectura en voz alta y una version ilustrada para web/PDF.
+* Mantener la pieza final sin logos ni marcas si todavia no hay autorizacion expresa.

@@ -51,7 +51,7 @@ La rama `feature/cuento-dia-del-nino-2026` contiene dos documentos de trabajo:
 * `docs/CONTENIDO_INICIAL_PROMPTS_GPT_IMAGEN_CUENTO_DIA_DEL_NINO_2026-06-29.md`: contenido inicial, secuencia de laminas, prompts para GPT Imagen en linea, nombres sugeridos de archivos y control de calidad visual.
 * `docs/INVESTIGACION_LIBRERIAS_LIBRO_DIGITAL_INTERACTIVO_2026-06-29.md`: evaluacion de librerias libres para libro digital y criterio de integracion.
 
-La appweb incorpora una vista `#cuento-dia-nino` con formato de libro digital interactivo a pantalla completa. La vista carga 10 paginas desde `data/story-dia-nino.json`, usa las imagenes copiadas desde `J:\Mi unidad\carlitos\cuento_dia_Del_niño`, ofrece controles de avance y progreso, y reserva `StPageFlip` como mejora progresiva para pantallas muy anchas. En escritorio comun y movil prioriza un lector full-bleed propio para que el libro ocupe casi toda la vista.
+La appweb incorpora una vista `#cuento-dia-nino` con formato de libro digital interactivo a pantalla completa. La vista carga 10 paginas desde `data/story-dia-nino.json`, usa las imagenes copiadas desde `J:\Mi unidad\carlitos\cuento_dia_Del_niño`, ofrece controles de avance y progreso, y muestra dos paginas simultaneas en escritorio. El texto aparece solapado sobre las ilustraciones en bloques semitransparentes, sin cubrirlas completamente. En movil se prioriza una pagina grande por vez para conservar legibilidad.
 
 Uso recomendado:
 

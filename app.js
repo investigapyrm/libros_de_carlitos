@@ -1,4 +1,4 @@
-const APP_VERSION = "v0.6.1";
+const APP_VERSION = "v0.6.2";
 const APP_BUILD_DATE = "2026-06-29";
 const GAS_ENDPOINT = "";
 const LOCAL_DATA_URL = "data/book.json";
@@ -81,7 +81,7 @@ async function loadBook(forceLocal = false) {
     state.storybook = normalizeStorybook(storybookPayload);
     state.selectedOrden = firstContentItem(state.book).orden;
     state.selectedMission = normalizeMissionId(state.selectedMission, getMissions(state.book));
-    state.selectedStoryPage = clampStoryPage(state.selectedStoryPage);
+    state.selectedStoryPage = clampStorySpread(state.selectedStoryPage);
     renderApp();
     scrollToHashTarget();
   } catch (error) {
@@ -347,8 +347,8 @@ function bindEvents() {
 
   document.querySelectorAll("[data-story-action]").forEach((button) => {
     button.addEventListener("click", () => {
-      if (button.dataset.storyAction === "next") selectStoryPage(state.selectedStoryPage + 1);
-      if (button.dataset.storyAction === "prev") selectStoryPage(state.selectedStoryPage - 1);
+      if (button.dataset.storyAction === "next") selectStoryPage(state.selectedStoryPage + 2);
+      if (button.dataset.storyAction === "prev") selectStoryPage(state.selectedStoryPage - 2);
     });
   });
 
@@ -394,7 +394,7 @@ function selectMission(mission, targetId) {
 
 function selectStoryPage(index, syncFlip = true) {
   if (!state.storybook) return;
-  const nextPage = clampStoryPage(index);
+  const nextPage = clampStorySpread(index);
   state.selectedStoryPage = nextPage;
   writeStorage(STORAGE_KEYS.storyPage, String(nextPage));
   updateStorybookUI();
@@ -415,7 +415,7 @@ function initStorybook() {
   destroyPageFlip();
   updateStorybookUI();
 
-  if (prefersReducedMotion() || window.matchMedia("(max-width: 1500px)").matches) return;
+  if (prefersReducedMotion() || window.matchMedia("(max-width: 9999px)").matches) return;
 
   loadPageFlipScript()
     .then(() => {
@@ -498,11 +498,14 @@ function updateStorybookUI() {
   const currentIndex = clampStoryPage(state.selectedStoryPage);
   const currentPage = state.storybook.pages[currentIndex];
   const total = state.storybook.pages.length;
-  const progress = Math.round(((currentIndex + 1) / total) * 100);
+  const rightIndex = Math.min(currentIndex + 1, total - 1);
+  const progress = Math.round(((rightIndex + 1) / total) * 100);
   const reader = document.querySelector(".storybook-reader");
 
   document.querySelectorAll("[data-story-page-view]").forEach((page) => {
-    page.classList.toggle("is-active", Number(page.dataset.storyPageView) === currentIndex);
+    const pageIndex = Number(page.dataset.storyPageView);
+    page.classList.toggle("is-active", pageIndex === currentIndex);
+    page.classList.toggle("is-next-spread", pageIndex === rightIndex && rightIndex !== currentIndex);
   });
 
   document.querySelectorAll("[data-story-page]").forEach((button) => {
@@ -514,10 +517,10 @@ function updateStorybookUI() {
   });
 
   document.querySelectorAll("[data-story-action='next']").forEach((button) => {
-    button.disabled = currentIndex === total - 1;
+    button.disabled = rightIndex === total - 1;
   });
 
-  setText("[data-story-status]", `Pagina ${currentIndex + 1} de ${total}`);
+  setText("[data-story-status]", rightIndex === currentIndex ? `Pagina ${currentIndex + 1} de ${total}` : `Paginas ${currentIndex + 1}-${rightIndex + 1} de ${total}`);
   setText("[data-story-kicker]", currentPage.kicker);
   setText("[data-story-title]", currentPage.title);
   setText("[data-story-body]", currentPage.body);
@@ -538,12 +541,12 @@ function handleStorybookKeyboard(event) {
 
   if (event.key === "ArrowRight") {
     event.preventDefault();
-    selectStoryPage(state.selectedStoryPage + 1);
+    selectStoryPage(state.selectedStoryPage + 2);
   }
 
   if (event.key === "ArrowLeft") {
     event.preventDefault();
-    selectStoryPage(state.selectedStoryPage - 1);
+    selectStoryPage(state.selectedStoryPage - 2);
   }
 }
 
@@ -613,7 +616,8 @@ function renderMetrics(metrics) {
 function renderStorybook(storybook) {
   const currentIndex = clampStoryPage(state.selectedStoryPage);
   const currentPage = storybook.pages[currentIndex] || storybook.pages[0];
-  const progress = Math.round(((currentIndex + 1) / storybook.pages.length) * 100);
+  const rightIndex = Math.min(currentIndex + 1, storybook.pages.length - 1);
+  const progress = Math.round(((rightIndex + 1) / storybook.pages.length) * 100);
 
   return `
     <section class="storybook-band" id="cuento-dia-nino" aria-label="Cuento digital de Dia del Nino">
@@ -631,7 +635,7 @@ function renderStorybook(storybook) {
         <div class="storybook-toolbar" aria-label="Controles del cuento">
           <button type="button" class="storybook-control" data-story-action="prev">Anterior</button>
           <div class="storybook-progress" style="--story-progress:${progress}%">
-            <span data-story-status>Pagina ${currentIndex + 1} de ${storybook.pages.length}</span>
+            <span data-story-status>${rightIndex === currentIndex ? `Pagina ${currentIndex + 1} de ${storybook.pages.length}` : `Paginas ${currentIndex + 1}-${rightIndex + 1} de ${storybook.pages.length}`}</span>
             <i></i>
           </div>
           <button type="button" class="storybook-control" data-story-action="next">Siguiente</button>
@@ -1074,6 +1078,12 @@ function clampStoryPage(index) {
   const number = Number(index);
   if (!Number.isFinite(number)) return 0;
   return Math.min(Math.max(Math.round(number), 0), state.storybook.pages.length - 1);
+}
+
+function clampStorySpread(index) {
+  const page = clampStoryPage(index);
+  const lastSpreadStart = Math.max(0, state.storybook.pages.length - 2);
+  return Math.min(page - (page % 2), lastSpreadStart);
 }
 
 function normalizeViewScale(value) {

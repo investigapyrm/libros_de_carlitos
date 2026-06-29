@@ -548,3 +548,100 @@
 * Crear versiones WebP o JPG optimizadas antes de difusion publica.
 * Conservar los PNG originales como candidatos de alta calidad.
 * No publicar hasta cerrar autorizaciones de personaje, autoria e imagenes.
+
+## 2026-06-29 19:40
+
+### Proyecto
+
+* Nombre: Libros de Carlitos - Ajuste inmersivo de doble pagina
+* Cliente o institucion: PARACEL / FACEN-UNA / investigapyrm
+* Ruta local: `C:\Users\Diego\OneDrive - PARACEL S.A\MONITOREO_IMPACTO_SOCIAL_PARACEL\PROYECTO_CARLITOS\libros_de_carlitos`
+* Repositorio: `https://github.com/investigapyrm/libros_de_carlitos.git`
+* URL local de prueba: `http://127.0.0.1:8792/#cuento-dia-nino`
+* Rama de trabajo: `feature/cuento-dia-del-nino-2026`
+* Responsable: Codex
+* Version: `v0.6.2`
+
+### Objetivo de la intervencion
+
+* Hacer que el libro ocupe absolutamente toda la pantalla al abrir la vista del cuento.
+* Mostrar ambas paginas del libro en escritorio.
+* Solapar el texto sobre las imagenes con bloques semitransparentes que no tapen completamente la ilustracion.
+
+### Diagnostico inicial
+
+* La version `v0.6.1` ya integraba imagenes reales, pero el lector todavia se sentia como una seccion dentro de la pagina.
+* El texto quedaba debajo o sobre una franja demasiado amplia en algunas vistas.
+* El avance era pagina por pagina, no como doble pagina abierta.
+
+### Acciones realizadas
+
+* Se cambio `#cuento-dia-nino` a visor inmersivo de `100svh`.
+* Se convirtio el lector propio en una doble pagina para escritorio.
+* Se ajusto la navegacion para avanzar de a dos paginas.
+* Se cambio el estado de pagina a `Paginas 1-2 de 10`, etc.
+* Se crearon bloques de texto semitransparentes con desenfoque suave sobre cada ilustracion.
+* Se redujo el ancho del texto para que no tape completamente la imagen.
+* Se dejaron los controles flotantes sobre el libro.
+* En movil se mantuvo una pagina por vez por legibilidad, con controles flotantes abajo.
+* Se actualizo version/cache a `v0.6.2`.
+
+### Archivos modificados
+
+* `index.html`
+* `app.js`
+* `styles.css`
+* `README.md`
+* `BITACORA_LIBROS_DE_CARLITOS_PARACEL_REPO.md`
+* `G:\Mi unidad\MANUAL_MAESTRO_FORMATOS_FUNCIONES_APPWEB\APRENDIZAJE_CARLITOS_CUENTO_DIA_DEL_NINO_2026-06-29.md`
+
+### Comandos o scripts ejecutados
+
+* `node --check app.js`
+* `node -e "JSON.parse(require('fs').readFileSync('data/story-dia-nino.json','utf8'))"`
+* `python -m http.server 8792 --bind 127.0.0.1` o reutilizacion del servidor local activo
+* `npx playwright screenshot --wait-for-timeout=2500 "http://127.0.0.1:8792/?v=0.6.2-spread#cuento-dia-nino" "tmp_storybook_spread_desktop.png"`
+* `npx playwright screenshot --viewport-size="390,844" --wait-for-timeout=2500 "http://127.0.0.1:8792/?v=0.6.2-mobile#cuento-dia-nino" "tmp_storybook_spread_mobile.png"`
+
+### Resultados verificados
+
+* En escritorio se muestran dos paginas simultaneas.
+* El texto queda sobre la imagen en bloques semitransparentes y no cubre toda la ilustracion.
+* El visor ocupa la pantalla completa de la seccion.
+* En movil la pagina ocupa la pantalla y mantiene legibilidad.
+
+### Pruebas realizadas
+
+* Validacion sintactica JavaScript.
+* Validacion JSON.
+* Captura Playwright de escritorio.
+* Captura Playwright movil.
+* Revision visual de capturas.
+
+### Errores o incidentes
+
+* PowerShell no acepto `&&` como separador al preparar el commit; se reejecutaron los comandos de Git por separado.
+* Se decidio mantener una pagina por vez en movil porque dos paginas simultaneas no son legibles en 390px de ancho.
+
+### Soluciones aplicadas
+
+* Spread de doble pagina para escritorio.
+* Texto tipo vidrio semitransparente.
+* Controles flotantes.
+* Navegacion por spread de dos paginas.
+
+### Pendientes
+
+* Revisar la vista en GitHub Pages luego de publicar la rama.
+* Optimizar imagenes antes de difusion publica.
+* Validar derechos de personaje, autores e imagenes.
+
+### Riesgos
+
+* Imagenes pesadas para conectividad baja.
+* En pantallas muy pequenas la doble pagina no es legible; por eso se usa pagina unica en movil.
+
+### Recomendaciones
+
+* Mantener doble pagina solo desde tablet/escritorio.
+* En futuras versiones, agregar boton de pantalla completa nativo del navegador si se desea modo kiosco.

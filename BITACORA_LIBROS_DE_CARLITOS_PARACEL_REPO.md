@@ -240,3 +240,93 @@
 * Usar este borrador como base de revision con autores y equipo socioambiental.
 * Preparar una version corta para lectura en voz alta y una version ilustrada para web/PDF.
 * Mantener la pieza final sin logos ni marcas si todavia no hay autorizacion expresa.
+
+## 2026-06-29 18:45
+
+### Proyecto
+
+* Nombre: Libros de Carlitos - Prompts para cuento de Dia del Nino
+* Cliente o institucion: PARACEL / FACEN-UNA / investigapyrm
+* Ruta local: `C:\Users\Diego\OneDrive - PARACEL S.A\MONITOREO_IMPACTO_SOCIAL_PARACEL\PROYECTO_CARLITOS\libros_de_carlitos`
+* Repositorio: `https://github.com/investigapyrm/libros_de_carlitos.git`
+* Fuente documental: `J:\Mi unidad\carlitos\propuesta_tecnica_carlitos_paracel_sostenibilidad.pdf`
+* Rama de trabajo: `feature/cuento-dia-del-nino-2026`
+* Responsable: Codex
+* Version: paquete inicial de prompts visuales
+
+### Objetivo de la intervencion
+
+* Crear contenido inicial y una lista de prompts para que GPT Imagen en linea pueda producir las ilustraciones del cuento de Dia del Nino.
+* Dejar el paquete documentado, trazable y separado de una publicacion final.
+
+### Diagnostico inicial
+
+* Ya existia el borrador del cuento `Carlitos y el bosque que guarda abrazos`.
+* Faltaba una secuencia visual mas operativa para generar portada, laminas interiores y piezas de difusion.
+* La produccion visual requiere controles explicitos: no texto legible, no logos, no marcas, no sustitucion de bosque nativo por plantacion.
+
+### Acciones realizadas
+
+* Se creo un documento especifico para GPT Imagen en linea.
+* Se definio concepto editorial inicial: titulo, subtitulo, frase guia, sinopsis, publico e idea ambiental central.
+* Se agrego prompt maestro y prompt negativo general.
+* Se estructuro una secuencia de 12 laminas con prompts y nombres recomendados de archivos.
+* Se agregaron prompts adicionales para redes, historia vertical, banner web y contraportada.
+* Se agrego orden recomendado de generacion y control de calidad visual.
+* Se agregaron textos iniciales para publicacion, docente y revision institucional.
+* Se actualizo `README.md` para que el paquete sea visible desde la documentacion principal.
+
+### Archivos modificados
+
+* `README.md`
+* `BITACORA_LIBROS_DE_CARLITOS_PARACEL_REPO.md`
+* `docs/CONTENIDO_INICIAL_PROMPTS_GPT_IMAGEN_CUENTO_DIA_DEL_NINO_2026-06-29.md`
+* `G:\Mi unidad\MANUAL_MAESTRO_FORMATOS_FUNCIONES_APPWEB\APRENDIZAJE_CARLITOS_CUENTO_DIA_DEL_NINO_2026-06-29.md`
+
+### Comandos o scripts ejecutados
+
+* `git status --branch --short`
+* `Get-Content docs\CONTENIDO_INICIAL_PROMPTS_GPT_IMAGEN_CUENTO_DIA_DEL_NINO_2026-06-29.md -Tail 30`
+* `Get-Date -Format "yyyy-MM-dd HH:mm"`
+
+### Resultados verificados
+
+* El documento de prompts existe y quedo completo hasta la seccion de textos iniciales.
+* El README referencia el nuevo documento junto con el borrador narrativo.
+* El paquete diferencia bosque nativo protegido y plantacion planificada.
+* El paquete indica usar modo seguro si no existe autorizacion formal para el personaje Carlitos.
+
+### Pruebas realizadas
+
+* Lectura de inicio y cierre del documento Markdown.
+* Verificacion de estado Git antes de preparar el commit.
+
+### Errores o incidentes
+
+* No se detectaron errores tecnicos.
+* No se generaron imagenes en esta intervencion; se prepararon prompts para uso en GPT Imagen en linea.
+
+### Soluciones aplicadas
+
+* Se separo el contenido visual operativo del cuento narrativo.
+* Se definio una secuencia de laminas para evitar generacion aislada y desordenada.
+* Se incorporaron restricciones de derechos, marcas y texto dentro de imagenes.
+
+### Pendientes
+
+* Generar imagenes piloto: portada, lamina 05 y lamina 12.
+* Validar consistencia de Carlitos entre imagenes generadas.
+* Revisar las imagenes con criterios legal, editorial, tecnico ambiental e institucional.
+* Optimizar los archivos finales para web/PDF/redes.
+
+### Riesgos
+
+* Que GPT Imagen genere texto falso, marcas o simbolos institucionales no autorizados.
+* Que Carlitos cambie demasiado entre laminas si no se usan referencias visuales.
+* Que la plantacion planificada se interprete como reemplazo del bosque nativo.
+
+### Recomendaciones
+
+* Generar pocas imagenes piloto antes de producir toda la serie.
+* Mantener una carpeta separada para imagenes candidatas y otra para imagenes aprobadas.
+* Registrar cada lote generado con fecha, prompt usado y observaciones de calidad.

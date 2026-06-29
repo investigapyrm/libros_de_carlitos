@@ -16,7 +16,7 @@ La rama `main` ya fue inicializada, empujada al remoto y sincronizada con `origi
 
 Hito actual verificado: `v0.5.0`, propuesta tecnica-editorial Paracel-FACEN integrada en la seccion `#iniciativas`.
 
-Avance editorial en rama `feature/cuento-dia-del-nino-2026`: borrador interno del cuento **Carlitos y el bosque que guarda abrazos**, pensado como pieza revisable para compartir por el Dia del Nino en Paraguay, 16 de agosto, con base en la antologia propuesta en el PDF Paracel-FACEN.
+Avance editorial en rama `feature/cuento-dia-del-nino-2026`: borrador interno del cuento **Carlitos y el bosque que guarda abrazos**, pensado como pieza revisable para compartir por el Dia del Nino en Paraguay, 16 de agosto, con base en la antologia propuesta en el PDF Paracel-FACEN. La rama incluye tambien un paquete inicial de contenido y prompts para producir imagenes en GPT Imagen en linea.
 
 Pendiente: confirmar GitHub Pages, autorizaciones editoriales/legales y despliegue GAS si se decide usar la hoja online como fuente publica.
 
@@ -38,7 +38,22 @@ Instructivos visuales disponibles:
 docs/INSTRUCCIONES_IMAGENES_CARLITOS_APPWEB_2026-06-25.md
 docs/INSTRUCCIONES_ICONOS_CARLITOS_APPWEB_2026-06-25.md
 docs/CUENTO_DIA_DEL_NINO_CARLITOS_BOSQUE_GUARDA_ABRAZOS_2026-06-29.md
+docs/CONTENIDO_INICIAL_PROMPTS_GPT_IMAGEN_CUENTO_DIA_DEL_NINO_2026-06-29.md
 ```
+
+## Paquete Dia del Nino 2026
+
+La rama `feature/cuento-dia-del-nino-2026` contiene dos documentos de trabajo:
+
+* `docs/CUENTO_DIA_DEL_NINO_CARLITOS_BOSQUE_GUARDA_ABRAZOS_2026-06-29.md`: borrador narrativo, actividad y criterios de revision.
+* `docs/CONTENIDO_INICIAL_PROMPTS_GPT_IMAGEN_CUENTO_DIA_DEL_NINO_2026-06-29.md`: contenido inicial, secuencia de laminas, prompts para GPT Imagen en linea, nombres sugeridos de archivos y control de calidad visual.
+
+Uso recomendado:
+
+1. Validar autorizaciones del personaje, autores e instituciones antes de publicar.
+2. Generar primero portada, lamina 05 y lamina 12 para fijar estilo.
+3. Usar esas imagenes como referencia visual para producir las demas laminas.
+4. Revisar que no aparezcan textos, logos, marcas, escudos ni numeros deformes dentro de las imagenes.
 
 ## Mejora visual 2026-06-25
 
@@ -188,7 +203,8 @@ No usar este prototipo como publicacion final sin validacion editorial, legal e 
 1. Revisar editorial, tecnica y legalmente el cuento de Dia del Nino.
 2. Confirmar si se puede usar oficialmente la figura de Carlitos.
 3. Definir si la pieza publica mencionara a Paracel o quedara como cuento educativo sin marcas visibles.
-4. Activar o verificar GitHub Pages sobre la rama `main`.
-5. Optimizar imagenes para web antes de difusion publica.
-6. Desplegar GAS como Web App y conectar `GAS_ENDPOINT`.
-7. Agregar PWA/offline si la app se usara en aulas con conectividad irregular.
+4. Producir imagenes piloto con el paquete de prompts GPT Imagen.
+5. Activar o verificar GitHub Pages sobre la rama `main`.
+6. Optimizar imagenes para web antes de difusion publica.
+7. Desplegar GAS como Web App y conectar `GAS_ENDPOINT`.
+8. Agregar PWA/offline si la app se usara en aulas con conectividad irregular.

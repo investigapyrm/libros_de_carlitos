@@ -1,4 +1,4 @@
-const APP_VERSION = "v0.7.5";
+const APP_VERSION = "v0.7.6";
 const APP_BUILD_DATE = "2026-06-29";
 const GAS_ENDPOINT = "";
 const LOCAL_DATA_URL = "data/book.json";
@@ -561,18 +561,22 @@ function selectStoryPage(index, syncFlip = true) {
   const nextPage = clampStoryIndex(index);
   if (nextPage === currentPage) return;
 
-  animateStoryPageTurn(nextPage > currentPage ? "next" : "prev");
-  state.selectedStoryPage = nextPage;
-  writeStorage(storyPageStorageKey(state.activeEditionId || state.storybook.id), String(nextPage));
-  updateStorybookUI();
-
   if (syncFlip && state.pageFlip && typeof state.pageFlip.flip === "function") {
     try {
       state.pageFlip.flip(nextPage, "bottom");
+      return;
     } catch (error) {
-      // The fallback reader already updated the visible page.
+      // The fallback reader updates the visible page below.
     }
   }
+
+  if (syncFlip) {
+    animateStoryPageTurn(nextPage > currentPage ? "next" : "prev");
+  }
+
+  state.selectedStoryPage = nextPage;
+  writeStorage(storyPageStorageKey(state.activeEditionId || state.storybook.id), String(nextPage));
+  updateStorybookUI();
 }
 
 function animateStoryPageTurn(direction = "next") {

@@ -1374,3 +1374,82 @@
 ### Recomendaciones
 
 * Evaluar optimizacion WebP o versiones responsive si el cuento crece con mas ediciones inclusivas.
+
+## 2026-06-30 06:58
+
+### Proyecto
+
+* Nombre: Libros de Carlitos
+* Cliente o institucion: PARACEL / Proyecto Carlitos
+* Ruta local: `C:\Users\Diego\OneDrive - PARACEL S.A\MONITOREO_IMPACTO_SOCIAL_PARACEL\PROYECTO_CARLITOS\libros_de_carlitos`
+* Repositorio: `https://github.com/investigapyrm/libros_de_carlitos.git`
+* URL publica: `https://investigapyrm.github.io/libros_de_carlitos/`
+* Rama publicada por GitHub Pages: `feature/cuento-dia-del-nino-2026`
+* Responsable: Codex
+* Version: `v0.7.6`
+
+### Objetivo de la intervencion
+
+* Aumentar en aproximadamente 30% la transparencia del cuadro contenedor de texto.
+* Reducir el cuadro fantasma que seguia apareciendo despues de voltear pagina.
+* Alternar laminas inclusivas y no inclusivas para que el niño en silla de ruedas no aparezca en todas las imagenes.
+
+### Diagnostico inicial
+
+* El cuadro de texto ya no tenia borde, pero aun podia sentirse demasiado presente sobre la ilustracion.
+* La animacion local de respaldo seguia ejecutandose aunque PageFlip estuviera activo, generando una segunda hoja/capa superpuesta.
+* Todas las paginas principales usaban imagenes inclusivas con silla de ruedas, lo que hacia repetitiva la composicion.
+
+### Acciones realizadas
+
+* Se redujo la opacidad del cuadro de texto: `0.42 -> 0.29` y `0.38 -> 0.27`.
+* Se redujo el desenfoque del fondo del cuadro de texto de `13px` a `8px`.
+* Se ajusto `selectStoryPage()` para que, si PageFlip esta activo, use solo PageFlip y no dispare la hoja local de respaldo.
+* Se mantiene la animacion local solo si PageFlip no esta disponible o falla.
+* Se alternaron las imagenes del cuento: 4 paginas con laminas inclusivas y 6 paginas con laminas anteriores.
+* Se actualizo version/cache a `v0.7.6`.
+
+### Archivos modificados
+
+* `app.js`
+* `styles.css`
+* `index.html`
+* `data/story-dia-nino.json`
+* `BITACORA_LIBROS_DE_CARLITOS_PARACEL_REPO.md`
+
+### Comandos o scripts ejecutados
+
+* `node --check app.js`
+* `node -e "for (const f of ['data/book.json','data/editions.json','data/story-dia-nino.json','data/story-residuos-oportunidad.json']) { JSON.parse(require('fs').readFileSync(f,'utf8')); } console.log('JSON OK')"`
+* `git diff --check`
+* `npx playwright screenshot --viewport-size="390,844" --wait-for-timeout=4500 "http://127.0.0.1:8795/?v=0.7.6-mobile#libro/cuento-dia-nino-2026" "tmp_mobile_v076.png"`
+* `npx playwright screenshot --wait-for-timeout=4500 "http://127.0.0.1:8795/?v=0.7.6-desktop#libro/cuento-dia-nino-2026" "tmp_desktop_v076.png"`
+
+### Resultados verificados
+
+* La caja de texto se ve mas transparente en movil y escritorio.
+* El texto conserva legibilidad con sombra suave.
+* El conteo del cuento quedo en 4 laminas inclusivas y 6 alternadas.
+* JavaScript y JSON validaron correctamente.
+* `git diff --check` no reporto errores.
+
+### Pruebas realizadas
+
+* Validacion sintactica JavaScript.
+* Validacion JSON.
+* Captura Playwright CLI movil.
+* Captura Playwright CLI escritorio.
+* Revision estatica de que PageFlip ya no se superpone con la hoja local cuando esta activo.
+
+### Pendientes
+
+* Verificar propagacion publica de GitHub Pages despues del push.
+
+### Riesgos
+
+* Si PageFlip no carga por CDN, la app conserva animacion local de respaldo; esa animacion puede sentirse distinta al flip real, pero evita cambio seco.
+
+### Recomendaciones
+
+* Mantener PageFlip como animacion principal y la hoja CSS solo como fallback.
+* Usar diversidad visual de forma equilibrada, evitando repetir exactamente el mismo recurso inclusivo en todas las laminas.

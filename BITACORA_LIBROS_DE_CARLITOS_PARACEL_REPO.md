@@ -751,3 +751,86 @@
 * Mantener el catalogo en `data/editions.json` como fuente unica para nuevas ediciones.
 * Cada cuento debe tener su propio `data/story-*.json` con textos breves y rutas de imagen normalizadas.
 * Conservar la portada simple: pocas palabras, imagenes grandes y un boton claro para abrir.
+
+## 2026-06-29 20:11
+
+### Proyecto
+
+* Nombre: Libros de Carlitos - Publicacion GitHub Pages biblioteca v0.7.0
+* Cliente o institucion: PARACEL / FACEN-UNA / investigapyrm
+* Ruta local: `C:\Users\Diego\OneDrive - PARACEL S.A\MONITOREO_IMPACTO_SOCIAL_PARACEL\PROYECTO_CARLITOS\libros_de_carlitos`
+* Repositorio: `https://github.com/investigapyrm/libros_de_carlitos.git`
+* URL publica: `https://investigapyrm.github.io/libros_de_carlitos/`
+* Rama publicada: `main`
+* Responsable: Codex
+* Version: `v0.7.0`
+
+### Objetivo de la intervencion
+
+* Publicar en GitHub Pages la biblioteca inicial de ediciones y proveer el enlace publico.
+
+### Diagnostico inicial
+
+* La URL publica respondia `200`, pero todavia servia `APP_VERSION = "v0.5.0"`.
+* El archivo publico `data/editions.json` respondia `404`, por lo que la biblioteca nueva aun no estaba publicada.
+
+### Acciones realizadas
+
+* Se cambio de `feature/cuento-dia-del-nino-2026` a `main`.
+* Se aplico fast-forward de `main` hasta `b25c44b`.
+* Se hizo `git push origin main`.
+* Se espero la propagacion de GitHub Pages.
+* Se verifico nuevamente la URL publica.
+
+### Archivos modificados
+
+* `BITACORA_LIBROS_DE_CARLITOS_PARACEL_REPO.md`
+
+### Comandos o scripts ejecutados
+
+* `git checkout main`
+* `git merge --ff-only feature/cuento-dia-del-nino-2026`
+* `git push origin main`
+* `Invoke-WebRequest https://investigapyrm.github.io/libros_de_carlitos/app.js?v=verify-2`
+* `Invoke-WebRequest https://investigapyrm.github.io/libros_de_carlitos/data/editions.json?v=verify-2`
+* `Invoke-WebRequest https://investigapyrm.github.io/libros_de_carlitos/data/story-residuos-oportunidad.json?v=verify-2`
+
+### Resultados verificados
+
+* `app.js` publico devuelve `APP_VERSION = "v0.7.0"`.
+* `index.html` publico referencia `v=0.7.0`.
+* `data/editions.json` publico responde `200` y titulo `Biblioteca digital de Carlitos`.
+* `data/story-residuos-oportunidad.json` publico responde `200` y `id = residuos-oportunidad`.
+
+### Pruebas realizadas
+
+* Verificacion HTTP publica de `index.html`.
+* Verificacion HTTP publica de `app.js`.
+* Verificacion HTTP publica del catalogo de ediciones.
+* Verificacion HTTP publica del JSON del segundo cuento.
+
+### Errores o incidentes
+
+* GitHub Pages tardo unos segundos en pasar de `v0.5.0` a `v0.7.0`; se espero y se volvio a verificar.
+
+### Soluciones aplicadas
+
+* Publicacion por fast-forward a `main`.
+* Cache-busting por query string en archivos CSS/JS y consultas de verificacion.
+
+### Pendientes
+
+* Validar visualmente la URL publica desde navegador de usuario final.
+* Optimizar imagenes antes de difusion amplia.
+* Validar derechos de personaje, autores e imagenes.
+
+### Riesgos
+
+* Las imagenes PNG siguen siendo pesadas para conectividad baja.
+* GitHub Pages puede mantener cache temporal en algunos navegadores.
+
+### Recomendaciones
+
+* Compartir preferentemente `https://investigapyrm.github.io/libros_de_carlitos/#biblioteca`.
+* Para lectura directa del cuento del Dia del Nino usar `#libro/cuento-dia-nino-2026`.
+* Para lectura directa del cuento de residuos usar `#libro/residuos-oportunidad`.

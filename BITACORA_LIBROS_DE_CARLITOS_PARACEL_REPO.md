@@ -834,3 +834,84 @@
 * Compartir preferentemente `https://investigapyrm.github.io/libros_de_carlitos/#biblioteca`.
 * Para lectura directa del cuento del Dia del Nino usar `#libro/cuento-dia-nino-2026`.
 * Para lectura directa del cuento de residuos usar `#libro/residuos-oportunidad`.
+
+## 2026-06-29 20:22
+
+### Proyecto
+
+* Nombre: Libros de Carlitos - Restauracion de efecto de pasar paginas
+* Cliente o institucion: PARACEL / FACEN-UNA / investigapyrm
+* Ruta local: `C:\Users\Diego\OneDrive - PARACEL S.A\MONITOREO_IMPACTO_SOCIAL_PARACEL\PROYECTO_CARLITOS\libros_de_carlitos`
+* Repositorio: `https://github.com/investigapyrm/libros_de_carlitos.git`
+* URL publica: `https://investigapyrm.github.io/libros_de_carlitos/`
+* Rama publicada: `main`
+* Responsable: Codex
+* Version: `v0.7.1`
+
+### Objetivo de la intervencion
+
+* Restaurar el efecto visual de pasar paginas que se habia perdido al simplificar el lector.
+
+### Diagnostico inicial
+
+* La funcion `initStorybook()` tenia una condicion `window.matchMedia("(max-width: 9999px)").matches`, lo que desactivaba `StPageFlip` en practicamente cualquier pantalla.
+* El lector seguia funcionando como doble pagina estatica, pero sin animacion de hoja.
+
+### Acciones realizadas
+
+* Se cambio el corte de desactivacion de PageFlip a `max-width: 760px`.
+* Se ajustaron dimensiones y tiempos de `StPageFlip` para escritorio.
+* Se mantuvo el lector simple en movil y cuando el usuario prefiere reducir movimiento.
+* Se actualizo version/cache a `v0.7.1`.
+
+### Archivos modificados
+
+* `app.js`
+* `index.html`
+* `BITACORA_LIBROS_DE_CARLITOS_PARACEL_REPO.md`
+
+### Comandos o scripts ejecutados
+
+* `node --check app.js`
+* `node -e "for (const f of ['data/book.json','data/editions.json','data/story-dia-nino.json','data/story-residuos-oportunidad.json']) { JSON.parse(require('fs').readFileSync(f,'utf8')); } console.log('JSON OK')"`
+* `npx playwright screenshot --wait-for-timeout=3500 "http://127.0.0.1:8792/?v=0.7.1-flip#libro/cuento-dia-nino-2026" "tmp_flip_check.png"`
+* `npx playwright screenshot --wait-for-timeout=500 "http://127.0.0.1:8792/?v=0.7.1-mobile#libro/cuento-dia-nino-2026" --viewport-size="390,844" "tmp_flip_mobile.png"`
+
+### Resultados verificados
+
+* En escritorio el libro vuelve a renderizarse como libro centrado con comportamiento PageFlip.
+* En movil se conserva una pagina por vez, sin forzar efecto de hoja.
+* La version local queda en `v0.7.1`.
+
+### Pruebas realizadas
+
+* Validacion sintactica JavaScript.
+* Validacion JSON.
+* Captura Playwright de escritorio.
+* Captura Playwright movil.
+* Revision visual de capturas.
+
+### Errores o incidentes
+
+* La prueba DOM con `node` no pudo usar `require('playwright')` porque Playwright no esta instalado como dependencia local; se valido por capturas CLI con `npx playwright`.
+
+### Soluciones aplicadas
+
+* Rehabilitacion de `StPageFlip` en escritorio.
+* Conservacion del fallback simple en movil y reduccion de movimiento.
+* Cache-busting de `index.html` a `v0.7.1`.
+
+### Pendientes
+
+* Verificar la URL publica luego de publicar `main`.
+* Revisar visualmente desde navegador del usuario final.
+
+### Riesgos
+
+* Si el CDN de `page-flip@2.0.7` falla, el lector vuelve al fallback estatico.
+* En conexiones lentas puede tardar unos segundos en aparecer el efecto hasta que carga la libreria.
+
+### Recomendaciones
+
+* No usar breakpoints artificiales para desactivar librerias.
+* Mantener siempre un fallback funcional para lectura, pero probar explicitamente si la mejora progresiva esta activa.

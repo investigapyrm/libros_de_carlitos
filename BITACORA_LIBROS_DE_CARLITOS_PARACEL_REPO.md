@@ -1453,3 +1453,50 @@
 
 * Mantener PageFlip como animacion principal y la hoja CSS solo como fallback.
 * Usar diversidad visual de forma equilibrada, evitando repetir exactamente el mismo recurso inclusivo en todas las laminas.
+
+## 2026-06-30 07:02
+
+### Proyecto
+
+* Nombre: Libros de Carlitos
+* URL publica: `https://investigapyrm.github.io/libros_de_carlitos/`
+* Rama publicada por GitHub Pages: `feature/cuento-dia-del-nino-2026`
+* Version verificada: `v0.7.6`
+
+### Objetivo de la intervencion
+
+* Cerrar la verificacion publica posterior a los ajustes de transparencia, PageFlip y mezcla visual de laminas.
+
+### Acciones realizadas
+
+* Se verifico que `app.js` publico devuelve `APP_VERSION = "v0.7.6"`.
+* Se verifico que el CSS publico contiene las opacidades `0.27` y `0.29` para el cuadro de texto.
+* Se verifico que el CSS publico no contiene `storyPageShadow` ni `storybook-stage::after`.
+* Se verifico que el JSON publico queda con 4 laminas inclusivas y 6 alternadas.
+* Se verifico que el build de GitHub Pages termino en `success`.
+
+### Resultados verificados
+
+* GitHub Pages sirve `v0.7.6`.
+* Transparencia del cuadro de texto publicada.
+* La hoja local queda como fallback y no se superpone con PageFlip cuando esta activo.
+* La silla de ruedas aparece en escenas seleccionadas, no en todas las paginas.
+
+### Pruebas realizadas
+
+* `Invoke-WebRequest` sobre `app.js`.
+* `Invoke-WebRequest` sobre `styles.css`.
+* `Invoke-WebRequest` sobre `data/story-dia-nino.json`.
+* `gh run list --repo investigapyrm/libros_de_carlitos --limit 2`.
+
+### Pendientes
+
+* Ninguno para esta intervencion.
+
+### Riesgos
+
+* La percepcion del giro tactil debe seguir revisandose en celulares reales cuando se hagan cambios visuales futuros.
+
+### Recomendaciones
+
+* Conservar la verificacion publica de CSS/JSON despues de cada cambio en la rama efectiva de Pages.

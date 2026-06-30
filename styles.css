@@ -379,6 +379,223 @@ h3 {
   width: 100%;
 }
 
+.library-shell {
+  background:
+    linear-gradient(180deg, rgba(232, 243, 238, 0.88), rgba(253, 248, 234, 0.58) 48%, var(--bg));
+  min-height: 100svh;
+}
+
+.library-hero {
+  display: grid;
+  gap: clamp(1rem, 2.6vw, 2rem);
+  grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1.28fr);
+  min-height: 100svh;
+  overflow: hidden;
+  padding: clamp(0.85rem, 2vw, 1.5rem);
+  position: relative;
+}
+
+.library-hero::before {
+  background-image: var(--library-image);
+  background-position: center;
+  background-size: cover;
+  content: "";
+  inset: 0;
+  opacity: 0.12;
+  position: absolute;
+  transform: scale(1.04);
+}
+
+.library-hero::after {
+  background: linear-gradient(90deg, rgba(245, 247, 246, 0.96), rgba(245, 247, 246, 0.72) 42%, rgba(245, 247, 246, 0.34));
+  content: "";
+  inset: 0;
+  position: absolute;
+}
+
+.library-nav,
+.library-copy,
+.edition-grid {
+  position: relative;
+  z-index: 1;
+}
+
+.library-nav {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  grid-column: 1 / -1;
+  justify-content: space-between;
+}
+
+.library-nav .brand {
+  color: var(--green-950);
+}
+
+.library-nav .nav-button,
+.library-nav .view-control {
+  background: rgba(255, 255, 255, 0.78);
+  border-color: rgba(11, 93, 59, 0.16);
+  color: var(--green-950);
+}
+
+.library-nav .view-control span,
+.library-nav .view-control button {
+  color: var(--green-950);
+}
+
+.library-copy {
+  align-self: center;
+  display: grid;
+  gap: 0.85rem;
+  max-width: 640px;
+}
+
+.library-copy .eyebrow {
+  color: var(--green-800);
+}
+
+.library-copy h1 {
+  color: var(--green-950);
+  font-size: clamp(2.55rem, 6vw, 5.8rem);
+  max-width: 11ch;
+}
+
+.library-copy p:not(.eyebrow) {
+  color: var(--muted);
+  font-size: clamp(1rem, 1.6vw, 1.22rem);
+  max-width: 560px;
+}
+
+.edition-grid {
+  align-self: center;
+  display: grid;
+  gap: clamp(0.85rem, 1.6vw, 1.25rem);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.edition-card {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(11, 93, 59, 0.14);
+  border-radius: 8px;
+  box-shadow: 0 18px 46px rgba(5, 39, 25, 0.12);
+  display: grid;
+  grid-template-rows: minmax(220px, 42vh) auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.edition-card.is-upcoming {
+  grid-template-rows: 220px auto;
+  opacity: 0.84;
+}
+
+.edition-cover {
+  background: var(--green-100);
+  display: block;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.edition-cover img {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 260ms ease;
+  width: 100%;
+}
+
+.edition-card:not(.is-upcoming):hover .edition-cover img {
+  transform: scale(1.035);
+}
+
+.edition-copy {
+  display: grid;
+  gap: 0.46rem;
+  padding: clamp(0.85rem, 1.4vw, 1.1rem);
+}
+
+.edition-copy span {
+  color: var(--green-800);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.edition-copy h2 {
+  color: var(--green-950);
+  font-size: clamp(1.15rem, 1.8vw, 1.55rem);
+  margin-bottom: 0;
+}
+
+.edition-copy p {
+  color: var(--muted);
+  font-size: 0.96rem;
+  margin-bottom: 0;
+}
+
+.edition-open {
+  align-items: center;
+  background: var(--green-800);
+  border-radius: 8px;
+  color: var(--white);
+  display: inline-flex;
+  font-weight: 900;
+  justify-content: center;
+  justify-self: start;
+  margin-top: 0.25rem;
+  min-height: 42px;
+  padding: 0.62rem 0.9rem;
+  text-decoration: none;
+}
+
+.edition-open.disabled {
+  background: var(--green-100);
+  color: var(--green-800);
+}
+
+.upcoming-band {
+  padding: clamp(2rem, 4vw, 3.5rem) 1rem;
+}
+
+.section-heading.compact {
+  margin-bottom: 1rem;
+  max-width: 760px;
+}
+
+.upcoming-list {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  margin: 0 auto;
+  max-width: 1180px;
+}
+
+.reader-message {
+  align-items: center;
+  background:
+    linear-gradient(135deg, rgba(232, 243, 238, 0.92), rgba(253, 248, 234, 0.86)),
+    var(--bg);
+  display: grid;
+  gap: 0.85rem;
+  min-height: 100svh;
+  padding: 1rem;
+  place-items: center;
+  text-align: center;
+}
+
+.reader-message h1 {
+  color: var(--green-950);
+  font-size: clamp(2rem, 4.8vw, 4rem);
+  max-width: 14ch;
+}
+
+.reader-message p {
+  color: var(--muted);
+  max-width: 620px;
+}
+
 .story-rail button:hover {
   background: rgba(19, 122, 77, 0.86);
   box-shadow: 0 10px 22px rgba(5, 39, 25, 0.18);
@@ -506,7 +723,7 @@ h3 {
   flex-direction: column;
   gap: 0.25rem;
   left: clamp(0.75rem, 1.8vw, 1.3rem);
-  max-width: min(58vw, 860px);
+  max-width: min(42vw, 720px);
   pointer-events: none;
   position: absolute;
   top: clamp(0.55rem, 1.4vw, 1rem);
@@ -520,7 +737,8 @@ h3 {
 
 .storybook-heading h2 {
   color: var(--white);
-  font-size: clamp(1.35rem, 2.5vw, 2.45rem);
+  display: none;
+  font-size: clamp(1.12rem, 1.6vw, 1.65rem);
   line-height: 1.02;
   margin-bottom: 0;
   max-width: 900px;
@@ -577,13 +795,26 @@ h3 {
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
   display: grid;
   gap: 0.6rem;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: auto auto minmax(0, 1fr) auto;
   padding: 0.45rem;
   position: absolute;
   right: clamp(0.75rem, 1.8vw, 1.3rem);
   top: clamp(0.55rem, 1.4vw, 1rem);
   width: min(48vw, 600px);
   z-index: 8;
+}
+
+.storybook-back {
+  align-items: center;
+  background: rgba(11, 93, 59, 0.1);
+  border-radius: 8px;
+  color: var(--green-950);
+  display: inline-flex;
+  font-weight: 900;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0.55rem 0.72rem;
+  text-decoration: none;
 }
 
 .storybook-control {
@@ -1591,9 +1822,11 @@ h3 {
 
   .intro-band,
   .metrics-band,
+  .library-hero,
   .enterprise-inner,
   .enterprise-meta-grid,
   .enterprise-collection-list,
+  .edition-grid,
   .chapter-grid,
   .detail-band {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1668,6 +1901,9 @@ h3 {
   }
 
   .story-rail,
+  .library-hero,
+  .edition-grid,
+  .library-nav,
   .intro-band,
   .metrics-band,
   .enterprise-inner,
@@ -1684,6 +1920,35 @@ h3 {
   .detail-notes,
   .action-grid {
     grid-template-columns: 1fr;
+  }
+
+  .library-hero {
+    gap: 0.75rem;
+    min-height: 100svh;
+    padding: 0.85rem;
+  }
+
+  .library-nav {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .library-nav .topnav-actions {
+    display: none;
+  }
+
+  .library-copy {
+    align-self: end;
+    padding-top: 1rem;
+  }
+
+  .library-copy h1 {
+    font-size: 2.35rem;
+    max-width: 12ch;
+  }
+
+  .edition-card {
+    grid-template-rows: 185px auto;
   }
 
   .storybook-band {
@@ -1724,6 +1989,14 @@ h3 {
     min-width: 0;
     padding-inline: 0.62rem;
     width: auto;
+  }
+
+  .storybook-back {
+    bottom: calc(100% + 0.45rem);
+    left: 0;
+    min-height: 38px;
+    padding-inline: 0.58rem;
+    position: absolute;
   }
 
   .storybook-stage {

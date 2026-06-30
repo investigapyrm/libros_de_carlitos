@@ -24,10 +24,12 @@ Pendiente: confirmar GitHub Pages, autorizaciones editoriales/legales y desplieg
 
 ```text
 index.html              Appweb estatica para GitHub Pages.
-styles.css              Diseno responsive con hero animado, misiones, tarjetas y detalle.
-app.js                  Render del libro desde JSON local o GAS opcional, interacciones y modo lectura.
+styles.css              Diseno responsive con biblioteca inicial y lector de cuentos a pantalla completa.
+app.js                  Render de biblioteca, rutas de edicion, lector desde JSON local o GAS opcional.
 data/book.json          Contenido editorial y rutas de imagenes.
+data/editions.json      Catalogo de ediciones de la biblioteca digital.
 data/story-dia-nino.json Datos del cuento digital de Dia del Nino.
+data/story-residuos-oportunidad.json Datos del cuento piloto sobre residuos y oportunidades.
 assets/generated/       Imagenes finales de la appweb.
 docs/                   Instructivos de generacion visual.
 gas_src/                Backend Google Apps Script clonado y preparado.
@@ -51,7 +53,12 @@ La rama `feature/cuento-dia-del-nino-2026` contiene dos documentos de trabajo:
 * `docs/CONTENIDO_INICIAL_PROMPTS_GPT_IMAGEN_CUENTO_DIA_DEL_NINO_2026-06-29.md`: contenido inicial, secuencia de laminas, prompts para GPT Imagen en linea, nombres sugeridos de archivos y control de calidad visual.
 * `docs/INVESTIGACION_LIBRERIAS_LIBRO_DIGITAL_INTERACTIVO_2026-06-29.md`: evaluacion de librerias libres para libro digital y criterio de integracion.
 
-La appweb incorpora una vista `#cuento-dia-nino` con formato de libro digital interactivo a pantalla completa. La vista carga 10 paginas desde `data/story-dia-nino.json`, usa las imagenes copiadas desde `J:\Mi unidad\carlitos\cuento_dia_Del_niño`, ofrece controles de avance y progreso, y muestra dos paginas simultaneas en escritorio. El texto aparece solapado sobre las ilustraciones en bloques semitransparentes, sin cubrirlas completamente. En movil se prioriza una pagina grande por vez para conservar legibilidad.
+La appweb abre en una vista inicial `#biblioteca`, pensada como catalogo simple de ediciones. El catalogo se define en `data/editions.json`. Cada edicion disponible se abre con rutas del tipo `#libro/<id>` y carga su propio archivo de paginas:
+
+* `#libro/cuento-dia-nino-2026`: carga 10 paginas desde `data/story-dia-nino.json`.
+* `#libro/residuos-oportunidad`: carga 7 paginas desde `data/story-residuos-oportunidad.json`.
+
+El enlace historico `#cuento-dia-nino` se mantiene como alias hacia la edicion del Dia del Nino. Las vistas de lectura usan formato de libro digital a pantalla completa, con dos paginas simultaneas en escritorio y una pagina grande por vez en movil. El texto aparece solapado sobre las ilustraciones en bloques semitransparentes, sin cubrirlas completamente.
 
 Uso recomendado:
 

@@ -1,0 +1,54 @@
+{
+  "title": "Biblioteca digital de Carlitos",
+  "subtitle": "Cuentos interactivos para leer en pantalla completa.",
+  "intro": "Cada edicion disponible se abre como un libro digital. Las proximas quedan visibles para planificar la coleccion.",
+  "rightsNote": "Borrador interno. Las imagenes y el personaje requieren autorizacion de uso antes de cualquier publicacion.",
+  "editions": [
+    {
+      "id": "cuento-dia-nino-2026",
+      "title": "Carlitos y el bosque que guarda abrazos",
+      "subtitle": "Un cuento para compartir por el Dia del Nino.",
+      "editionLabel": "Dia del Nino 2026",
+      "status": "Borrador disponible",
+      "description": "Carlitos descubre que algunos regalos pueden crecer, dar sombra y cuidar el futuro.",
+      "coverImage": "assets/generated/dia_nino_carlitos_bosque_abrazos_portada_16x9.png",
+      "dataUrl": "data/story-dia-nino.json",
+      "audience": "Ninos de 4 a 10 anos, docentes y familias.",
+      "theme": "Bosque, clima, cuidado y comunidad",
+      "available": true
+    },
+    {
+      "id": "residuos-oportunidad",
+      "title": "Carlitos y los residuos que se convierten en oportunidad",
+      "subtitle": "Una historia para aprender haciendo.",
+      "editionLabel": "Piloto economia ambiental",
+      "status": "Borrador disponible",
+      "description": "Una lectura breve para separar, medir, transformar y ver oportunidades donde antes habia residuos.",
+      "coverImage": "assets/generated/hero_carlitos_residuos_oportunidad_1920x1080.png",
+      "dataUrl": "data/story-residuos-oportunidad.json",
+      "audience": "Escuelas, familias y comunidades.",
+      "theme": "Residuos, reciclaje, compost y emprendimientos verdes",
+      "available": true
+    },
+    {
+      "id": "vecino-mil-plantitas",
+      "title": "El vecino de las mil plantitas",
+      "subtitle": "Fomento forestal y pequenos productores.",
+      "editionLabel": "Proxima edicion",
+      "status": "En preparacion",
+      "description": "Una futura historia sobre arboles, familias rurales y cuidado productivo del territorio.",
+      "coverImage": "assets/generated/dia_nino_carlitos_bosque_abrazos_lamina_04_camino_vivero.png",
+      "available": false
+    },
+    {
+      "id": "amigos-secretos",
+      "title": "Los amigos secretos de Carlitos",
+      "subtitle": "Biodiversidad y camaras trampa.",
+      "editionLabel": "Proxima edicion",
+      "status": "En preparacion",
+      "description": "Una futura lectura sobre animales silvestres, bosque nativo y observacion respetuosa.",
+      "coverImage": "assets/generated/dia_nino_carlitos_bosque_abrazos_lamina_08_camara_trampa_biodiversidad.png",
+      "available": false
+    }
+  ]
+}

@@ -645,3 +645,109 @@
 
 * Mantener doble pagina solo desde tablet/escritorio.
 * En futuras versiones, agregar boton de pantalla completa nativo del navegador si se desea modo kiosco.
+
+## 2026-06-29 19:52
+
+### Proyecto
+
+* Nombre: Libros de Carlitos - Biblioteca inicial de ediciones
+* Cliente o institucion: PARACEL / FACEN-UNA / investigapyrm
+* Ruta local: `C:\Users\Diego\OneDrive - PARACEL S.A\MONITOREO_IMPACTO_SOCIAL_PARACEL\PROYECTO_CARLITOS\libros_de_carlitos`
+* Repositorio: `https://github.com/investigapyrm/libros_de_carlitos.git`
+* URL local de prueba: `http://127.0.0.1:8792/#biblioteca`
+* Rama de trabajo: `feature/cuento-dia-del-nino-2026`
+* Responsable: Codex
+* Version: `v0.7.0`
+
+### Objetivo de la intervencion
+
+* Dejar una vista inicial simple donde se listen diferentes ediciones.
+* Permitir abrir cada edicion disponible con un clic en una vista propia de libro digital.
+* Evitar interfaces cargadas para que el protagonismo sea de los cuentos y sus imagenes.
+
+### Diagnostico inicial
+
+* La app entraba directamente desde una experiencia heredada con muchas secciones editoriales.
+* El lector del Dia del Nino funcionaba, pero no existia un catalogo de ediciones.
+* La arquitectura no estaba preparada para que cada cuento cargara su propio JSON.
+
+### Acciones realizadas
+
+* Se creo `data/editions.json` como catalogo de la biblioteca digital.
+* Se agrego una segunda edicion disponible, `residuos-oportunidad`, usando imagenes ya existentes.
+* Se creo `data/story-residuos-oportunidad.json` con paginas breves para lectura tipo cuento.
+* Se cambio la ruta inicial a una biblioteca simple en `#biblioteca`.
+* Se agregaron rutas compartibles `#libro/<id>` para abrir cada cuento.
+* Se mantuvo `#cuento-dia-nino` como alias hacia `#libro/cuento-dia-nino-2026`.
+* Se agrego boton `Biblioteca` dentro del lector.
+* Se actualizo version/cache a `v0.7.0`.
+
+### Archivos modificados
+
+* `index.html`
+* `app.js`
+* `styles.css`
+* `README.md`
+* `data/editions.json`
+* `data/story-residuos-oportunidad.json`
+* `BITACORA_LIBROS_DE_CARLITOS_PARACEL_REPO.md`
+
+### Comandos o scripts ejecutados
+
+* `node --check app.js`
+* `node -e "for (const f of ['data/book.json','data/editions.json','data/story-dia-nino.json','data/story-residuos-oportunidad.json']) { JSON.parse(require('fs').readFileSync(f,'utf8')); } console.log('JSON OK')"`
+* `git diff --check`
+* `npx playwright screenshot --wait-for-timeout=2000 "http://127.0.0.1:8792/?v=0.7.0-library2#biblioteca" "tmp_library_desktop.png"`
+* `npx playwright screenshot --viewport-size="390,844" --wait-for-timeout=2000 "http://127.0.0.1:8792/?v=0.7.0-mobile3#biblioteca" "tmp_library_mobile.png"`
+* `npx playwright screenshot --wait-for-timeout=2000 "http://127.0.0.1:8792/?v=0.7.0-residuos3#libro/residuos-oportunidad" "tmp_reader_residuos_desktop.png"`
+* `npx playwright screenshot --wait-for-timeout=1800 "http://127.0.0.1:8792/?v=0.7.0-alias#cuento-dia-nino" "tmp_reader_alias.png"`
+
+### Resultados verificados
+
+* La vista inicial muestra una biblioteca simple con dos ediciones disponibles.
+* Cada edicion disponible abre una ruta propia de lector: `#libro/cuento-dia-nino-2026` y `#libro/residuos-oportunidad`.
+* La biblioteca desktop muestra portadas grandes, textos breves y botones completos.
+* La biblioteca movil muestra el boton `Abrir libro` de la primera edicion dentro del primer viewport y deja ver el inicio de la segunda.
+* El lector de residuos abre en doble pagina sin que el titulo largo invada el toolbar o las paginas.
+* El alias historico `#cuento-dia-nino` sigue abriendo el lector del Dia del Nino.
+
+### Pruebas realizadas
+
+* Validacion sintactica JavaScript.
+* Validacion JSON de cuatro archivos de datos.
+* Validacion de espacios y errores de diff.
+* Captura Playwright de biblioteca desktop.
+* Captura Playwright de biblioteca movil.
+* Captura Playwright de lector de residuos desktop.
+* Captura Playwright del alias historico.
+* Revision visual de capturas.
+
+### Errores o incidentes
+
+* Sin incidentes registrados durante la implementacion.
+
+### Soluciones aplicadas
+
+* Catalogo declarativo de ediciones.
+* Vista inicial liviana con tarjetas de portada.
+* Lector reutilizable por edicion.
+* Rutas hash simples compatibles con GitHub Pages.
+
+### Pendientes
+
+* Validar sintaxis JavaScript, JSON y capturas visuales.
+* Revisar GitHub Pages luego de publicar.
+* Optimizar imagenes antes de difusion publica.
+* Validar derechos de personaje, autores e imagenes.
+
+### Riesgos
+
+* Las imagenes siguen siendo pesadas para celulares con baja conectividad.
+* Las ediciones en preparacion no deben presentarse como publicadas.
+* Si se agregan muchos cuentos, conviene paginar o filtrar la biblioteca.
+
+### Recomendaciones
+
+* Mantener el catalogo en `data/editions.json` como fuente unica para nuevas ediciones.
+* Cada cuento debe tener su propio `data/story-*.json` con textos breves y rutas de imagen normalizadas.
+* Conservar la portada simple: pocas palabras, imagenes grandes y un boton claro para abrir.

@@ -1,0 +1,69 @@
+{
+  "id": "residuos-oportunidad",
+  "title": "Carlitos y los residuos que se convierten en oportunidad",
+  "subtitle": "Una historia para aprender haciendo.",
+  "eyebrow": "Libro digital interactivo",
+  "audience": "Escuelas, familias y comunidades.",
+  "status": "Borrador interno pendiente de validacion editorial, tecnica, legal e institucional.",
+  "sourceLabel": "Basado en el prototipo editorial Carlitos y la Economia Ambiental Sostenible.",
+  "activityTitle": "Segundas vidas",
+  "activityText": "Despues de leer, el grupo elige tres residuos cercanos, los separa por material y dibuja una segunda vida posible para cada uno.",
+  "pages": [
+    {
+      "kicker": "Portada",
+      "title": "Residuos que se convierten en oportunidad",
+      "body": "Carlitos mira la escuela con otros ojos: algunas cosas que parecian basura todavia podian servir para aprender, cuidar y crear.",
+      "image": "assets/generated/hero_carlitos_residuos_oportunidad_1920x1080.png",
+      "futureImage": "assets/generated/hero_carlitos_residuos_oportunidad_1920x1080.png",
+      "tone": "Descubrir"
+    },
+    {
+      "kicker": "Pagina 1",
+      "title": "La bolsa que hablaba bajito",
+      "body": "Una bolsa olvidada hizo ruido con el viento. Carlitos no la reto: la escucho y pregunto de donde venia todo lo que mezclamos.",
+      "image": "assets/generated/cap01_bolsa_hablaba_bajito.png",
+      "futureImage": "assets/generated/cap01_bolsa_hablaba_bajito.png",
+      "tone": "Observar"
+    },
+    {
+      "kicker": "Pagina 2",
+      "title": "La mesa de los colores",
+      "body": "En la mesa aparecieron grupos: papel, plastico, metal y organicos. Separar no era un castigo; era una forma de mirar mejor.",
+      "image": "assets/generated/cap02_mesa_colores.png",
+      "futureImage": "assets/generated/cap02_mesa_colores.png",
+      "tone": "Ordenar"
+    },
+    {
+      "kicker": "Pagina 3",
+      "title": "Cascaras para la huerta",
+      "body": "Las cascaras no querian viajar lejos. Con hojas secas, aire y paciencia, podian volver como abono para nuevas plantas.",
+      "image": "assets/generated/cap03_compost_cascaras.png",
+      "futureImage": "assets/generated/cap03_compost_cascaras.png",
+      "tone": "Transformar"
+    },
+    {
+      "kicker": "Pagina 4",
+      "title": "El viaje de la botella",
+      "body": "Una botella limpia encontro camino hacia el acopio. Carlitos aprendio que cada material necesita un destino claro.",
+      "image": "assets/generated/cap04_viaje_botella_acopio.png",
+      "futureImage": "assets/generated/cap04_viaje_botella_acopio.png",
+      "tone": "Conectar"
+    },
+    {
+      "kicker": "Pagina 5",
+      "title": "Una oportunidad verde",
+      "body": "Con datos simples, la clase imagino una feria. Lo recuperado podia convertirse en juegos, compost, ahorro y nuevas ideas.",
+      "image": "assets/generated/cap05_oportunidad_emprendimiento_verde.png",
+      "futureImage": "assets/generated/cap05_oportunidad_emprendimiento_verde.png",
+      "tone": "Crear"
+    },
+    {
+      "kicker": "Cierre",
+      "title": "La feria de las segundas vidas",
+      "body": "Carlitos entendio que cuidar empieza con una pregunta pequena: que puede volver a servir si lo miramos juntos?",
+      "image": "assets/generated/cierre_feria_segundas_vidas_1920x1080.png",
+      "futureImage": "assets/generated/cierre_feria_segundas_vidas_1920x1080.png",
+      "tone": "Celebrar"
+    }
+  ]
+}

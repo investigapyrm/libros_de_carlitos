@@ -1,14 +1,15 @@
-const APP_VERSION = "v0.6.2";
+const APP_VERSION = "v0.7.0";
 const APP_BUILD_DATE = "2026-06-29";
 const GAS_ENDPOINT = "";
 const LOCAL_DATA_URL = "data/book.json";
+const LOCAL_EDITION_CATALOG_URL = "data/editions.json";
 const LOCAL_STORY_URL = "data/story-dia-nino.json";
 const PAGE_FLIP_SCRIPT_URL = "https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js";
 
 const STORAGE_KEYS = {
   viewScale: "carlitos:viewScale",
   mission: "carlitos:mission",
-  storyPage: "carlitos:storyPage:diaNino2026",
+  storyPagePrefix: "carlitos:storyPage:",
 };
 
 const VIEW_SCALES = ["normal", "comfort", "large"];
@@ -55,35 +56,40 @@ const app = document.querySelector("#app");
 
 const state = {
   book: null,
+  library: null,
+  editions: [],
   storybook: null,
+  activeEditionId: null,
+  readerLoading: false,
+  readerError: "",
   selectedOrden: null,
   selectedMission: readStorage(STORAGE_KEYS.mission, DEFAULT_MISSIONS[0].id),
-  selectedStoryPage: Number(readStorage(STORAGE_KEYS.storyPage, "0")) || 0,
+  selectedStoryPage: 0,
   pageFlip: null,
   pageFlipLoading: null,
   viewScale: normalizeViewScale(readStorage(STORAGE_KEYS.viewScale, "normal")),
 };
 
 document.documentElement.dataset.viewScale = state.viewScale;
+window.addEventListener("hashchange", handleRouteChange);
 
 loadBook();
 
 async function loadBook(forceLocal = false) {
-  app.innerHTML = `<main class="loading-view"><span class="loading-mark"></span><p>Cargando libro...</p></main>`;
+  app.innerHTML = `<main class="loading-view"><span class="loading-mark"></span><p>Cargando biblioteca...</p></main>`;
 
   try {
-    const [payload, storybookPayload] = await Promise.all([
+    const [payload, catalogPayload] = await Promise.all([
       forceLocal || !GAS_ENDPOINT ? fetchLocalBook() : fetchGasBook(GAS_ENDPOINT),
-      fetchLocalStorybook(),
+      fetchLocalEditionCatalog(),
     ]);
 
     state.book = normalizeBook(payload);
-    state.storybook = normalizeStorybook(storybookPayload);
+    state.library = normalizeEditionCatalog(catalogPayload, state.book);
+    state.editions = state.library.editions;
     state.selectedOrden = firstContentItem(state.book).orden;
     state.selectedMission = normalizeMissionId(state.selectedMission, getMissions(state.book));
-    state.selectedStoryPage = clampStorySpread(state.selectedStoryPage);
-    renderApp();
-    scrollToHashTarget();
+    await handleRouteChange();
   } catch (error) {
     app.innerHTML = `
       <main class="error-view">
@@ -100,9 +106,19 @@ async function fetchLocalBook() {
   return response.json();
 }
 
-async function fetchLocalStorybook() {
+async function fetchLocalEditionCatalog() {
   try {
-    const response = await fetch(LOCAL_STORY_URL, { cache: "no-store" });
+    const response = await fetch(LOCAL_EDITION_CATALOG_URL, { cache: "no-store" });
+    if (!response.ok) return null;
+    return response.json();
+  } catch (error) {
+    return null;
+  }
+}
+
+async function fetchLocalStorybook(url = LOCAL_STORY_URL) {
+  try {
+    const response = await fetch(url, { cache: "no-store" });
     if (!response.ok) return null;
     return response.json();
   } catch (error) {
@@ -181,7 +197,44 @@ function normalizeBook(raw) {
   };
 }
 
-function normalizeStorybook(raw) {
+function normalizeEditionCatalog(raw, book) {
+  const defaultEdition = {
+    id: "cuento-dia-nino-2026",
+    title: "Carlitos y el bosque que guarda abrazos",
+    subtitle: "Cuento digital para el Dia del Nino.",
+    editionLabel: "Dia del Nino 2026",
+    status: "Disponible",
+    description: "Una lectura breve sobre cuidado, bosque, carbono y promesas que crecen.",
+    coverImage: "assets/generated/dia_nino_carlitos_bosque_abrazos_portada_16x9.png",
+    dataUrl: LOCAL_STORY_URL,
+    available: true,
+  };
+
+  const editions = (Array.isArray(raw?.editions) && raw.editions.length ? raw.editions : [defaultEdition])
+    .map((edition, index) => ({
+      id: edition.id || `edicion-${index + 1}`,
+      title: edition.title || `Edicion ${index + 1}`,
+      subtitle: edition.subtitle || "",
+      editionLabel: edition.editionLabel || "Libro digital",
+      status: edition.status || (edition.dataUrl ? "Disponible" : "En preparacion"),
+      description: edition.description || "",
+      coverImage: edition.coverImage || book.heroImage || "",
+      dataUrl: edition.dataUrl || "",
+      available: edition.available !== false && Boolean(edition.dataUrl),
+      audience: edition.audience || "",
+      theme: edition.theme || "",
+    }));
+
+  return {
+    title: raw?.title || "Biblioteca digital de Carlitos",
+    subtitle: raw?.subtitle || "Ediciones interactivas para leer, mirar y conversar en aula o en familia.",
+    intro: raw?.intro || "Elegir un cuento abre una vista de lectura a pantalla completa.",
+    rightsNote: raw?.rightsNote || book.rightsNote || "",
+    editions,
+  };
+}
+
+function normalizeStorybook(raw, edition = {}) {
   if (!raw || !Array.isArray(raw.pages) || !raw.pages.length) return null;
 
   const pages = raw.pages.map((page, index) => ({
@@ -194,116 +247,151 @@ function normalizeStorybook(raw) {
   }));
 
   return {
-    id: raw.id || "cuento-dia-nino",
-    title: raw.title || "Carlitos y el bosque que guarda abrazos",
-    subtitle: raw.subtitle || "",
+    id: raw.id || edition.id || "cuento-dia-nino",
+    title: raw.title || edition.title || "Carlitos y el bosque que guarda abrazos",
+    subtitle: raw.subtitle || edition.subtitle || "",
     eyebrow: raw.eyebrow || "Libro digital interactivo",
-    audience: raw.audience || "",
-    status: raw.status || "",
+    audience: raw.audience || edition.audience || "",
+    status: raw.status || edition.status || "",
     sourceLabel: raw.sourceLabel || "",
     activityTitle: raw.activityTitle || "Actividad",
     activityText: raw.activityText || "",
+    editionLabel: edition.editionLabel || "",
     pages,
   };
 }
 
 function renderApp() {
-  const book = state.book;
-  const selected = selectedItem();
-  const chapters = book.items.filter((item) => item.tipo !== "portada");
-  const missions = getMissions(book);
-  const activeMission = missions.find((mission) => mission.id === state.selectedMission) || missions[0];
+  const route = getRouteFromHash();
+  const edition = route.view === "reader" ? getEditionById(route.id) : null;
 
-  app.innerHTML = `
-    <header class="hero" id="inicio" style="--hero-image: url('${escapeAttribute(book.heroImage)}')">
-      <div class="hero-ambient" aria-hidden="true">
-        ${renderFloatingBits()}
-      </div>
-      <nav class="topnav" aria-label="Navegacion principal">
-        <a class="brand" href="#inicio" data-nav-target="inicio" aria-label="Ir al inicio">Carlitos DES</a>
-        <div class="topnav-actions">
-          ${renderViewControl()}
-          <button type="button" class="nav-button" id="reloadBtn">Actualizar</button>
-        </div>
-      </nav>
-      <section class="hero-copy">
-        <p class="eyebrow">Appweb educativa</p>
-        <h1>${escapeHtml(book.title)}</h1>
-        <p>${escapeHtml(book.subtitle)}</p>
-        <div class="hero-actions">
-          <a href="#misiones" class="primary-action" data-nav-target="misiones">Empezar mision</a>
-          ${state.storybook ? `<a href="#cuento-dia-nino" class="secondary-action" data-nav-target="cuento-dia-nino">Leer cuento</a>` : ""}
-          <a href="#iniciativas" class="secondary-action" data-nav-target="iniciativas">Ver iniciativas</a>
-          <a href="#recorrido" class="secondary-action" data-nav-target="recorrido">Ver contenidos</a>
-        </div>
-        <div class="story-rail" aria-label="Ruta de aprendizaje">
-          ${missions.map((mission) => `
-            <button type="button" data-mission-jump="${escapeAttribute(mission.id)}">
-              ${escapeHtml(mission.title)}
-            </button>
-          `).join("")}
-        </div>
-      </section>
-    </header>
-
-    <main>
-      <section class="intro-band" aria-label="Resumen del proyecto">
-        ${renderSummary(book)}
-      </section>
-
-      <section class="metrics-band" aria-label="Indicadores del prototipo">
-        ${renderMetrics(book.metrics)}
-      </section>
-
-      ${state.storybook ? renderStorybook(state.storybook) : ""}
-
-      ${book.enterpriseFocus ? `
-        <section class="enterprise-band" id="iniciativas">
-          ${renderEnterpriseFocus(book.enterpriseFocus)}
-        </section>
-      ` : ""}
-
-      <section class="mission-band" id="misiones">
-        ${renderMissionBand(missions, activeMission)}
-      </section>
-
-      <section class="content-band" id="recorrido">
-        <div class="section-heading" data-reveal>
-          <p class="eyebrow">Recorrido didactico</p>
-          <h2>Del residuo mezclado a las iniciativas que cuidan</h2>
-          <p>Cada seccion combina relato, actividad, evidencia y una decision concreta para conectar escuela, comunidad, emprendimientos y empresas responsables.</p>
-        </div>
-        <div class="chapter-grid">
-          ${chapters.map((item, index) => renderChapterCard(item, index)).join("")}
-        </div>
-      </section>
-
-      <section class="detail-band" id="detalle">
-        ${renderDetail(selected)}
-      </section>
-
-      <section class="closing-band" style="--closing-image: url('${escapeAttribute(book.closingImage)}')">
-        <div class="closing-copy" data-reveal>
-          <p class="eyebrow">Cierre comunitario</p>
-          <h2>La feria de las segundas vidas</h2>
-          <p>El prototipo muestra como una escuela o comunidad puede pasar de separar residuos a presentar resultados, evidencias, alianzas e iniciativas productivas con beneficio ambiental y social.</p>
-        </div>
-      </section>
-    </main>
-
-    <footer class="footer">
-      <span>${escapeHtml(book.sourceLabel)}</span>
-      <span class="version-pill">${APP_VERSION} | ${APP_BUILD_DATE}</span>
-      <span>${escapeHtml(book.rightsNote)}</span>
-    </footer>
-  `;
+  if (route.view === "reader") {
+    app.innerHTML = renderReaderView(edition);
+  } else {
+    app.innerHTML = renderLibraryView();
+  }
 
   bindEvents();
   initMotion();
 }
 
+function renderLibraryView() {
+  const library = state.library || normalizeEditionCatalog(null, state.book || {});
+  const available = library.editions.filter((edition) => edition.available);
+  const upcoming = library.editions.filter((edition) => !edition.available);
+  const featuredImage = available[0]?.coverImage || state.book?.heroImage || "";
+
+  return `
+    <main class="library-shell" id="biblioteca">
+      <section class="library-hero" style="--library-image: url('${escapeAttribute(featuredImage)}')" aria-label="Biblioteca digital de Carlitos">
+        <nav class="library-nav" aria-label="Acciones principales">
+          <a class="brand" href="#biblioteca" data-library-link aria-label="Ir a la biblioteca">Libros de Carlitos</a>
+          <div class="topnav-actions">
+            ${renderViewControl()}
+            <button type="button" class="nav-button" id="reloadBtn">Actualizar</button>
+          </div>
+        </nav>
+
+        <div class="library-copy" data-reveal>
+          <p class="eyebrow">Biblioteca digital</p>
+          <h1>${escapeHtml(library.title)}</h1>
+          <p>${escapeHtml(library.subtitle)}</p>
+        </div>
+
+        <div class="edition-grid" aria-label="Ediciones disponibles">
+          ${available.map((edition, index) => renderEditionCard(edition, index, true)).join("")}
+        </div>
+      </section>
+
+      ${upcoming.length ? `
+        <section class="upcoming-band" aria-label="Proximas ediciones">
+          <div class="section-heading compact" data-reveal>
+            <p class="eyebrow">En preparacion</p>
+            <h2>Proximas lecturas</h2>
+            <p>${escapeHtml(library.intro)}</p>
+          </div>
+          <div class="upcoming-list">
+            ${upcoming.map((edition, index) => renderEditionCard(edition, index, false)).join("")}
+          </div>
+        </section>
+      ` : ""}
+    </main>
+
+    <footer class="footer simple-footer">
+      <span>${escapeHtml(library.rightsNote || state.book?.rightsNote || "")}</span>
+      <span class="version-pill">${APP_VERSION} | ${APP_BUILD_DATE}</span>
+    </footer>
+  `;
+}
+
+function renderEditionCard(edition, index, isAvailable) {
+  const action = isAvailable
+    ? `<a class="edition-open" href="#libro/${encodeURIComponent(edition.id)}" data-edition-open="${escapeAttribute(edition.id)}">Abrir libro</a>`
+    : `<span class="edition-open disabled">En preparacion</span>`;
+
+  return `
+    <article class="edition-card${isAvailable ? "" : " is-upcoming"}" data-reveal style="--reveal-delay:${index * 90}ms">
+      <a class="edition-cover" href="${isAvailable ? `#libro/${encodeURIComponent(edition.id)}` : "#biblioteca"}" ${isAvailable ? `data-edition-open="${escapeAttribute(edition.id)}"` : "aria-disabled=\"true\""} aria-label="${escapeAttribute(isAvailable ? `Abrir ${edition.title}` : `${edition.title} en preparacion`)}">
+        ${edition.coverImage ? `<img src="${escapeAttribute(edition.coverImage)}" alt="${escapeAttribute(edition.title)}" loading="${index === 0 ? "eager" : "lazy"}">` : ""}
+      </a>
+      <div class="edition-copy">
+        <span>${escapeHtml(edition.editionLabel)}</span>
+        <h2>${escapeHtml(edition.title)}</h2>
+        <p>${escapeHtml(edition.description || edition.subtitle)}</p>
+        ${action}
+      </div>
+    </article>
+  `;
+}
+
+function renderReaderView(edition) {
+  if (!edition) {
+    return renderReaderMessage("Edicion no encontrada", "Volver a la biblioteca para elegir una lectura disponible.");
+  }
+
+  if (state.readerLoading) {
+    return renderReaderMessage("Cargando cuento...", edition.title, true);
+  }
+
+  if (state.readerError) {
+    return renderReaderMessage("No se pudo abrir el cuento", state.readerError);
+  }
+
+  if (!state.storybook) {
+    return renderReaderMessage("Cuento en preparacion", "Esta edicion todavia no tiene paginas publicadas.");
+  }
+
+  return renderStorybook(state.storybook, edition);
+}
+
+function renderReaderMessage(title, message, isLoading = false) {
+  return `
+    <main class="reader-message">
+      ${isLoading ? `<span class="loading-mark"></span>` : ""}
+      <p class="eyebrow">Libros de Carlitos</p>
+      <h1>${escapeHtml(title)}</h1>
+      <p>${escapeHtml(message)}</p>
+      <a class="primary-action" href="#biblioteca" data-library-link>Volver a biblioteca</a>
+    </main>
+  `;
+}
+
 function bindEvents() {
-  document.querySelector("#reloadBtn").addEventListener("click", () => loadBook(true));
+  document.querySelector("#reloadBtn")?.addEventListener("click", () => loadBook(true));
+
+  document.querySelectorAll("[data-library-link]").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      showLibrary();
+    });
+  });
+
+  document.querySelectorAll("[data-edition-open]").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      openEdition(link.dataset.editionOpen);
+    });
+  });
 
   document.querySelectorAll("[data-nav-target]").forEach((link) => {
     link.addEventListener("click", (event) => {
@@ -377,6 +465,78 @@ function initMotion() {
   initStorybook();
 }
 
+async function handleRouteChange() {
+  if (!state.book || !state.library) return;
+
+  const route = getRouteFromHash();
+  if (route.view !== "reader") {
+    destroyPageFlip();
+    state.storybook = null;
+    state.activeEditionId = null;
+    state.readerLoading = false;
+    state.readerError = "";
+    renderApp();
+    window.scrollTo({ top: 0, behavior: "auto" });
+    return;
+  }
+
+  await loadEdition(route.id);
+}
+
+async function loadEdition(id) {
+  const edition = getEditionById(id);
+  destroyPageFlip();
+  state.activeEditionId = id;
+  state.readerError = "";
+
+  if (!edition || !edition.available || !edition.dataUrl) {
+    state.storybook = null;
+    state.readerLoading = false;
+    renderApp();
+    return;
+  }
+
+  state.readerLoading = true;
+  state.storybook = null;
+  renderApp();
+
+  try {
+    const payload = await fetchLocalStorybook(edition.dataUrl);
+    const storybook = normalizeStorybook(payload, edition);
+    if (!storybook) throw new Error(`No hay paginas disponibles en ${edition.dataUrl}`);
+
+    state.storybook = storybook;
+    state.selectedStoryPage = Number(readStorage(storyPageStorageKey(edition.id), "0")) || 0;
+    state.selectedStoryPage = clampStorySpread(state.selectedStoryPage);
+    state.readerLoading = false;
+    renderApp();
+    window.scrollTo({ top: 0, behavior: "auto" });
+  } catch (error) {
+    state.storybook = null;
+    state.readerLoading = false;
+    state.readerError = error.message || "Error desconocido al cargar el cuento.";
+    renderApp();
+  }
+}
+
+function openEdition(id) {
+  if (!id) return;
+  const nextHash = `#libro/${encodeURIComponent(id)}`;
+  if (window.location.hash === nextHash) {
+    handleRouteChange();
+    return;
+  }
+  window.location.hash = nextHash;
+}
+
+function showLibrary() {
+  if (window.location.hash === "#biblioteca" || window.location.hash === "") {
+    handleRouteChange();
+    return;
+  }
+  window.location.hash = "biblioteca";
+}
+
 function selectChapter(orden, shouldScroll) {
   state.selectedOrden = orden;
   renderApp();
@@ -396,7 +556,7 @@ function selectStoryPage(index, syncFlip = true) {
   if (!state.storybook) return;
   const nextPage = clampStorySpread(index);
   state.selectedStoryPage = nextPage;
-  writeStorage(STORAGE_KEYS.storyPage, String(nextPage));
+  writeStorage(storyPageStorageKey(state.activeEditionId || state.storybook.id), String(nextPage));
   updateStorybookUI();
 
   if (syncFlip && state.pageFlip && typeof state.pageFlip.flip === "function") {
@@ -613,16 +773,16 @@ function renderMetrics(metrics) {
   }).join("");
 }
 
-function renderStorybook(storybook) {
+function renderStorybook(storybook, edition = {}) {
   const currentIndex = clampStoryPage(state.selectedStoryPage);
   const currentPage = storybook.pages[currentIndex] || storybook.pages[0];
   const rightIndex = Math.min(currentIndex + 1, storybook.pages.length - 1);
   const progress = Math.round(((rightIndex + 1) / storybook.pages.length) * 100);
 
   return `
-    <section class="storybook-band" id="cuento-dia-nino" aria-label="Cuento digital de Dia del Nino">
+    <section class="storybook-band" id="cuento-dia-nino" aria-label="Cuento digital ${escapeAttribute(storybook.title)}">
       <div class="storybook-heading" data-reveal>
-        <p class="eyebrow">${escapeHtml(storybook.eyebrow)}</p>
+        <p class="eyebrow">${escapeHtml(edition.editionLabel || storybook.eyebrow)}</p>
         <h2>${escapeHtml(storybook.title)}</h2>
         <p>${escapeHtml(storybook.subtitle)}</p>
         <div class="storybook-meta">
@@ -633,6 +793,7 @@ function renderStorybook(storybook) {
 
       <div class="storybook-reader" data-reveal style="--reveal-delay:120ms">
         <div class="storybook-toolbar" aria-label="Controles del cuento">
+          <a class="storybook-back" href="#biblioteca" data-library-link>Biblioteca</a>
           <button type="button" class="storybook-control" data-story-action="prev">Anterior</button>
           <div class="storybook-progress" style="--story-progress:${progress}%">
             <span data-story-status>${rightIndex === currentIndex ? `Pagina ${currentIndex + 1} de ${storybook.pages.length}` : `Paginas ${currentIndex + 1}-${rightIndex + 1} de ${storybook.pages.length}`}</span>
@@ -1044,6 +1205,24 @@ function updateHash(id) {
   const nextHash = `#${encodeURIComponent(id)}`;
   if (window.location.hash === nextHash) return;
   window.history.pushState(null, "", nextHash);
+}
+
+function getRouteFromHash() {
+  const hash = decodeURIComponent(window.location.hash.replace(/^#/, "")).trim();
+  if (!hash || hash === "inicio" || hash === "biblioteca") return { view: "library" };
+  if (hash === "cuento-dia-nino") return { view: "reader", id: "cuento-dia-nino-2026" };
+  if (hash.startsWith("libro/")) {
+    return { view: "reader", id: hash.slice("libro/".length) };
+  }
+  return { view: "library" };
+}
+
+function getEditionById(id) {
+  return state.editions.find((edition) => edition.id === id) || null;
+}
+
+function storyPageStorageKey(id) {
+  return `${STORAGE_KEYS.storyPagePrefix}${id || "default"}`;
 }
 
 function firstContentItem(book) {

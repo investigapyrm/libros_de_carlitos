@@ -795,7 +795,7 @@ h3 {
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
   display: grid;
   gap: 0.6rem;
-  grid-template-columns: auto auto minmax(0, 1fr) auto;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   padding: 0.45rem;
   position: absolute;
   right: clamp(0.75rem, 1.8vw, 1.3rem);
@@ -806,15 +806,20 @@ h3 {
 
 .storybook-back {
   align-items: center;
-  background: rgba(11, 93, 59, 0.1);
+  background: rgba(253, 248, 234, 0.84);
+  backdrop-filter: blur(12px);
   border-radius: 8px;
   color: var(--green-950);
   display: inline-flex;
   font-weight: 900;
   justify-content: center;
+  left: clamp(0.75rem, 1.8vw, 1.3rem);
   min-height: 40px;
   padding: 0.55rem 0.72rem;
+  position: absolute;
   text-decoration: none;
+  top: clamp(2.35rem, 4.8vw, 3rem);
+  z-index: 8;
 }
 
 .storybook-control {
@@ -1992,17 +1997,23 @@ h3 {
   }
 
   .storybook-back {
-    bottom: calc(100% + 0.45rem);
-    left: 0;
+    background: rgba(253, 248, 234, 0.9);
+    backdrop-filter: blur(12px);
+    bottom: auto;
+    color: var(--green-950);
+    left: auto;
     min-height: 38px;
     padding-inline: 0.58rem;
-    position: absolute;
+    position: fixed;
+    right: 0.65rem;
+    top: 0.55rem;
+    z-index: 12;
   }
 
   .storybook-stage {
     height: 100%;
     min-height: 0;
-    padding: 4.25rem 0.45rem 4.85rem;
+    padding: 3.45rem 0.45rem 4.9rem;
   }
 
   .storybook-flip,
@@ -2017,6 +2028,10 @@ h3 {
 
   .storybook-flip.fallback .storybook-page.is-next-spread {
     display: none;
+  }
+
+  .storybook-flip.is-pageflip {
+    max-width: min(100%, 430px);
   }
 
   .storybook-page {

@@ -916,3 +916,90 @@
 
 * No usar breakpoints artificiales para desactivar librerias.
 * Mantener siempre un fallback funcional para lectura, pero probar explicitamente si la mejora progresiva esta activa.
+
+## 2026-06-29 20:47
+
+### Proyecto
+
+* Nombre: Libros de Carlitos - PageFlip tambien en celular
+* Cliente o institucion: PARACEL / FACEN-UNA / investigapyrm
+* Ruta local: `C:\Users\Diego\OneDrive - PARACEL S.A\MONITOREO_IMPACTO_SOCIAL_PARACEL\PROYECTO_CARLITOS\libros_de_carlitos`
+* Repositorio: `https://github.com/investigapyrm/libros_de_carlitos.git`
+* URL publica: `https://investigapyrm.github.io/libros_de_carlitos/`
+* Rama publicada: `main`
+* Responsable: Codex
+* Version: `v0.7.2`
+
+### Objetivo de la intervencion
+
+* Activar el efecto de pasar paginas tambien en vista celular.
+* Corregir el solapamiento del boton `Biblioteca` con los controles inferiores.
+
+### Diagnostico inicial
+
+* PageFlip se habia reactivado solo en escritorio por el corte `max-width: 760px`.
+* En celular el lector seguia en fallback simple.
+* El enlace `Biblioteca` estaba dentro del mismo toolbar inferior que `Anterior`, progreso y `Siguiente`, y se montaba con los controles.
+
+### Acciones realizadas
+
+* Se habilito `StPageFlip` tambien en celular, salvo cuando el usuario prefiere reducir movimiento.
+* Se agrego modo de lectura de una pagina en pantallas menores o iguales a 760px.
+* En celular, la navegacion avanza de a una pagina y muestra `Pagina N de X`.
+* En escritorio, se mantiene avance por doble pagina y estado `Paginas N-M de X`.
+* Se separo el enlace `Biblioteca` del toolbar inferior y se fijo arriba a la derecha en celular.
+* Se actualizo version/cache a `v0.7.2`.
+
+### Archivos modificados
+
+* `app.js`
+* `styles.css`
+* `index.html`
+* `BITACORA_LIBROS_DE_CARLITOS_PARACEL_REPO.md`
+
+### Comandos o scripts ejecutados
+
+* `node --check app.js`
+* `node -e "for (const f of ['data/book.json','data/editions.json','data/story-dia-nino.json','data/story-residuos-oportunidad.json']) { JSON.parse(require('fs').readFileSync(f,'utf8')); } console.log('JSON OK')"`
+* `npx playwright screenshot --viewport-size="390,844" --wait-for-timeout=4500 "http://127.0.0.1:8792/?v=0.7.2-mobile2#libro/cuento-dia-nino-2026" "tmp_mobile_flip_v072.png"`
+* `npx playwright screenshot --wait-for-timeout=3500 "http://127.0.0.1:8792/?v=0.7.2-desktop2#libro/cuento-dia-nino-2026" "tmp_desktop_flip_v072.png"`
+
+### Resultados verificados
+
+* En celular, `Biblioteca` queda arriba a la derecha y no se solapa con `Anterior`, progreso ni `Siguiente`.
+* En celular, el contador muestra `Pagina 1 de 10`, coherente con lectura de una pagina.
+* En escritorio, el lector mantiene doble pagina y controles separados.
+
+### Pruebas realizadas
+
+* Validacion sintactica JavaScript.
+* Validacion JSON.
+* Captura Playwright movil.
+* Captura Playwright desktop.
+* Revision visual de capturas.
+
+### Errores o incidentes
+
+* La prueba temporal con `@playwright/test` no pudo ejecutarse porque ese paquete no es resoluble desde el repo; se elimino el archivo temporal y se valido con capturas CLI.
+
+### Soluciones aplicadas
+
+* PageFlip habilitado en celular con modo retrato.
+* Navegacion adaptativa por ancho de pantalla.
+* Boton `Biblioteca` fuera del toolbar inferior.
+* Cache-busting `v0.7.2`.
+
+### Pendientes
+
+* Publicar `main` y verificar que GitHub Pages sirva `APP_VERSION = "v0.7.2"`.
+* Validar manualmente el gesto de arrastre de hoja en un celular real.
+
+### Riesgos
+
+* En conexiones lentas, el efecto puede tardar hasta que cargue el CDN `page-flip@2.0.7`.
+* La validacion de gesto tactil real requiere dispositivo fisico, no solo captura Playwright.
+
+### Recomendaciones
+
+* Mantener controles moviles fuera del area activa de lectura.
+* Probar siempre escritorio, celular simulado y celular real cuando hay gestos tactiles.

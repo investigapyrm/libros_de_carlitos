@@ -1,4 +1,4 @@
-const APP_VERSION = "v0.7.1";
+const APP_VERSION = "v0.7.2";
 const APP_BUILD_DATE = "2026-06-29";
 const GAS_ENDPOINT = "";
 const LOCAL_DATA_URL = "data/book.json";
@@ -435,8 +435,8 @@ function bindEvents() {
 
   document.querySelectorAll("[data-story-action]").forEach((button) => {
     button.addEventListener("click", () => {
-      if (button.dataset.storyAction === "next") selectStoryPage(state.selectedStoryPage + 2);
-      if (button.dataset.storyAction === "prev") selectStoryPage(state.selectedStoryPage - 2);
+      if (button.dataset.storyAction === "next") selectStoryPage(state.selectedStoryPage + storyPageStep());
+      if (button.dataset.storyAction === "prev") selectStoryPage(state.selectedStoryPage - storyPageStep());
     });
   });
 
@@ -507,7 +507,7 @@ async function loadEdition(id) {
 
     state.storybook = storybook;
     state.selectedStoryPage = Number(readStorage(storyPageStorageKey(edition.id), "0")) || 0;
-    state.selectedStoryPage = clampStorySpread(state.selectedStoryPage);
+    state.selectedStoryPage = clampStoryIndex(state.selectedStoryPage);
     state.readerLoading = false;
     renderApp();
     window.scrollTo({ top: 0, behavior: "auto" });
@@ -554,7 +554,7 @@ function selectMission(mission, targetId) {
 
 function selectStoryPage(index, syncFlip = true) {
   if (!state.storybook) return;
-  const nextPage = clampStorySpread(index);
+  const nextPage = clampStoryIndex(index);
   state.selectedStoryPage = nextPage;
   writeStorage(storyPageStorageKey(state.activeEditionId || state.storybook.id), String(nextPage));
   updateStorybookUI();
@@ -575,7 +575,7 @@ function initStorybook() {
   destroyPageFlip();
   updateStorybookUI();
 
-  if (prefersReducedMotion() || window.matchMedia("(max-width: 760px)").matches) return;
+  if (prefersReducedMotion()) return;
 
   loadPageFlipScript()
     .then(() => {
@@ -585,19 +585,20 @@ function initStorybook() {
       if (!pages.length) return;
 
       try {
+        const singlePage = isSinglePageStoryMode();
         state.pageFlip = new window.St.PageFlip(root, {
-          width: 560,
-          height: 760,
+          width: singlePage ? 360 : 560,
+          height: singlePage ? 620 : 760,
           size: "stretch",
-          minWidth: 320,
-          maxWidth: 900,
-          minHeight: 460,
-          maxHeight: 1080,
+          minWidth: singlePage ? 280 : 320,
+          maxWidth: singlePage ? 430 : 900,
+          minHeight: singlePage ? 420 : 460,
+          maxHeight: singlePage ? 760 : 1080,
           showCover: false,
-          usePortrait: false,
+          usePortrait: singlePage,
           mobileScrollSupport: false,
-          maxShadowOpacity: 0.32,
-          flippingTime: 920,
+          maxShadowOpacity: singlePage ? 0.24 : 0.32,
+          flippingTime: singlePage ? 760 : 920,
           startPage: state.selectedStoryPage,
           drawShadow: true,
         });
@@ -655,17 +656,18 @@ function destroyPageFlip() {
 
 function updateStorybookUI() {
   if (!state.storybook) return;
-  const currentIndex = clampStoryPage(state.selectedStoryPage);
+  const singlePage = isSinglePageStoryMode();
+  const currentIndex = clampStoryIndex(state.selectedStoryPage);
   const currentPage = state.storybook.pages[currentIndex];
   const total = state.storybook.pages.length;
-  const rightIndex = Math.min(currentIndex + 1, total - 1);
+  const rightIndex = singlePage ? currentIndex : Math.min(currentIndex + 1, total - 1);
   const progress = Math.round(((rightIndex + 1) / total) * 100);
   const reader = document.querySelector(".storybook-reader");
 
   document.querySelectorAll("[data-story-page-view]").forEach((page) => {
     const pageIndex = Number(page.dataset.storyPageView);
     page.classList.toggle("is-active", pageIndex === currentIndex);
-    page.classList.toggle("is-next-spread", pageIndex === rightIndex && rightIndex !== currentIndex);
+    page.classList.toggle("is-next-spread", !singlePage && pageIndex === rightIndex && rightIndex !== currentIndex);
   });
 
   document.querySelectorAll("[data-story-page]").forEach((button) => {
@@ -677,10 +679,10 @@ function updateStorybookUI() {
   });
 
   document.querySelectorAll("[data-story-action='next']").forEach((button) => {
-    button.disabled = rightIndex === total - 1;
+    button.disabled = singlePage ? currentIndex === total - 1 : rightIndex === total - 1;
   });
 
-  setText("[data-story-status]", rightIndex === currentIndex ? `Pagina ${currentIndex + 1} de ${total}` : `Paginas ${currentIndex + 1}-${rightIndex + 1} de ${total}`);
+  setText("[data-story-status]", singlePage || rightIndex === currentIndex ? `Pagina ${currentIndex + 1} de ${total}` : `Paginas ${currentIndex + 1}-${rightIndex + 1} de ${total}`);
   setText("[data-story-kicker]", currentPage.kicker);
   setText("[data-story-title]", currentPage.title);
   setText("[data-story-body]", currentPage.body);
@@ -701,12 +703,12 @@ function handleStorybookKeyboard(event) {
 
   if (event.key === "ArrowRight") {
     event.preventDefault();
-    selectStoryPage(state.selectedStoryPage + 2);
+    selectStoryPage(state.selectedStoryPage + storyPageStep());
   }
 
   if (event.key === "ArrowLeft") {
     event.preventDefault();
-    selectStoryPage(state.selectedStoryPage - 2);
+    selectStoryPage(state.selectedStoryPage - storyPageStep());
   }
 }
 
@@ -774,9 +776,10 @@ function renderMetrics(metrics) {
 }
 
 function renderStorybook(storybook, edition = {}) {
-  const currentIndex = clampStoryPage(state.selectedStoryPage);
+  const singlePage = isSinglePageStoryMode();
+  const currentIndex = clampStoryIndex(state.selectedStoryPage);
   const currentPage = storybook.pages[currentIndex] || storybook.pages[0];
-  const rightIndex = Math.min(currentIndex + 1, storybook.pages.length - 1);
+  const rightIndex = singlePage ? currentIndex : Math.min(currentIndex + 1, storybook.pages.length - 1);
   const progress = Math.round(((rightIndex + 1) / storybook.pages.length) * 100);
 
   return `
@@ -792,8 +795,8 @@ function renderStorybook(storybook, edition = {}) {
       </div>
 
       <div class="storybook-reader" data-reveal style="--reveal-delay:120ms">
+        <a class="storybook-back" href="#biblioteca" data-library-link>Biblioteca</a>
         <div class="storybook-toolbar" aria-label="Controles del cuento">
-          <a class="storybook-back" href="#biblioteca" data-library-link>Biblioteca</a>
           <button type="button" class="storybook-control" data-story-action="prev">Anterior</button>
           <div class="storybook-progress" style="--story-progress:${progress}%">
             <span data-story-status>${rightIndex === currentIndex ? `Pagina ${currentIndex + 1} de ${storybook.pages.length}` : `Paginas ${currentIndex + 1}-${rightIndex + 1} de ${storybook.pages.length}`}</span>
@@ -1263,6 +1266,18 @@ function clampStorySpread(index) {
   const page = clampStoryPage(index);
   const lastSpreadStart = Math.max(0, state.storybook.pages.length - 2);
   return Math.min(page - (page % 2), lastSpreadStart);
+}
+
+function clampStoryIndex(index) {
+  return isSinglePageStoryMode() ? clampStoryPage(index) : clampStorySpread(index);
+}
+
+function storyPageStep() {
+  return isSinglePageStoryMode() ? 1 : 2;
+}
+
+function isSinglePageStoryMode() {
+  return window.matchMedia("(max-width: 760px)").matches;
 }
 
 function normalizeViewScale(value) {

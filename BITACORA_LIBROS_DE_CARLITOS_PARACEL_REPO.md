@@ -1329,3 +1329,48 @@
 * Mantener la version inclusiva como base visual del cuento.
 * No usar pseudo-elementos auxiliares para sombras moviles si pueden confundirse con una hoja fantasma.
 * Si se agregan nuevas laminas, revisar explicitamente representacion de discapacidad, tonos de piel, anteojos y diversidad de grupo.
+
+## 2026-06-30 06:45
+
+### Proyecto
+
+* Nombre: Libros de Carlitos
+* URL publica: `https://investigapyrm.github.io/libros_de_carlitos/`
+* Rama publicada por GitHub Pages: `feature/cuento-dia-del-nino-2026`
+* Version verificada: `v0.7.5`
+
+### Objetivo de la intervencion
+
+* Cerrar la verificacion publica posterior al despliegue de las laminas inclusivas y los ajustes del cuadro de texto.
+
+### Acciones realizadas
+
+* Se verifico que `app.js` publico devuelve `APP_VERSION = "v0.7.5"`.
+* Se verifico que `data/story-dia-nino.json` publico referencia las imagenes `dia_nino_inclusivo_*.png`.
+* Se verifico por HTTP que `dia_nino_inclusivo_portada_16x9.png` responde `200`.
+* Se verifico que el CSS publico no contiene `storybook-stage::after` ni `storyPageShadow`.
+
+### Resultados verificados
+
+* GitHub Pages sirve la version `v0.7.5`.
+* La portada inclusiva esta disponible publicamente.
+* El CSS publicado ya no contiene el pseudo-elemento asociado al rectangulo fantasma.
+
+### Pruebas realizadas
+
+* `Invoke-WebRequest` sobre `app.js`.
+* `Invoke-WebRequest` sobre `data/story-dia-nino.json`.
+* `Invoke-WebRequest -Method Head` sobre `assets/generated/dia_nino_inclusivo_portada_16x9.png`.
+* `Invoke-WebRequest` sobre `styles.css`.
+
+### Pendientes
+
+* Ninguno para esta intervencion.
+
+### Riesgos
+
+* El peso de las nuevas imagenes puede requerir optimizacion si la carga en celulares reales resulta lenta.
+
+### Recomendaciones
+
+* Evaluar optimizacion WebP o versiones responsive si el cuento crece con mas ediciones inclusivas.

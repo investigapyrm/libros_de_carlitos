@@ -1,4 +1,4 @@
-const APP_VERSION = "v0.7.7";
+const APP_VERSION = "v0.7.8";
 const APP_BUILD_DATE = "2026-06-30";
 const GAS_ENDPOINT = "";
 const LOCAL_DATA_URL = "data/book.json";
@@ -197,35 +197,35 @@ function normalizeBook(raw) {
   const items = (Array.isArray(raw.items) ? raw.items : [])
     .map((item, index) => ({
       orden: Number(item.orden || index + 1),
-      tipo: item.tipo || "capitulo",
-      titulo: item.titulo || `Seccion ${index + 1}`,
-      subtitulo: item.subtitulo || "",
-      contenido: item.contenido || "",
-      objetivo: item.objetivo || "",
-      preguntaGuia: item.preguntaGuia || "",
+      tipo: cleanText(item.tipo, "capitulo"),
+      titulo: cleanText(item.titulo, `Seccion ${index + 1}`),
+      subtitulo: cleanText(item.subtitulo),
+      contenido: cleanText(item.contenido),
+      objetivo: cleanText(item.objetivo),
+      preguntaGuia: cleanText(item.preguntaGuia),
       aprendizajes: normalizeStringList(item.aprendizajes),
       desarrollo: normalizeStringList(item.desarrollo),
       pasos: normalizeStringList(item.pasos),
       materiales: normalizeStringList(item.materiales),
       evidencias: normalizeStringList(item.evidencias),
-      paraDocente: item.paraDocente || "",
-      paraComunidad: item.paraComunidad || "",
-      cuidado: item.cuidado || "",
-      actividad: item.actividad || "",
-      indicador: item.indicador || "",
+      paraDocente: cleanText(item.paraDocente),
+      paraComunidad: cleanText(item.paraComunidad),
+      cuidado: cleanText(item.cuidado),
+      actividad: cleanText(item.actividad),
+      indicador: cleanText(item.indicador),
       asset: item.asset || "",
-      estado: item.estado || "borrador",
+      estado: cleanText(item.estado, "borrador"),
     }))
     .sort((a, b) => a.orden - b.orden);
 
   return {
-    title: raw.title || "Carlitos y los residuos que se convierten en oportunidad",
-    subtitle: raw.subtitle || "",
+    title: cleanText(raw.title, "Carlitos y los residuos que se convierten en oportunidad"),
+    subtitle: cleanText(raw.subtitle),
     heroImage: raw.heroImage || getAssetByType(items, "portada"),
     characterSheet: raw.characterSheet || getAssetByType(items, "personaje"),
     closingImage: raw.closingImage || getAssetByType(items, "cierre"),
-    sourceLabel: raw.sourceLabel || "Datos locales",
-    rightsNote: raw.rightsNote || "",
+    sourceLabel: cleanText(raw.sourceLabel, "Datos locales"),
+    rightsNote: cleanText(raw.rightsNote),
     summary: raw.summary || {},
     enterpriseFocus: raw.enterpriseFocus || null,
     metrics: Array.isArray(raw.metrics) ? raw.metrics : [],
@@ -250,23 +250,23 @@ function normalizeEditionCatalog(raw, book) {
   const editions = (Array.isArray(raw?.editions) && raw.editions.length ? raw.editions : [defaultEdition])
     .map((edition, index) => ({
       id: edition.id || `edicion-${index + 1}`,
-      title: edition.title || `Edición ${index + 1}`,
-      subtitle: edition.subtitle || "",
-      editionLabel: edition.editionLabel || "Libro digital",
-      status: edition.status || (edition.dataUrl ? "Disponible" : "En preparación"),
-      description: edition.description || "",
+      title: cleanText(edition.title, `Edición ${index + 1}`),
+      subtitle: cleanText(edition.subtitle),
+      editionLabel: cleanText(edition.editionLabel, "Libro digital"),
+      status: cleanText(edition.status, edition.dataUrl ? "Disponible" : "En preparación"),
+      description: cleanText(edition.description),
       coverImage: edition.coverImage || book.heroImage || "",
       dataUrl: edition.dataUrl || "",
       available: edition.available !== false && Boolean(edition.dataUrl),
-      audience: edition.audience || "",
-      theme: edition.theme || "",
+      audience: cleanText(edition.audience),
+      theme: cleanText(edition.theme),
     }));
 
   return {
-    title: raw?.title || "Biblioteca digital de Carlitos",
-    subtitle: raw?.subtitle || "Ediciones interactivas para leer, mirar y conversar en aula o en familia.",
-    intro: raw?.intro || "Elegir un cuento abre una vista de lectura a pantalla completa.",
-    rightsNote: raw?.rightsNote || book.rightsNote || "",
+    title: cleanText(raw?.title, "Biblioteca digital de Carlitos"),
+    subtitle: cleanText(raw?.subtitle, "Ediciones interactivas para leer, mirar y conversar en aula o en familia."),
+    intro: cleanText(raw?.intro, "Elegir un cuento abre una vista de lectura a pantalla completa."),
+    rightsNote: cleanText(raw?.rightsNote, book.rightsNote || ""),
     editions,
   };
 }
@@ -275,25 +275,25 @@ function normalizeStorybook(raw, edition = {}) {
   if (!raw || !Array.isArray(raw.pages) || !raw.pages.length) return null;
 
   const pages = raw.pages.map((page, index) => ({
-    kicker: page.kicker || `Página ${index + 1}`,
-    title: page.title || `Página ${index + 1}`,
-    body: page.body || "",
+    kicker: cleanText(page.kicker, `Página ${index + 1}`),
+    title: cleanText(page.title, `Página ${index + 1}`),
+    body: cleanText(page.body),
     image: page.image || "",
     futureImage: page.futureImage || "",
-    tone: page.tone || "",
+    tone: cleanText(page.tone),
   }));
 
   return {
     id: raw.id || edition.id || "cuento-dia-nino",
-    title: raw.title || edition.title || "Carlitos y el bosque que guarda abrazos",
-    subtitle: raw.subtitle || edition.subtitle || "",
-    eyebrow: raw.eyebrow || "Libro digital interactivo",
-    audience: raw.audience || edition.audience || "",
-    status: raw.status || edition.status || "",
-    sourceLabel: raw.sourceLabel || "",
-    activityTitle: raw.activityTitle || "Actividad",
-    activityText: raw.activityText || "",
-    editionLabel: edition.editionLabel || "",
+    title: cleanText(raw.title, edition.title || "Carlitos y el bosque que guarda abrazos"),
+    subtitle: cleanText(raw.subtitle, edition.subtitle || ""),
+    eyebrow: cleanText(raw.eyebrow, "Libro digital interactivo"),
+    audience: cleanText(raw.audience, edition.audience || ""),
+    status: cleanText(raw.status, edition.status || ""),
+    sourceLabel: cleanText(raw.sourceLabel),
+    activityTitle: cleanText(raw.activityTitle, "Actividad"),
+    activityText: cleanText(raw.activityText),
+    editionLabel: cleanText(edition.editionLabel),
     pages,
   };
 }
@@ -898,6 +898,7 @@ function updateStoryCopyContrast() {
 
 function applyStoryCopyContrast(page) {
   const image = page.querySelector(".storybook-page-visual img:not([hidden])");
+  const copy = page.querySelector(".storybook-page-copy");
   page.classList.remove("copy-on-light-image", "copy-on-dark-image");
 
   if (!image || !image.complete || !image.naturalWidth) {
@@ -909,25 +910,25 @@ function applyStoryCopyContrast(page) {
   }
 
   try {
-    page.classList.add(storyImageTopLooksLight(image) ? "copy-on-light-image" : "copy-on-dark-image");
+    page.classList.add(storyImageCopyAreaLooksLight(image, copy) ? "copy-on-light-image" : "copy-on-dark-image");
   } catch (error) {
     page.classList.add("copy-on-dark-image");
   }
 }
 
-function storyImageTopLooksLight(image) {
+function storyImageCopyAreaLooksLight(image, copy) {
   const canvas = document.createElement("canvas");
-  const width = 52;
-  const height = 36;
-  const sampleHeight = 16;
+  const width = 72;
+  const height = 44;
   canvas.width = width;
   canvas.height = height;
 
   const context = canvas.getContext("2d", { willReadFrequently: true });
   if (!context) return false;
 
-  context.drawImage(image, 0, 0, width, height);
-  const data = context.getImageData(0, 0, width, sampleHeight).data;
+  const sample = storyImageCopySample(image, copy);
+  context.drawImage(image, sample.x, sample.y, sample.width, sample.height, 0, 0, width, height);
+  const data = context.getImageData(0, 0, width, height).data;
   let luminance = 0;
   let samples = 0;
 
@@ -939,6 +940,50 @@ function storyImageTopLooksLight(image) {
   }
 
   return samples > 0 && (luminance / samples) > 148;
+}
+
+function storyImageCopySample(image, copy) {
+  const imageRect = image.getBoundingClientRect();
+  const copyRect = copy?.getBoundingClientRect();
+  const naturalWidth = image.naturalWidth || 1;
+  const naturalHeight = image.naturalHeight || 1;
+  const renderedWidth = Math.max(imageRect.width, 1);
+  const renderedHeight = Math.max(imageRect.height, 1);
+  const containerRatio = renderedWidth / renderedHeight;
+  const imageRatio = naturalWidth / naturalHeight;
+  let sourceX = 0;
+  let sourceY = 0;
+  let sourceWidth = naturalWidth;
+  let sourceHeight = naturalHeight;
+
+  if (containerRatio > imageRatio) {
+    sourceHeight = naturalWidth / containerRatio;
+    sourceY = (naturalHeight - sourceHeight) / 2;
+  } else {
+    sourceWidth = naturalHeight * containerRatio;
+    sourceX = (naturalWidth - sourceWidth) / 2;
+  }
+
+  if (!copyRect || !copyRect.width || !copyRect.height) {
+    return {
+      x: sourceX,
+      y: sourceY,
+      width: sourceWidth,
+      height: sourceHeight * 0.34,
+    };
+  }
+
+  const left = clampNumber((copyRect.left - imageRect.left) / renderedWidth, 0, 1);
+  const top = clampNumber((copyRect.top - imageRect.top) / renderedHeight, 0, 1);
+  const right = clampNumber((copyRect.right - imageRect.left) / renderedWidth, 0, 1);
+  const bottom = clampNumber((copyRect.bottom - imageRect.top) / renderedHeight, 0, 1);
+
+  return {
+    x: sourceX + (left * sourceWidth),
+    y: sourceY + (top * sourceHeight),
+    width: Math.max((right - left) * sourceWidth, 12),
+    height: Math.max((bottom - top) * sourceHeight, 12),
+  };
 }
 
 function handleStorybookKeyboard(event) {
@@ -1496,9 +1541,9 @@ function getAssetByType(items, type) {
 function getMissions(book) {
   return (book.missions || DEFAULT_MISSIONS).map((mission, index) => ({
     id: mission.id || `mision-${index + 1}`,
-    title: mission.title || `Mision ${index + 1}`,
-    tagline: mission.tagline || "",
-    description: mission.description || "",
+    title: cleanText(mission.title, `Mision ${index + 1}`),
+    tagline: cleanText(mission.tagline),
+    description: cleanText(mission.description),
     orden: Number(mission.orden || firstContentItem(book).orden),
   }));
 }
@@ -1539,15 +1584,50 @@ function normalizeViewScale(value) {
 function normalizeStringList(value) {
   if (Array.isArray(value)) {
     return value
-      .map((entry) => String(entry || "").trim())
+      .map((entry) => cleanText(entry).trim())
       .filter(Boolean);
   }
 
   if (typeof value === "string" && value.trim()) {
-    return [value.trim()];
+    return [cleanText(value).trim()];
   }
 
   return [];
+}
+
+function cleanText(value, fallback = "") {
+  const text = value === undefined || value === null || value === "" ? fallback : value;
+  return repairSpanishMojibake(String(text || "")).normalize("NFC");
+}
+
+function repairSpanishMojibake(value) {
+  if (!/[\u00c3\u00c2\ufffd]/.test(value)) return value;
+
+  let best = value;
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    const decoded = decodeUtf8FromLatin1(best);
+    if (mojibakeScore(decoded) >= mojibakeScore(best)) break;
+    best = decoded;
+  }
+  return best;
+}
+
+function decodeUtf8FromLatin1(value) {
+  try {
+    const bytes = Uint8Array.from(Array.from(value), (character) => character.charCodeAt(0) & 0xff);
+    return new TextDecoder("utf-8").decode(bytes);
+  } catch (error) {
+    return value;
+  }
+}
+
+function mojibakeScore(value) {
+  const markers = value.match(/[\u00c3\u00c2\ufffd]/g);
+  return markers ? markers.length : 0;
+}
+
+function clampNumber(value, min, max) {
+  return Math.min(Math.max(Number(value) || 0, min), max);
 }
 
 function metricNumber(value) {

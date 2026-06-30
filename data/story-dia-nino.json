@@ -7,12 +7,12 @@
   "status": "Borrador interno pendiente de validación editorial, técnica, legal e institucional.",
   "sourceLabel": "Basado en el borrador editorial del 2026-06-29 y en la propuesta técnica Paracel-FACEN.",
   "activityTitle": "Regalos que crecen",
-  "activityText": "Después de leer, cada niño dibuja una acción para cuidar aire, agua, suelo o biodiversidad. El grupo puede contar qué acciones se repiten más y elegir una promesa de cuidado.",
+  "activityText": "Después de leer, cada niño elige una acción de cuidado y la convierte en promesa: sembrar, observar, medir, ahorrar agua o preguntar con respeto. El grupo puede contar cuáles se repiten más y armar su propio bosque de compromisos.",
   "pages": [
     {
       "kicker": "Portada",
       "title": "Carlitos y el bosque que guarda abrazos",
-      "body": "En el Día del Niño, Carlitos descubre que los regalos más valientes no siempre vienen envueltos: algunos nacen como semillas, crecen despacito y un día regalan sombra, aire fresco y futuro.",
+      "body": "En el Día del Niño, Carlitos descubre un secreto: los regalos más valientes no siempre vienen envueltos. Algunos duermen como semillas, despiertan con lluvia y paciencia, y un día regalan sombra, aire fresco, nidos y futuro.",
       "image": "assets/generated/dia_nino_inclusivo_portada_16x9.png",
       "futureImage": "assets/generated/dia_nino_inclusivo_portada_16x9.png",
       "tone": "Celebrar"
@@ -20,7 +20,7 @@
     {
       "kicker": "Página 1",
       "title": "La pregunta de la profe",
-      "body": "La profe puso una caja sobre la mesa y preguntó: ¿qué regalo podemos hacer que no se rompa, no se pierda y pueda crecer? Carlitos abrió grande los ojos: esa pregunta parecía tener hojas adentro.",
+      "body": "La profe dejó una caja sobre la mesa. No tenía moño ni papel brillante. Tenía una pregunta: ¿qué regalo no se rompe, no se pierde y puede crecer con nosotros? Carlitos sintió que la pregunta hacía cosquillas verdes.",
       "image": "assets/generated/dia_nino_inclusivo_lamina_02_pregunta_regalo_crece.png",
       "futureImage": "assets/generated/dia_nino_inclusivo_lamina_02_pregunta_regalo_crece.png",
       "tone": "Preguntar"
@@ -28,7 +28,7 @@
     {
       "kicker": "Página 2",
       "title": "Regalar sombra",
-      "body": "Carlitos levantó la patita y propuso regalar sombra. Al principio todos se rieron un poquito, pero después imaginaron una copa verde cuidando juegos, meriendas y secretos de recreo.",
+      "body": "Carlitos levantó la patita y dijo: podemos regalar sombra. Primero hubo risas chiquitas, de esas que saltan solas. Después todos imaginaron una copa verde cuidando juegos, meriendas, charlas bajitas y secretos de recreo.",
       "image": "assets/generated/dia_nino_carlitos_bosque_abrazos_lamina_03_regalar_sombra.png",
       "futureImage": "assets/generated/dia_nino_carlitos_bosque_abrazos_lamina_03_regalar_sombra.png",
       "tone": "Imaginar"
@@ -36,7 +36,7 @@
     {
       "kicker": "Página 3",
       "title": "Camino al vivero",
-      "body": "Al día siguiente salieron temprano. El camino olía a tierra mojada, el arroyo cantaba bajito y Carlitos llevaba su libreta verde, lista para guardar preguntas, huellas y descubrimientos.",
+      "body": "Al día siguiente caminaron temprano. El sendero olía a tierra mojada, el arroyo cantaba bajito y unas mariposas parecían abrir camino. Carlitos llevaba su libreta verde, lista para guardar preguntas, huellas y descubrimientos.",
       "image": "assets/generated/dia_nino_carlitos_bosque_abrazos_lamina_04_camino_vivero.png",
       "futureImage": "assets/generated/dia_nino_carlitos_bosque_abrazos_lamina_04_camino_vivero.png",
       "tone": "Explorar"
@@ -44,7 +44,7 @@
     {
       "kicker": "Página 4",
       "title": "Dos paisajes que se cuidan",
-      "body": "Don Tadeo mostró dos mundos vecinos: el bosque nativo, desordenado como una fiesta de vida, y los árboles jóvenes de una plantación planificada, creciendo en filas con reglas de cuidado.",
+      "body": "Don Tadeo mostró dos paisajes vecinos. El bosque nativo crecía como una fiesta de vida, con plantas distintas conversando entre sí. La plantación planificada avanzaba en filas jóvenes, con reglas de cuidado, suelo protegido y manos atentas.",
       "image": "assets/generated/dia_nino_inclusivo_lamina_05_bosque_nativo_plantacion.png",
       "futureImage": "assets/generated/dia_nino_inclusivo_lamina_05_bosque_nativo_plantacion.png",
       "tone": "Distinguir"
@@ -52,7 +52,7 @@
     {
       "kicker": "Página 5",
       "title": "El calor invisible",
-      "body": "El calor invisible no se veía como piedra ni mariposa, pero estaba en el aire. La profe explicó que los árboles, mientras crecen, guardan parte del carbono como trabajadores silenciosos.",
+      "body": "La profe habló del calor invisible. No se veía como piedra ni mariposa, pero estaba en el aire. Explicó que los árboles, mientras crecen, guardan parte del carbono en silencio, como si abrazaran al clima desde adentro.",
       "image": "assets/generated/dia_nino_carlitos_bosque_abrazos_lamina_06_calor_invisible.png",
       "futureImage": "assets/generated/dia_nino_carlitos_bosque_abrazos_lamina_06_calor_invisible.png",
       "tone": "Comprender"
@@ -60,7 +60,7 @@
     {
       "kicker": "Página 6",
       "title": "Medir también es cuidar",
-      "body": "Con una cinta, una tarjeta y mucha paciencia, cada equipo observó un árbol joven. Carlitos descubrió que medir no era mandar al árbol: era conocerlo mejor para ayudarlo a crecer sano.",
+      "body": "Con una cinta, una tarjeta y mucha paciencia, cada equipo observó un árbol joven. Carlitos descubrió algo importante: medir no era mandar al árbol. Medir era escucharlo con datos para ayudarlo a crecer fuerte y sano.",
       "image": "assets/generated/dia_nino_carlitos_bosque_abrazos_lamina_07_medir_cuidar.png",
       "futureImage": "assets/generated/dia_nino_carlitos_bosque_abrazos_lamina_07_medir_cuidar.png",
       "tone": "Medir"
@@ -68,7 +68,7 @@
     {
       "kicker": "Página 7",
       "title": "El álbum secreto del bosque",
-      "body": "En el borde del bosque encontraron una cámara trampa. No atrapaba animales: atrapaba fotos para saber qué vecinos pasaban cuando nadie miraba. Carlitos imaginó un álbum familiar lleno de patas, alas y bigotes.",
+      "body": "En el borde del bosque encontraron una cámara trampa. No atrapaba animales: atrapaba momentos. Así podían saber qué vecinos pasaban cuando nadie miraba. Carlitos imaginó un álbum secreto lleno de patas, alas, bigotes y pasos suaves.",
       "image": "assets/generated/dia_nino_inclusivo_lamina_08_camara_trampa_biodiversidad.png",
       "futureImage": "assets/generated/dia_nino_inclusivo_lamina_08_camara_trampa_biodiversidad.png",
       "tone": "Observar"
@@ -76,7 +76,7 @@
     {
       "kicker": "Página 8",
       "title": "Preguntar también cuida",
-      "body": "Bajo la sombra fresca, cada niño eligió una acción: plantar, caminar, ahorrar agua, separar botellas u observar aves. Carlitos eligió preguntar con respeto, porque las buenas preguntas también protegen.",
+      "body": "Bajo la sombra fresca, cada niño eligió una acción: plantar, caminar, ahorrar agua, separar botellas u observar aves. Carlitos eligió preguntar con respeto. Entendió que una buena pregunta puede abrir caminos sin romper nada.",
       "image": "assets/generated/dia_nino_carlitos_bosque_abrazos_lamina_09_tarjetas_cuidado.png",
       "futureImage": "assets/generated/dia_nino_carlitos_bosque_abrazos_lamina_09_tarjetas_cuidado.png",
       "tone": "Elegir"
@@ -84,7 +84,7 @@
     {
       "kicker": "Página 9",
       "title": "Plantar es prometer cuidado",
-      "body": "Antes de volver, Don Tadeo recordó que un árbol no se planta apurado ni en cualquier lugar. Plantar es prometer cuidado. Carlitos anotó la pregunta final: ¿qué futuro queremos cuidar juntos?",
+      "body": "Antes de volver, Don Tadeo recordó que un árbol no se planta apurado ni en cualquier lugar. Plantar es hacer una promesa con la tierra. Carlitos cerró su libreta y escribió: ¿qué futuro queremos cuidar juntos?",
       "image": "assets/generated/dia_nino_carlitos_bosque_abrazos_lamina_10_plantar_promesa.png",
       "futureImage": "assets/generated/dia_nino_carlitos_bosque_abrazos_lamina_10_plantar_promesa.png",
       "tone": "Cuidar"

@@ -1645,3 +1645,102 @@
 ### Recomendaciones
 
 * Mantener verificacion publica de version, rutas y CSS despues de cada push a la rama efectiva de Pages.
+
+## 2026-06-30 08:05
+
+### Proyecto
+
+* Nombre: Libros de Carlitos
+* Cliente o institucion: PARACEL / Proyecto Carlitos
+* Ruta local: `C:\Users\Diego\OneDrive - PARACEL S.A\MONITOREO_IMPACTO_SOCIAL_PARACEL\PROYECTO_CARLITOS\libros_de_carlitos`
+* Repositorio: `https://github.com/investigapyrm/libros_de_carlitos.git`
+* URL publica: `https://investigapyrm.github.io/libros_de_carlitos/`
+* Rama publicada por GitHub Pages: `feature/cuento-dia-del-nino-2026`
+* Responsable: Codex
+* Version: `v0.7.8`
+
+### Objetivo de la intervencion
+
+* Corregir problemas percibidos con caracteres especiales, especialmente `ñ`.
+* Mejorar el estilo del texto del cuento para que sea mas infantil y menos simple.
+* Mantener el cuadro de texto semitransparente, arriba de la imagen y con contraste automatico segun el fondo.
+
+### Diagnostico inicial
+
+* Los archivos fuente estaban en UTF-8 real; Node leia correctamente `Día del Niño`, `Página` y `niño`.
+* La consola PowerShell mostraba mojibake al usar `Get-Content`, pero no habia corrupcion real en los archivos.
+* El contraste automatico existia, pero muestreaba una franja superior general de la imagen, no la zona exacta bajo el cuadro de texto.
+* La prosa del cuento podia enriquecerse manteniendo frases aptas para infancia.
+
+### Acciones realizadas
+
+* Se agrego normalizacion defensiva de texto visible en `app.js` para reparar secuencias heredadas tipo `NiÃ±o` o `Â¿quÃ©` si llegan desde una fuente mal decodificada.
+* Se reemplazaron los marcadores literales de mojibake por escapes Unicode para no dejar `Ã` o `Â` visibles en el codigo.
+* Se cambio el contraste automatico para muestrear el area real de la imagen ubicada debajo del cuadro de texto.
+* Se agrego `@charset "UTF-8";` en `styles.css`.
+* Se reforzo la fuente infantil del cuento con una pila que prioriza `Comic Sans MS`, `Segoe Print` y `Arial Rounded MT Bold`.
+* Se ajusto el cuadro de texto: posicion superior, fondo semitransparente, blur liviano, sombra suave y mejor peso de texto.
+* Se enriquecio la narracion de `data/story-dia-nino.json`.
+* Se actualizo version/cache a `v0.7.8`.
+
+### Archivos modificados
+
+* `app.js`
+* `styles.css`
+* `index.html`
+* `data/story-dia-nino.json`
+* `BITACORA_LIBROS_DE_CARLITOS_PARACEL_REPO.md`
+
+### Comandos o scripts ejecutados
+
+* `node --check app.js`
+* `node -e "for (const f of ['data/book.json','data/editions.json','data/story-dia-nino.json','data/story-residuos-oportunidad.json']) { JSON.parse(require('fs').readFileSync(f,'utf8')); } console.log('JSON OK')"`
+* `node -e "const fs=require('fs'); for (const f of ['data/story-dia-nino.json','data/editions.json','app.js','styles.css','index.html']) { const s=fs.readFileSync(f,'utf8'); console.log(f, /Ã|Â|�/.test(s) ? 'HAS_MOJIBAKE_PATTERN' : 'OK_UTF8_VISIBLE'); }"`
+* `git diff --check`
+* `python -m http.server 8797 --bind 127.0.0.1`
+* `npx playwright screenshot --viewport-size="1366,768" --wait-for-timeout=4500 "http://127.0.0.1:8797/?v=0.7.8-reader#libro/cuento-dia-nino-2026" "tmp_reader_desktop_v078.png"`
+* `npx playwright screenshot --viewport-size="390,844" --wait-for-timeout=4500 "http://127.0.0.1:8797/?v=0.7.8-reader-mobile#libro/cuento-dia-nino-2026" "tmp_reader_mobile_v078.png"`
+
+### Resultados verificados
+
+* `node --check app.js` paso correctamente.
+* Los JSON validaron correctamente.
+* La revision UTF-8 por Node no detecto patrones `Ã`, `Â` ni `�` en archivos fuente.
+* Node imprimio correctamente `Un cuento digital para regalar cuidado en el Día del Niño.` y una frase con `niño`.
+* Las capturas locales muestran `DÍA DEL NIÑO 2026` con `Ñ`, texto arriba, cuadro semitransparente y estilo de letra mas infantil.
+
+### Pruebas realizadas
+
+* Validacion sintactica JavaScript.
+* Validacion JSON.
+* Revision automatica de mojibake visible en archivos fuente.
+* Captura Playwright CLI en escritorio.
+* Captura Playwright CLI en movil.
+
+### Errores o incidentes
+
+* La primera edicion de `data/story-dia-nino.json` dejo una coma faltante al final de un `body`; fue detectada por JSON.parse y corregida antes de continuar.
+* El detector defensivo de mojibake uso inicialmente caracteres literales `Ã/Â`; se reemplazo por escapes Unicode.
+
+### Soluciones aplicadas
+
+* Limpieza defensiva de texto visible con `cleanText()`.
+* Muestreo de contraste sobre la zona exacta del cuadro de texto.
+* Revalidacion local completa despues de corregir JSON.
+* Limpieza de capturas temporales y cierre del servidor local.
+
+### Pendientes
+
+* Hacer commit y push.
+* Verificar GitHub Pages publico despues del despliegue.
+
+### Riesgos
+
+* El corrector defensivo de mojibake solo se activa cuando detecta marcadores claros; si una fuente futura llega con corrupcion no estandar, puede requerir una regla adicional.
+* El texto enriquecido ocupa mas lineas; debe revisarse en celulares reales si se agregan paginas con imagenes mas cargadas en la zona superior.
+
+### Recomendaciones
+
+* Mantener validacion por Node de UTF-8 visible antes de publicar textos infantiles en castellano.
+* Evitar confiar en `Get-Content` de PowerShell como prueba de codificacion, porque puede mostrar mojibake aunque el archivo este correctamente en UTF-8.
+* Para cuentos con texto sobre imagen, muestrear contraste donde se ubica realmente el texto, no en una zona generica.

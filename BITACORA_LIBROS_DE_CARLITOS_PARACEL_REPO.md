@@ -1232,3 +1232,100 @@
 ### Recomendaciones
 
 * Para este repositorio, publicar siempre tambien en `feature/cuento-dia-del-nino-2026` o cambiar la fuente de Pages a `main`.
+
+## 2026-06-30 06:39
+
+### Proyecto
+
+* Nombre: Libros de Carlitos
+* Cliente o institucion: PARACEL / Proyecto Carlitos
+* Ruta local: `C:\Users\Diego\OneDrive - PARACEL S.A\MONITOREO_IMPACTO_SOCIAL_PARACEL\PROYECTO_CARLITOS\libros_de_carlitos`
+* Repositorio: `https://github.com/investigapyrm/libros_de_carlitos.git`
+* URL publica: `https://investigapyrm.github.io/libros_de_carlitos/`
+* Rama publicada por GitHub Pages: `feature/cuento-dia-del-nino-2026`
+* Responsable: Codex
+* Version: `v0.7.5`
+
+### Objetivo de la intervencion
+
+* Hacer el cuadro de texto mas transparente y sin bordes.
+* Eliminar el rectangulo auxiliar casi transparente que aparecia durante el efecto de paso de hoja.
+* Reemplazar las laminas del cuento por versiones inclusivas con niños en silla de ruedas, niños morenos y niños con anteojos.
+
+### Diagnostico inicial
+
+* El cuadro de texto conservaba fondo demasiado opaco y borde visible.
+* El efecto de paso de hoja tenia un pseudo-elemento adicional `::after` usado como sombra movil, percibido como un rectangulo extraño despues del cambio de pagina.
+* El repo no tenia integradas las nuevas imagenes inclusivas, aunque existian en la carpeta fuente `J:\Mi unidad\carlitos\cuento_dia_Del_niño`.
+
+### Acciones realizadas
+
+* Se bajo la opacidad de los fondos del cuadro de texto.
+* Se elimino el borde del cuadro de texto.
+* Se mantuvo sombra suave en el texto para preservar legibilidad.
+* Se elimino `.storybook-stage::after` y las animaciones `storyPageShadowNext` / `storyPageShadowPrev`.
+* Se mantuvo solo la hoja animada principal del pase de pagina.
+* Se copiaron diez imagenes inclusivas a `assets/generated`.
+* Se actualizo `data/story-dia-nino.json` para usar las imagenes inclusivas.
+* Se actualizo la portada del catalogo en `data/editions.json`.
+* Se actualizo version/cache a `v0.7.5`.
+
+### Archivos modificados
+
+* `app.js`
+* `styles.css`
+* `index.html`
+* `data/editions.json`
+* `data/story-dia-nino.json`
+* `assets/generated/dia_nino_inclusivo_portada_16x9.png`
+* `assets/generated/dia_nino_inclusivo_lamina_02_pregunta_regalo_crece.png`
+* `assets/generated/dia_nino_inclusivo_lamina_03_regalar_sombra.png`
+* `assets/generated/dia_nino_inclusivo_lamina_04_camino_vivero.png`
+* `assets/generated/dia_nino_inclusivo_lamina_05_bosque_nativo_plantacion.png`
+* `assets/generated/dia_nino_inclusivo_lamina_06_calor_invisible.png`
+* `assets/generated/dia_nino_inclusivo_lamina_07_medir_cuidar.png`
+* `assets/generated/dia_nino_inclusivo_lamina_08_camara_trampa_biodiversidad.png`
+* `assets/generated/dia_nino_inclusivo_lamina_09_tarjetas_cuidado.png`
+* `assets/generated/dia_nino_inclusivo_lamina_10_plantar_promesa.png`
+* `BITACORA_LIBROS_DE_CARLITOS_PARACEL_REPO.md`
+
+### Comandos o scripts ejecutados
+
+* `Get-ChildItem -LiteralPath "J:\Mi unidad\carlitos\cuento_dia_Del_niño" -File`
+* `node --check app.js`
+* `node -e "for (const f of ['data/book.json','data/editions.json','data/story-dia-nino.json','data/story-residuos-oportunidad.json']) { JSON.parse(require('fs').readFileSync(f,'utf8')); } console.log('JSON OK')"`
+* `git diff --check`
+* `npx playwright screenshot --viewport-size="390,844" --wait-for-timeout=4500 "http://127.0.0.1:8794/?v=0.7.5-mobile2#libro/cuento-dia-nino-2026" "tmp_mobile_v075b.png"`
+* `npx playwright screenshot --wait-for-timeout=4500 "http://127.0.0.1:8794/?v=0.7.5-desktop2#libro/cuento-dia-nino-2026" "tmp_desktop_v075b.png"`
+
+### Resultados verificados
+
+* La vista movil muestra portada inclusiva con niño en silla de ruedas, diversidad de tonos de piel y niña con anteojos.
+* La vista escritorio muestra doble pagina con las nuevas imagenes inclusivas.
+* El cuadro de texto se ve mas transparente y sin borde.
+* Ya no existen reglas `storybook-stage::after` ni animaciones `storyPageShadow*`.
+* La validacion sintactica JavaScript paso correctamente.
+* Los JSON activos parsean correctamente.
+* `git diff --check` no reporto errores.
+
+### Pruebas realizadas
+
+* Validacion sintactica JavaScript.
+* Validacion JSON.
+* Captura Playwright CLI movil.
+* Captura Playwright CLI escritorio.
+* Revision visual de inclusividad, transparencia del texto y ausencia del pseudo-elemento auxiliar.
+
+### Pendientes
+
+* Verificar propagacion publica de GitHub Pages despues del push.
+
+### Riesgos
+
+* Las nuevas imagenes aumentan el peso del repositorio y de la carga inicial del cuento.
+
+### Recomendaciones
+
+* Mantener la version inclusiva como base visual del cuento.
+* No usar pseudo-elementos auxiliares para sombras moviles si pueden confundirse con una hoja fantasma.
+* Si se agregan nuevas laminas, revisar explicitamente representacion de discapacidad, tonos de piel, anteojos y diversidad de grupo.

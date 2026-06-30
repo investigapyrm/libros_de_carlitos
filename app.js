@@ -1,4 +1,4 @@
-const APP_VERSION = "v0.7.4";
+const APP_VERSION = "v0.7.5";
 const APP_BUILD_DATE = "2026-06-29";
 const GAS_ENDPOINT = "";
 const LOCAL_DATA_URL = "data/book.json";
@@ -206,7 +206,7 @@ function normalizeEditionCatalog(raw, book) {
     editionLabel: "Día del Niño 2026",
     status: "Disponible",
     description: "Una lectura breve sobre cuidado, bosque, carbono y promesas que crecen.",
-    coverImage: "assets/generated/dia_nino_carlitos_bosque_abrazos_portada_16x9.png",
+    coverImage: "assets/generated/dia_nino_inclusivo_portada_16x9.png",
     dataUrl: LOCAL_STORY_URL,
     available: true,
   };

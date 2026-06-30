@@ -969,6 +969,7 @@
 * En celular, `Biblioteca` queda arriba a la derecha y no se solapa con `Anterior`, progreso ni `Siguiente`.
 * En celular, el contador muestra `Pagina 1 de 10`, coherente con lectura de una pagina.
 * En escritorio, el lector mantiene doble pagina y controles separados.
+* GitHub Pages ya sirve `APP_VERSION = "v0.7.2"`.
 
 ### Pruebas realizadas
 
@@ -991,7 +992,6 @@
 
 ### Pendientes
 
-* Publicar `main` y verificar que GitHub Pages sirva `APP_VERSION = "v0.7.2"`.
 * Validar manualmente el gesto de arrastre de hoja en un celular real.
 
 ### Riesgos

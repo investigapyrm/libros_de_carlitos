@@ -1598,3 +1598,50 @@
 * Mantener siempre el reinicio de lectura al entrar a un cuento desde biblioteca para evitar confusion en ninos.
 * Al terminar un cuento, mostrar una unica accion clara hacia una actividad ludica vinculada a la lectura.
 * Para botones o bloques que alternan visibilidad, usar una regla global `[hidden]` para evitar que componentes con `display` propio queden visibles por error.
+
+## 2026-06-30 07:32
+
+### Proyecto
+
+* Nombre: Libros de Carlitos
+* URL publica: `https://investigapyrm.github.io/libros_de_carlitos/`
+* Rama publicada por GitHub Pages: `feature/cuento-dia-del-nino-2026`
+* Version verificada: `v0.7.7`
+
+### Objetivo de la intervencion
+
+* Cerrar la verificacion publica posterior al commit y push del reinicio de cuentos y actividad final.
+
+### Acciones realizadas
+
+* Se verifico que el workflow Pages `28438067150` termino en `success`.
+* Se verifico que `app.js` publico devuelve `APP_VERSION = "v0.7.7"`.
+* Se verifico que `app.js` publico contiene la ruta `actividad/`.
+* Se verifico que `app.js` publico ya no contiene `storyPageStorageKey` ni `storyPagePrefix`.
+* Se verifico que `styles.css` publico contiene la regla `[hidden]` y estilos `activity-shell`.
+* Se verifico que `index.html` publico referencia cache `0.7.7`.
+
+### Resultados verificados
+
+* GitHub Pages sirve la version `v0.7.7`.
+* El lector publicado ya no depende de persistencia de pagina anterior.
+* La actividad final esta publicada en la misma appweb.
+* La regla de visibilidad evita que el boton final o el logro aparezcan antes de tiempo.
+
+### Pruebas realizadas
+
+* `gh run list --repo investigapyrm/libros_de_carlitos --limit 3`.
+* `Invoke-WebRequest` sobre `app.js`, `styles.css`, `index.html`.
+* `Invoke-WebRequest -Method Head` sobre `https://investigapyrm.github.io/libros_de_carlitos/#actividad/cuento-dia-nino-2026`.
+
+### Pendientes
+
+* Ninguno para esta intervencion.
+
+### Riesgos
+
+* La actividad esta definida en JavaScript; si crece el catalogo conviene pasarla a JSON por cuento.
+
+### Recomendaciones
+
+* Mantener verificacion publica de version, rutas y CSS despues de cada push a la rama efectiva de Pages.

@@ -876,12 +876,14 @@
 * `node -e "for (const f of ['data/book.json','data/editions.json','data/story-dia-nino.json','data/story-residuos-oportunidad.json']) { JSON.parse(require('fs').readFileSync(f,'utf8')); } console.log('JSON OK')"`
 * `npx playwright screenshot --wait-for-timeout=3500 "http://127.0.0.1:8792/?v=0.7.1-flip#libro/cuento-dia-nino-2026" "tmp_flip_check.png"`
 * `npx playwright screenshot --wait-for-timeout=500 "http://127.0.0.1:8792/?v=0.7.1-mobile#libro/cuento-dia-nino-2026" --viewport-size="390,844" "tmp_flip_mobile.png"`
+* `Invoke-WebRequest https://investigapyrm.github.io/libros_de_carlitos/app.js?v=verify-071f`
 
 ### Resultados verificados
 
 * En escritorio el libro vuelve a renderizarse como libro centrado con comportamiento PageFlip.
 * En movil se conserva una pagina por vez, sin forzar efecto de hoja.
 * La version local queda en `v0.7.1`.
+* La URL publica ya sirve `APP_VERSION = "v0.7.1"`.
 
 ### Pruebas realizadas
 
@@ -903,7 +905,6 @@
 
 ### Pendientes
 
-* Verificar la URL publica luego de publicar `main`.
 * Revisar visualmente desde navegador del usuario final.
 
 ### Riesgos

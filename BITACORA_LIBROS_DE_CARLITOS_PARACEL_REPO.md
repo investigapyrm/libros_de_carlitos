@@ -1184,3 +1184,51 @@
 
 * Mantener textos finales en UTF-8 y revisar `ñ`, tildes y signos de apertura antes de publicar cuentos infantiles.
 * Para textos sobre imagen, usar contraste adaptativo y cajas semitransparentes compactas que no desplacen el protagonismo visual del cuento.
+
+## 2026-06-30 05:32
+
+### Proyecto
+
+* Nombre: Libros de Carlitos
+* URL publica: `https://investigapyrm.github.io/libros_de_carlitos/`
+* Rama publicada por GitHub Pages: `feature/cuento-dia-del-nino-2026`
+* Version verificada: `v0.7.4`
+
+### Objetivo de la intervencion
+
+* Cerrar la verificacion publica posterior al despliegue de los ajustes de caracteres, texto y contraste.
+
+### Diagnostico inicial
+
+* GitHub Pages no publicaba desde `main`, sino desde `feature/cuento-dia-del-nino-2026`.
+* La URL publica seguia sirviendo `v0.7.2` aunque `main` ya tenia `v0.7.4`.
+
+### Acciones realizadas
+
+* Se empujo `main` hacia la rama usada por Pages: `feature/cuento-dia-del-nino-2026`.
+* Se espero la propagacion de GitHub Pages hasta que `app.js` publico devolvio `APP_VERSION = "v0.7.4"`.
+* Se verifico que `data/story-dia-nino.json` publico contenga `Día del Niño`, `Página 1` y `¿qué`.
+
+### Resultados verificados
+
+* GitHub Pages sirve `v0.7.4`.
+* El cuento publico conserva caracteres especiales en UTF-8.
+* El build `pages-build-deployment` finalizo con estado `success`.
+
+### Pruebas realizadas
+
+* `Invoke-WebRequest` sobre `https://investigapyrm.github.io/libros_de_carlitos/app.js`.
+* `Invoke-WebRequest` sobre `https://investigapyrm.github.io/libros_de_carlitos/data/story-dia-nino.json`.
+* `gh run list --repo investigapyrm/libros_de_carlitos --limit 3`.
+
+### Pendientes
+
+* Considerar cambiar la configuracion de GitHub Pages para publicar desde `main`, o mantener documentado que la rama efectiva de publicacion es `feature/cuento-dia-del-nino-2026`.
+
+### Riesgos
+
+* Si solo se empuja `main` en futuros cambios, la URL publica no se actualizara mientras Pages siga configurado sobre la rama feature.
+
+### Recomendaciones
+
+* Para este repositorio, publicar siempre tambien en `feature/cuento-dia-del-nino-2026` o cambiar la fuente de Pages a `main`.

@@ -1,4 +1,4 @@
-const APP_VERSION = "v0.7.3";
+const APP_VERSION = "v0.7.4";
 const APP_BUILD_DATE = "2026-06-29";
 const GAS_ENDPOINT = "";
 const LOCAL_DATA_URL = "data/book.json";
@@ -33,14 +33,14 @@ const DEFAULT_MISSIONS = [
     id: "transformar",
     title: "Transformar",
     tagline: "Convertir residuos en vida nueva.",
-    description: "Las cascaras y hojas secas se vuelven compost para la huerta escolar.",
+    description: "Las cáscaras y hojas secas se vuelven compost para la huerta escolar.",
     orden: 5,
   },
   {
     id: "emprender",
     title: "Emprender",
     tagline: "Crear oportunidades verdes.",
-    description: "Los datos ayudan a imaginar ferias, servicios y pequenos proyectos sostenibles.",
+    description: "Los datos ayudan a imaginar ferias, servicios y pequeños proyectos sostenibles.",
     orden: 7,
   },
   {
@@ -202,8 +202,8 @@ function normalizeEditionCatalog(raw, book) {
   const defaultEdition = {
     id: "cuento-dia-nino-2026",
     title: "Carlitos y el bosque que guarda abrazos",
-    subtitle: "Cuento digital para el Dia del Nino.",
-    editionLabel: "Dia del Nino 2026",
+    subtitle: "Cuento digital para el Día del Niño.",
+    editionLabel: "Día del Niño 2026",
     status: "Disponible",
     description: "Una lectura breve sobre cuidado, bosque, carbono y promesas que crecen.",
     coverImage: "assets/generated/dia_nino_carlitos_bosque_abrazos_portada_16x9.png",
@@ -214,10 +214,10 @@ function normalizeEditionCatalog(raw, book) {
   const editions = (Array.isArray(raw?.editions) && raw.editions.length ? raw.editions : [defaultEdition])
     .map((edition, index) => ({
       id: edition.id || `edicion-${index + 1}`,
-      title: edition.title || `Edicion ${index + 1}`,
+      title: edition.title || `Edición ${index + 1}`,
       subtitle: edition.subtitle || "",
       editionLabel: edition.editionLabel || "Libro digital",
-      status: edition.status || (edition.dataUrl ? "Disponible" : "En preparacion"),
+      status: edition.status || (edition.dataUrl ? "Disponible" : "En preparación"),
       description: edition.description || "",
       coverImage: edition.coverImage || book.heroImage || "",
       dataUrl: edition.dataUrl || "",
@@ -239,8 +239,8 @@ function normalizeStorybook(raw, edition = {}) {
   if (!raw || !Array.isArray(raw.pages) || !raw.pages.length) return null;
 
   const pages = raw.pages.map((page, index) => ({
-    kicker: page.kicker || `Pagina ${index + 1}`,
-    title: page.title || `Pagina ${index + 1}`,
+    kicker: page.kicker || `Página ${index + 1}`,
+    title: page.title || `Página ${index + 1}`,
     body: page.body || "",
     image: page.image || "",
     futureImage: page.futureImage || "",
@@ -305,10 +305,10 @@ function renderLibraryView() {
       </section>
 
       ${upcoming.length ? `
-        <section class="upcoming-band" aria-label="Proximas ediciones">
+        <section class="upcoming-band" aria-label="Próximas ediciones">
           <div class="section-heading compact" data-reveal>
-            <p class="eyebrow">En preparacion</p>
-            <h2>Proximas lecturas</h2>
+            <p class="eyebrow">En preparación</p>
+            <h2>Próximas lecturas</h2>
             <p>${escapeHtml(library.intro)}</p>
           </div>
           <div class="upcoming-list">
@@ -328,11 +328,11 @@ function renderLibraryView() {
 function renderEditionCard(edition, index, isAvailable) {
   const action = isAvailable
     ? `<a class="edition-open" href="#libro/${encodeURIComponent(edition.id)}" data-edition-open="${escapeAttribute(edition.id)}">Abrir libro</a>`
-    : `<span class="edition-open disabled">En preparacion</span>`;
+    : `<span class="edition-open disabled">En preparación</span>`;
 
   return `
     <article class="edition-card${isAvailable ? "" : " is-upcoming"}" data-reveal style="--reveal-delay:${index * 90}ms">
-      <a class="edition-cover" href="${isAvailable ? `#libro/${encodeURIComponent(edition.id)}` : "#biblioteca"}" ${isAvailable ? `data-edition-open="${escapeAttribute(edition.id)}"` : "aria-disabled=\"true\""} aria-label="${escapeAttribute(isAvailable ? `Abrir ${edition.title}` : `${edition.title} en preparacion`)}">
+      <a class="edition-cover" href="${isAvailable ? `#libro/${encodeURIComponent(edition.id)}` : "#biblioteca"}" ${isAvailable ? `data-edition-open="${escapeAttribute(edition.id)}"` : "aria-disabled=\"true\""} aria-label="${escapeAttribute(isAvailable ? `Abrir ${edition.title}` : `${edition.title} en preparación`)}">
         ${edition.coverImage ? `<img src="${escapeAttribute(edition.coverImage)}" alt="${escapeAttribute(edition.title)}" loading="${index === 0 ? "eager" : "lazy"}">` : ""}
       </a>
       <div class="edition-copy">
@@ -347,7 +347,7 @@ function renderEditionCard(edition, index, isAvailable) {
 
 function renderReaderView(edition) {
   if (!edition) {
-    return renderReaderMessage("Edicion no encontrada", "Volver a la biblioteca para elegir una lectura disponible.");
+    return renderReaderMessage("Edición no encontrada", "Volver a la biblioteca para elegir una lectura disponible.");
   }
 
   if (state.readerLoading) {
@@ -359,7 +359,7 @@ function renderReaderView(edition) {
   }
 
   if (!state.storybook) {
-    return renderReaderMessage("Cuento en preparacion", "Esta edicion todavia no tiene paginas publicadas.");
+    return renderReaderMessage("Cuento en preparación", "Esta edición todavía no tiene páginas publicadas.");
   }
 
   return renderStorybook(state.storybook, edition);
@@ -448,9 +448,11 @@ function bindEvents() {
   });
 
   document.querySelectorAll(".storybook-page-visual img").forEach((image) => {
+    image.addEventListener("load", () => updateStoryCopyContrast(), { once: true });
     image.addEventListener("error", () => {
       image.hidden = true;
       image.closest(".storybook-page")?.classList.add("image-missing");
+      updateStoryCopyContrast();
     }, { once: true });
   });
 
@@ -715,7 +717,7 @@ function updateStorybookUI() {
     button.disabled = singlePage ? currentIndex === total - 1 : rightIndex === total - 1;
   });
 
-  setText("[data-story-status]", singlePage || rightIndex === currentIndex ? `Pagina ${currentIndex + 1} de ${total}` : `Paginas ${currentIndex + 1}-${rightIndex + 1} de ${total}`);
+  setText("[data-story-status]", singlePage || rightIndex === currentIndex ? `Página ${currentIndex + 1} de ${total}` : `Páginas ${currentIndex + 1}-${rightIndex + 1} de ${total}`);
   setText("[data-story-kicker]", currentPage.kicker);
   setText("[data-story-title]", currentPage.title);
   setText("[data-story-body]", currentPage.body);
@@ -724,6 +726,66 @@ function updateStorybookUI() {
   if (reader) {
     reader.style.setProperty("--story-progress", `${progress}%`);
   }
+
+  updateStoryCopyContrast();
+}
+
+function updateStoryCopyContrast() {
+  const visiblePages = document.querySelectorAll(".storybook-page.is-active, .storybook-page.is-next-spread");
+  document.querySelectorAll(".storybook-page").forEach((page) => {
+    if (!page.matches(".is-active, .is-next-spread")) {
+      page.classList.remove("copy-on-light-image", "copy-on-dark-image");
+    }
+  });
+
+  visiblePages.forEach((page) => {
+    applyStoryCopyContrast(page);
+  });
+}
+
+function applyStoryCopyContrast(page) {
+  const image = page.querySelector(".storybook-page-visual img:not([hidden])");
+  page.classList.remove("copy-on-light-image", "copy-on-dark-image");
+
+  if (!image || !image.complete || !image.naturalWidth) {
+    page.classList.add("copy-on-dark-image");
+    if (image) {
+      image.addEventListener("load", () => applyStoryCopyContrast(page), { once: true });
+    }
+    return;
+  }
+
+  try {
+    page.classList.add(storyImageTopLooksLight(image) ? "copy-on-light-image" : "copy-on-dark-image");
+  } catch (error) {
+    page.classList.add("copy-on-dark-image");
+  }
+}
+
+function storyImageTopLooksLight(image) {
+  const canvas = document.createElement("canvas");
+  const width = 52;
+  const height = 36;
+  const sampleHeight = 16;
+  canvas.width = width;
+  canvas.height = height;
+
+  const context = canvas.getContext("2d", { willReadFrequently: true });
+  if (!context) return false;
+
+  context.drawImage(image, 0, 0, width, height);
+  const data = context.getImageData(0, 0, width, sampleHeight).data;
+  let luminance = 0;
+  let samples = 0;
+
+  for (let index = 0; index < data.length; index += 4) {
+    const alpha = data[index + 3] / 255;
+    if (alpha < 0.35) continue;
+    luminance += ((0.2126 * data[index]) + (0.7152 * data[index + 1]) + (0.0722 * data[index + 2])) * alpha;
+    samples += alpha;
+  }
+
+  return samples > 0 && (luminance / samples) > 148;
 }
 
 function handleStorybookKeyboard(event) {
@@ -748,7 +810,7 @@ function handleStorybookKeyboard(event) {
 function renderViewControl() {
   const options = [
     ["normal", "Normal"],
-    ["comfort", "Comoda"],
+    ["comfort", "Cómoda"],
     ["large", "Grande"],
   ];
 
@@ -781,9 +843,9 @@ function renderFloatingBits() {
 
 function renderSummary(book) {
   const entries = [
-    ["Publico", book.summary.audience || "Escuelas, familias y comunidades."],
-    ["Proposito", book.summary.purpose || "Aprender a separar y valorizar residuos."],
-    ["Metodo", book.summary.method || "Observar, separar, registrar y medir."],
+    ["Público", book.summary.audience || "Escuelas, familias y comunidades."],
+    ["Propósito", book.summary.purpose || "Aprender a separar y valorizar residuos."],
+    ["Método", book.summary.method || "Observar, separar, registrar y medir."],
   ];
 
   return entries.map(([label, value], index) => `
@@ -832,7 +894,7 @@ function renderStorybook(storybook, edition = {}) {
         <div class="storybook-toolbar" aria-label="Controles del cuento">
           <button type="button" class="storybook-control" data-story-action="prev">Anterior</button>
           <div class="storybook-progress" style="--story-progress:${progress}%">
-            <span data-story-status>${rightIndex === currentIndex ? `Pagina ${currentIndex + 1} de ${storybook.pages.length}` : `Paginas ${currentIndex + 1}-${rightIndex + 1} de ${storybook.pages.length}`}</span>
+            <span data-story-status>${rightIndex === currentIndex ? `Página ${currentIndex + 1} de ${storybook.pages.length}` : `Páginas ${currentIndex + 1}-${rightIndex + 1} de ${storybook.pages.length}`}</span>
             <i></i>
           </div>
           <button type="button" class="storybook-control" data-story-action="next">Siguiente</button>
@@ -931,7 +993,7 @@ function renderEnterpriseFocus(focus) {
         ) : ""}
         ${valueProposition.length ? renderEnterpriseCollection(
           "Valor para Paracel",
-          "Co-branding, inversion social y medicion educativa",
+          "Co-branding, inversión social y medición educativa",
           valueProposition,
           renderEnterpriseValuePoint,
         ) : ""}

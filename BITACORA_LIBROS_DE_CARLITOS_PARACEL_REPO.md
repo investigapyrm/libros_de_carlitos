@@ -1090,3 +1090,97 @@
 ### Recomendaciones
 
 * Para libros digitales publicos, no depender solo de una libreria externa para una interaccion central. Mantener un efecto local de respaldo cuando el gesto o CDN puedan variar por navegador.
+
+## 2026-06-30 05:27
+
+### Proyecto
+
+* Nombre: Libros de Carlitos
+* Cliente o institucion: PARACEL / Proyecto Carlitos
+* Ruta local: `C:\Users\Diego\OneDrive - PARACEL S.A\MONITOREO_IMPACTO_SOCIAL_PARACEL\PROYECTO_CARLITOS\libros_de_carlitos`
+* Repositorio: `https://github.com/investigapyrm/libros_de_carlitos.git`
+* URL publica: `https://investigapyrm.github.io/libros_de_carlitos/`
+* Rama publicada: `main`
+* Responsable: Codex
+* Version: `v0.7.4`
+
+### Objetivo de la intervencion
+
+* Corregir la impresion de caracteres especiales en castellano, especialmente `ñ`, tildes y signos de apertura.
+* Mejorar el texto del cuento y su presentacion visual sobre las imagenes.
+* Ubicar el bloque de texto arriba, con transparencia y contraste adaptativo.
+
+### Diagnostico inicial
+
+* Los datos activos del cuento estaban escritos sin caracteres propios del castellano: `Nino`, `Pagina`, `pregunto`, `arboles`, entre otros.
+* La caja de texto estaba ubicada abajo en la imagen y podia sentirse como un bloque demasiado plano.
+* El contraste no se adaptaba a zonas claras u oscuras de la ilustracion.
+
+### Acciones realizadas
+
+* Se actualizo el contenido de `data/story-dia-nino.json` con tildes, `ñ`, signos de apertura y una narracion mas calida.
+* Se corrigieron textos visibles del catalogo y del segundo cuento disponible.
+* Se actualizo la version/cache a `v0.7.4`.
+* Se agrego una funcion de contraste automatico que toma una muestra de brillo de la imagen visible y aplica caja clara u oscura segun corresponda.
+* Se movio el bloque de texto a la parte superior de cada pagina.
+* Se ajusto el bloque a un estilo mas infantil con fuente local compatible con caracteres latinos.
+* Se compacto la caja en vista movil para no cubrir demasiado la imagen.
+
+### Archivos modificados
+
+* `app.js`
+* `styles.css`
+* `index.html`
+* `data/editions.json`
+* `data/story-dia-nino.json`
+* `data/story-residuos-oportunidad.json`
+* `BITACORA_LIBROS_DE_CARLITOS_PARACEL_REPO.md`
+
+### Comandos o scripts ejecutados
+
+* `node --check app.js`
+* `node -e "for (const f of ['data/editions.json','data/story-dia-nino.json','data/story-residuos-oportunidad.json']) { JSON.parse(require('fs').readFileSync(f,'utf8')); } console.log('JSON OK')"`
+* `git diff --check`
+* `npx playwright screenshot --viewport-size="390,844" --wait-for-timeout=4200 "http://127.0.0.1:8793/?v=0.7.4-mobile2#libro/cuento-dia-nino-2026" "tmp_mobile_text_v074b.png"`
+* `npx playwright screenshot --wait-for-timeout=4200 "http://127.0.0.1:8793/?v=0.7.4-desktop#libro/cuento-dia-nino-2026" "tmp_desktop_text_v074.png"`
+
+### Resultados verificados
+
+* La vista movil muestra `DÍA DEL NIÑO`, `Niño` y `Página` correctamente.
+* El bloque de texto aparece arriba, semitransparente, sin cubrir por completo la ilustracion.
+* En escritorio se ven dos paginas con cajas superiores y contraste diferenciado.
+* La validacion sintactica JavaScript paso correctamente.
+* Los JSON activos parsean correctamente.
+* `git diff --check` no reporto errores.
+
+### Pruebas realizadas
+
+* Validacion sintactica JavaScript.
+* Validacion JSON.
+* Captura Playwright CLI movil.
+* Captura Playwright CLI escritorio.
+* Revision visual de caracteres especiales, ubicacion de texto y contraste.
+
+### Errores o incidentes
+
+* GitHub Pages seguia sirviendo temporalmente la version anterior durante la verificacion posterior a `v0.7.3`; se mantiene verificacion publica posterior al nuevo push.
+
+### Soluciones aplicadas
+
+* UTF-8 real en datos activos.
+* Caja de texto con fuente infantil local, transparencia y variables de contraste.
+* Muestreo de brillo de imagen para escoger tema claro u oscuro.
+* Cache-busting `v0.7.4`.
+
+### Pendientes
+
+* Verificar propagacion publica de GitHub Pages despues del push.
+
+### Riesgos
+
+* El contraste automatico se basa en una muestra de la parte superior de la imagen. Puede requerir ajuste fino si futuras ilustraciones ubican elementos muy claros y oscuros mezclados en esa zona.
+
+### Recomendaciones
+
+* Mantener textos finales en UTF-8 y revisar `ñ`, tildes y signos de apertura antes de publicar cuentos infantiles.
+* Para textos sobre imagen, usar contraste adaptativo y cajas semitransparentes compactas que no desplacen el protagonismo visual del cuento.

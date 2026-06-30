@@ -18,6 +18,7 @@
   --danger: #b42318;
   --shadow: 0 18px 48px rgba(5, 39, 25, 0.14);
   --read-scale: 1;
+  --story-font: "Comic Sans MS", "Trebuchet MS", "Arial Rounded MT Bold", Arial, Helvetica, sans-serif;
 }
 
 html[data-view-scale="comfort"] {
@@ -977,6 +978,12 @@ h3 {
 }
 
 .storybook-page {
+  --copy-bg: rgba(253, 248, 234, 0.72);
+  --copy-border: rgba(255, 255, 255, 0.42);
+  --copy-body: #172315;
+  --copy-kicker: var(--green-800);
+  --copy-shadow: 0 14px 34px rgba(0, 0, 0, 0.18);
+  --copy-title: var(--green-950);
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(253, 248, 234, 0.98)),
     var(--white);
@@ -990,6 +997,24 @@ h3 {
   overflow: hidden;
   position: relative;
   width: 100%;
+}
+
+.storybook-page.copy-on-light-image {
+  --copy-bg: rgba(5, 39, 25, 0.66);
+  --copy-border: rgba(247, 223, 139, 0.28);
+  --copy-body: rgba(255, 255, 255, 0.94);
+  --copy-kicker: var(--gold-soft);
+  --copy-shadow: 0 16px 38px rgba(0, 0, 0, 0.3);
+  --copy-title: #ffffff;
+}
+
+.storybook-page.copy-on-dark-image {
+  --copy-bg: rgba(253, 248, 234, 0.74);
+  --copy-border: rgba(255, 255, 255, 0.52);
+  --copy-body: #172315;
+  --copy-kicker: var(--green-800);
+  --copy-shadow: 0 14px 34px rgba(0, 0, 0, 0.2);
+  --copy-title: var(--green-950);
 }
 
 .storybook-page-visual {
@@ -1035,19 +1060,22 @@ h3 {
 }
 
 .storybook-page-copy {
-  background: rgba(253, 248, 234, 0.68);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.36);
+  background: var(--copy-bg);
+  backdrop-filter: blur(13px) saturate(1.08);
+  border: 1px solid var(--copy-border);
   border-radius: 8px;
-  bottom: clamp(0.75rem, 1.5vw, 1.25rem);
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18);
+  box-shadow: var(--copy-shadow);
   display: grid;
-  gap: 0.32rem;
+  font-family: var(--story-font);
+  gap: 0.36rem;
   left: clamp(0.75rem, 1.5vw, 1.25rem);
-  max-width: min(70%, 540px);
-  padding: clamp(0.58rem, 1vw, 0.8rem);
+  max-height: min(46%, 18rem);
+  max-width: min(68%, 560px);
+  overflow: auto;
+  padding: clamp(0.62rem, 1.05vw, 0.88rem);
   position: absolute;
   right: auto;
+  top: clamp(0.75rem, 1.5vw, 1.25rem);
 }
 
 .storybook-page.is-next-spread .storybook-page-copy {
@@ -1057,22 +1085,25 @@ h3 {
 
 .storybook-page-copy span,
 .storybook-side-kicker {
-  color: var(--green-800);
+  color: var(--copy-kicker);
   font-size: 0.78rem;
   font-weight: 900;
   text-transform: uppercase;
 }
 
 .storybook-page-copy h3 {
-  color: var(--green-950);
-  font-size: clamp(0.96rem, 1.4vw, 1.22rem);
+  color: var(--copy-title);
+  font-size: clamp(1rem, 1.42vw, 1.28rem);
+  letter-spacing: 0;
   margin-bottom: 0;
 }
 
 .storybook-page-copy p {
-  color: var(--ink);
-  font-size: clamp(0.78rem, 1vw, 0.94rem);
-  line-height: 1.38;
+  color: var(--copy-body);
+  font-size: clamp(0.82rem, 1.02vw, 0.98rem);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.34;
   margin-bottom: 0;
 }
 
@@ -2207,11 +2238,27 @@ h3 {
   }
 
   .storybook-page-copy {
-    bottom: 0.75rem;
     left: 0.75rem;
+    gap: 0.24rem;
+    max-height: min(38%, 13.5rem);
     max-width: calc(100% - 1.5rem);
+    padding: 0.58rem 0.68rem;
     position: absolute;
     right: auto;
+    top: 0.75rem;
+  }
+
+  .storybook-page-copy span {
+    font-size: 0.68rem;
+  }
+
+  .storybook-page-copy h3 {
+    font-size: 0.98rem;
+  }
+
+  .storybook-page-copy p {
+    font-size: 0.8rem;
+    line-height: 1.28;
   }
 
   .storybook-index {

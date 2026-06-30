@@ -1744,3 +1744,50 @@
 * Mantener validacion por Node de UTF-8 visible antes de publicar textos infantiles en castellano.
 * Evitar confiar en `Get-Content` de PowerShell como prueba de codificacion, porque puede mostrar mojibake aunque el archivo este correctamente en UTF-8.
 * Para cuentos con texto sobre imagen, muestrear contraste donde se ubica realmente el texto, no en una zona generica.
+
+## 2026-06-30 08:11
+
+### Proyecto
+
+* Nombre: Libros de Carlitos
+* URL publica: `https://investigapyrm.github.io/libros_de_carlitos/`
+* Rama publicada por GitHub Pages: `feature/cuento-dia-del-nino-2026`
+* Version verificada: `v0.7.8`
+
+### Objetivo de la intervencion
+
+* Cerrar la verificacion publica posterior al commit y push de mejoras de UTF-8, prosa, tipografia y contraste.
+
+### Acciones realizadas
+
+* Se verifico que el workflow Pages `28440150314` termino en `success`.
+* Se verifico que `app.js` publico devuelve `APP_VERSION = "v0.7.8"`.
+* Se verifico que `index.html` publico referencia cache `0.7.8`.
+* Se verifico que `styles.css` publico contiene `@charset "UTF-8"`.
+* Se verifico que `app.js` publico contiene `storyImageCopyAreaLooksLight`.
+* Se verifico que `data/story-dia-nino.json` publico contiene `Niño` o `niño`.
+* Se verifico que `data/story-dia-nino.json` publico no contiene patrones `Ã`, `Â` ni `�`.
+
+### Resultados verificados
+
+* GitHub Pages sirve la version `v0.7.8`.
+* El cuento publicado conserva caracteres castellanos correctos.
+* El contraste automatico nuevo esta publicado.
+* La version publicada no muestra mojibake en el JSON del cuento.
+
+### Pruebas realizadas
+
+* `gh run view 28440150314 --repo investigapyrm/libros_de_carlitos`.
+* `Invoke-WebRequest` sobre `app.js`, `styles.css`, `index.html` y `data/story-dia-nino.json`.
+
+### Pendientes
+
+* Ninguno para esta intervencion.
+
+### Riesgos
+
+* Revisar en celulares reales si se agregan textos mas extensos en nuevas paginas.
+
+### Recomendaciones
+
+* Conservar la prueba publica de `Niño/niño` y ausencia de `Ã/Â/�` despues de cada actualizacion editorial.

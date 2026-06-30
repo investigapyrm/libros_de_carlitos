@@ -1500,3 +1500,101 @@
 ### Recomendaciones
 
 * Conservar la verificacion publica de CSS/JSON despues de cada cambio en la rama efectiva de Pages.
+
+## 2026-06-30 07:25
+
+### Proyecto
+
+* Nombre: Libros de Carlitos
+* Cliente o institucion: PARACEL / Proyecto Carlitos
+* Ruta local: `C:\Users\Diego\OneDrive - PARACEL S.A\MONITOREO_IMPACTO_SOCIAL_PARACEL\PROYECTO_CARLITOS\libros_de_carlitos`
+* Repositorio: `https://github.com/investigapyrm/libros_de_carlitos.git`
+* URL publica: `https://investigapyrm.github.io/libros_de_carlitos/`
+* Rama publicada por GitHub Pages: `feature/cuento-dia-del-nino-2026`
+* Responsable: Codex
+* Version: `v0.7.7`
+
+### Objetivo de la intervencion
+
+* Hacer que cada cuento se reinicie desde la primera pagina cada vez que se abre desde la biblioteca o desde otra vista.
+* Agregar un boton de cierre de lectura que lleve a una actividad ludica interactiva relacionada con el cuento.
+
+### Diagnostico inicial
+
+* El lector guardaba la ultima pagina en `localStorage` mediante `carlitos:storyPage:*`, por lo que al volver a abrir un cuento podia retomarse en una pagina intermedia.
+* La app no tenia una vista de actividad posterior a la lectura.
+* Los elementos con atributo `hidden` podian quedar visibles si una clase CSS definia `display`, como ocurrio con el bloque de logro y el boton final.
+
+### Acciones realizadas
+
+* Se elimino el uso de persistencia de pagina del cuento.
+* Se fuerza `selectedStoryPage = 0` al cargar un cuento, al volver a biblioteca y al entrar a actividad.
+* Se agrego la ruta `#actividad/<id-edicion>`.
+* Se agrego una actividad inicial por cuento: elegir 3 acciones relacionadas con la lectura.
+* Se agrego boton `Jugar` en la barra del cuento, visible solamente al llegar a la ultima pagina o ultima doble pagina.
+* Se agrego una regla global `[hidden] { display: none !important; }` para evitar fugas visuales.
+* Se actualizo version/cache a `v0.7.7`.
+
+### Archivos modificados
+
+* `app.js`
+* `styles.css`
+* `index.html`
+* `BITACORA_LIBROS_DE_CARLITOS_PARACEL_REPO.md`
+
+### Comandos o scripts ejecutados
+
+* `node --check app.js`
+* `node -e "for (const f of ['data/book.json','data/editions.json','data/story-dia-nino.json','data/story-residuos-oportunidad.json']) { JSON.parse(require('fs').readFileSync(f,'utf8')); } console.log('JSON OK')"`
+* `git diff --check`
+* `python -m http.server 8796 --bind 127.0.0.1`
+* `npx playwright screenshot --viewport-size="1366,768" --wait-for-timeout=4500 "http://127.0.0.1:8796/?v=0.7.7-reader2#libro/cuento-dia-nino-2026" "tmp_reader_desktop_v077_2.png"`
+* `npx playwright screenshot --viewport-size="390,844" --wait-for-timeout=4500 "http://127.0.0.1:8796/?v=0.7.7-reader-mobile2#libro/cuento-dia-nino-2026" "tmp_reader_mobile_v077_2.png"`
+* `npx playwright screenshot --viewport-size="1366,768" --wait-for-timeout=4500 "http://127.0.0.1:8796/?v=0.7.7-activity3#actividad/cuento-dia-nino-2026" "tmp_activity_desktop_v077_3.png"`
+
+### Resultados verificados
+
+* La app ya no usa `storyPageStorageKey` ni `storyPagePrefix`.
+* El lector inicia en `Pagina 1` o `Paginas 1-2` segun modo movil/escritorio.
+* El boton `Jugar` no aparece al inicio del cuento.
+* La vista `#actividad/cuento-dia-nino-2026` carga correctamente con opciones tactiles.
+* El bloque de logro de actividad queda oculto hasta completar la seleccion.
+* JavaScript y JSON validaron correctamente.
+* `git diff --check` no reporto errores; solo avisos normales de CRLF/LF en Windows.
+
+### Pruebas realizadas
+
+* Validacion sintactica JavaScript.
+* Validacion JSON.
+* Capturas Playwright CLI de lector en escritorio y movil.
+* Captura Playwright CLI de actividad en escritorio.
+* Revision visual de barra del lector, boton final oculto y actividad sin solapamientos criticos.
+
+### Errores o incidentes
+
+* El intento de ejecutar una prueba con `@playwright/test` fallo porque el modulo no esta instalado localmente.
+* Un script directo con `require("playwright")` tampoco pudo ejecutarse porque `npx -p playwright` no expuso el modulo al `require()` en este entorno.
+* La validacion automatizada interactiva quedo reemplazada por validacion estatica de codigo y capturas CLI.
+
+### Soluciones aplicadas
+
+* Se retiro la prueba temporal y la carpeta `test-results/` generada por el intento fallido.
+* Se corrigio la regla CSS de elementos ocultos con `[hidden]`.
+* Se detuvo el servidor local despues de validar.
+
+### Pendientes
+
+* Hacer commit y push.
+* Verificar GitHub Pages publico despues del despliegue.
+* En futuras ediciones, mover la configuracion de actividades desde `app.js` a datos por cuento si la coleccion crece.
+
+### Riesgos
+
+* La actividad inicial es simple y esta definida en JS; para una biblioteca con muchas ediciones convendra llevarla a JSON.
+* La validacion interactiva completa depende de contar con Playwright como dependencia local o con un script de pruebas integrado.
+
+### Recomendaciones
+
+* Mantener siempre el reinicio de lectura al entrar a un cuento desde biblioteca para evitar confusion en ninos.
+* Al terminar un cuento, mostrar una unica accion clara hacia una actividad ludica vinculada a la lectura.
+* Para botones o bloques que alternan visibilidad, usar una regla global `[hidden]` para evitar que componentes con `display` propio queden visibles por error.

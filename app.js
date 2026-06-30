@@ -1,5 +1,5 @@
-const APP_VERSION = "v0.7.6";
-const APP_BUILD_DATE = "2026-06-29";
+const APP_VERSION = "v0.7.7";
+const APP_BUILD_DATE = "2026-06-30";
 const GAS_ENDPOINT = "";
 const LOCAL_DATA_URL = "data/book.json";
 const LOCAL_EDITION_CATALOG_URL = "data/editions.json";
@@ -9,7 +9,6 @@ const PAGE_FLIP_SCRIPT_URL = "https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/
 const STORAGE_KEYS = {
   viewScale: "carlitos:viewScale",
   mission: "carlitos:mission",
-  storyPagePrefix: "carlitos:storyPage:",
 };
 
 const VIEW_SCALES = ["normal", "comfort", "large"];
@@ -52,6 +51,42 @@ const DEFAULT_MISSIONS = [
   },
 ];
 
+const STORY_ACTIVITY_TARGET = 3;
+const STORY_ACTIVITIES = {
+  "cuento-dia-nino-2026": {
+    eyebrow: "Actividad final",
+    title: "Regalos que crecen",
+    intro: "Elegí tres acciones que Carlitos y su grupo podrían regalarle al futuro.",
+    resultTitle: "Promesa lista",
+    resultText: "Estas acciones ya forman una promesa de cuidado para compartir en casa o en la escuela.",
+    choices: [
+      { id: "plantar", label: "Plantar con cuidado", detail: "Elegir un buen lugar y acompañar el crecimiento." },
+      { id: "sombra", label: "Cuidar la sombra", detail: "Pensar dónde un árbol puede proteger mejor los juegos." },
+      { id: "agua", label: "Ahorrar agua", detail: "Usar solo lo necesario y no ensuciar arroyos." },
+      { id: "observar", label: "Observar animales", detail: "Mirar sin molestar y contar qué especies aparecen." },
+      { id: "preguntar", label: "Preguntar con respeto", detail: "Escuchar a quienes conocen el territorio." },
+      { id: "medir", label: "Medir para cuidar", detail: "Registrar cambios y aprender con datos simples." },
+    ],
+  },
+  "residuos-oportunidad": {
+    eyebrow: "Actividad final",
+    title: "La misión que transforma",
+    intro: "Elegí tres pasos para que un residuo se convierta en oportunidad.",
+    resultTitle: "Ruta verde lista",
+    resultText: "Con estos pasos el grupo puede empezar una pequeña misión de aula.",
+    choices: [
+      { id: "separar", label: "Separar limpio", detail: "Ordenar materiales para que no se mezclen." },
+      { id: "contar", label: "Contar y medir", detail: "Registrar cuántos objetos se recuperan." },
+      { id: "reusar", label: "Reusar primero", detail: "Buscar otro uso antes de desechar." },
+      { id: "compostar", label: "Hacer compost", detail: "Transformar restos orgánicos en alimento para plantas." },
+      { id: "contar-historia", label: "Contar la historia", detail: "Explicar qué cambió y por qué importa." },
+      { id: "mejorar", label: "Mejorar la próxima vez", detail: "Revisar qué funcionó y qué puede cambiar." },
+    ],
+  },
+};
+
+const DEFAULT_STORY_ACTIVITY = STORY_ACTIVITIES["cuento-dia-nino-2026"];
+
 const app = document.querySelector("#app");
 
 const state = {
@@ -65,6 +100,7 @@ const state = {
   selectedOrden: null,
   selectedMission: readStorage(STORAGE_KEYS.mission, DEFAULT_MISSIONS[0].id),
   selectedStoryPage: 0,
+  selectedActivityActions: [],
   pageFlip: null,
   pageFlipLoading: null,
   storyTurnTimer: null,
@@ -264,10 +300,12 @@ function normalizeStorybook(raw, edition = {}) {
 
 function renderApp() {
   const route = getRouteFromHash();
-  const edition = route.view === "reader" ? getEditionById(route.id) : null;
+  const edition = route.view === "reader" || route.view === "activity" ? getEditionById(route.id) : null;
 
   if (route.view === "reader") {
     app.innerHTML = renderReaderView(edition);
+  } else if (route.view === "activity") {
+    app.innerHTML = renderActivityView(edition);
   } else {
     app.innerHTML = renderLibraryView();
   }
@@ -377,6 +415,57 @@ function renderReaderMessage(title, message, isLoading = false) {
   `;
 }
 
+function renderActivityView(edition) {
+  if (!edition || !edition.available) {
+    return renderReaderMessage("Actividad no encontrada", "Volver a la biblioteca para elegir una lectura disponible.");
+  }
+
+  const activity = getStoryActivity(edition.id);
+  const selected = new Set(state.selectedActivityActions);
+  const count = selected.size;
+  const isComplete = count >= STORY_ACTIVITY_TARGET;
+
+  return `
+    <main class="activity-shell" style="--activity-image: url('${escapeAttribute(edition.coverImage || state.book?.heroImage || "")}')">
+      <a class="activity-back" href="#biblioteca" data-library-link>Biblioteca</a>
+      <section class="activity-stage" aria-label="Actividad de cierre ${escapeAttribute(edition.title)}">
+        <div class="activity-copy" data-reveal>
+          <p class="eyebrow">${escapeHtml(activity.eyebrow)}</p>
+          <h1>${escapeHtml(activity.title)}</h1>
+          <p>${escapeHtml(activity.intro)}</p>
+          <span class="activity-counter" data-activity-counter>${count} de ${STORY_ACTIVITY_TARGET}</span>
+        </div>
+
+        <div class="activity-choice-grid" aria-label="Opciones de actividad">
+          ${activity.choices.map((choice, index) => `
+            <button
+              type="button"
+              class="activity-choice"
+              data-activity-choice="${escapeAttribute(choice.id)}"
+              aria-pressed="${selected.has(choice.id)}"
+              style="--reveal-delay:${index * 70}ms"
+              data-reveal
+            >
+              <strong>${escapeHtml(choice.label)}</strong>
+              <span>${escapeHtml(choice.detail)}</span>
+            </button>
+          `).join("")}
+        </div>
+
+        <div class="activity-result" data-activity-result ${isComplete ? "" : "hidden"}>
+          <strong>${escapeHtml(activity.resultTitle)}</strong>
+          <p>${escapeHtml(activity.resultText)}</p>
+        </div>
+
+        <div class="activity-actions">
+          <a class="primary-action" href="#libro/${encodeURIComponent(edition.id)}" data-edition-open="${escapeAttribute(edition.id)}">Leer otra vez</a>
+          <button type="button" class="secondary-button" data-activity-reset>Reiniciar actividad</button>
+        </div>
+      </section>
+    </main>
+  `;
+}
+
 function bindEvents() {
   document.querySelector("#reloadBtn")?.addEventListener("click", () => loadBook(true));
 
@@ -447,6 +536,15 @@ function bindEvents() {
     });
   });
 
+  document.querySelectorAll("[data-activity-choice]").forEach((button) => {
+    button.addEventListener("click", () => toggleActivityChoice(button.dataset.activityChoice));
+  });
+
+  document.querySelector("[data-activity-reset]")?.addEventListener("click", () => {
+    state.selectedActivityActions = [];
+    updateActivityUI();
+  });
+
   document.querySelectorAll(".storybook-page-visual img").forEach((image) => {
     image.addEventListener("load", () => updateStoryCopyContrast(), { once: true });
     image.addEventListener("error", () => {
@@ -472,12 +570,27 @@ async function handleRouteChange() {
   if (!state.book || !state.library) return;
 
   const route = getRouteFromHash();
+  if (route.view === "activity") {
+    destroyPageFlip();
+    state.storybook = null;
+    state.activeEditionId = route.id;
+    state.readerLoading = false;
+    state.readerError = "";
+    state.selectedStoryPage = 0;
+    state.selectedActivityActions = [];
+    renderApp();
+    window.scrollTo({ top: 0, behavior: "auto" });
+    return;
+  }
+
   if (route.view !== "reader") {
     destroyPageFlip();
     state.storybook = null;
     state.activeEditionId = null;
     state.readerLoading = false;
     state.readerError = "";
+    state.selectedStoryPage = 0;
+    state.selectedActivityActions = [];
     renderApp();
     window.scrollTo({ top: 0, behavior: "auto" });
     return;
@@ -509,8 +622,8 @@ async function loadEdition(id) {
     if (!storybook) throw new Error(`No hay paginas disponibles en ${edition.dataUrl}`);
 
     state.storybook = storybook;
-    state.selectedStoryPage = Number(readStorage(storyPageStorageKey(edition.id), "0")) || 0;
-    state.selectedStoryPage = clampStoryIndex(state.selectedStoryPage);
+    state.selectedStoryPage = 0;
+    state.selectedActivityActions = [];
     state.readerLoading = false;
     renderApp();
     window.scrollTo({ top: 0, behavior: "auto" });
@@ -575,8 +688,40 @@ function selectStoryPage(index, syncFlip = true) {
   }
 
   state.selectedStoryPage = nextPage;
-  writeStorage(storyPageStorageKey(state.activeEditionId || state.storybook.id), String(nextPage));
   updateStorybookUI();
+}
+
+function toggleActivityChoice(id) {
+  const activity = getStoryActivity(state.activeEditionId);
+  if (!activity.choices.some((choice) => choice.id === id)) return;
+
+  const selected = new Set(state.selectedActivityActions);
+  if (selected.has(id)) {
+    selected.delete(id);
+  } else if (selected.size < STORY_ACTIVITY_TARGET) {
+    selected.add(id);
+  }
+
+  state.selectedActivityActions = Array.from(selected);
+  updateActivityUI();
+}
+
+function updateActivityUI() {
+  const selected = new Set(state.selectedActivityActions);
+  const count = selected.size;
+  const isComplete = count >= STORY_ACTIVITY_TARGET;
+
+  document.querySelectorAll("[data-activity-choice]").forEach((button) => {
+    const isSelected = selected.has(button.dataset.activityChoice);
+    button.setAttribute("aria-pressed", String(isSelected));
+    button.disabled = !isSelected && isComplete;
+  });
+
+  setText("[data-activity-counter]", `${count} de ${STORY_ACTIVITY_TARGET}`);
+
+  document.querySelectorAll("[data-activity-result]").forEach((result) => {
+    result.hidden = !isComplete;
+  });
 }
 
 function animateStoryPageTurn(direction = "next") {
@@ -719,6 +864,10 @@ function updateStorybookUI() {
 
   document.querySelectorAll("[data-story-action='next']").forEach((button) => {
     button.disabled = singlePage ? currentIndex === total - 1 : rightIndex === total - 1;
+  });
+
+  document.querySelectorAll("[data-story-finish]").forEach((link) => {
+    link.hidden = rightIndex !== total - 1;
   });
 
   setText("[data-story-status]", singlePage || rightIndex === currentIndex ? `Página ${currentIndex + 1} de ${total}` : `Páginas ${currentIndex + 1}-${rightIndex + 1} de ${total}`);
@@ -902,6 +1051,7 @@ function renderStorybook(storybook, edition = {}) {
             <i></i>
           </div>
           <button type="button" class="storybook-control" data-story-action="next">Siguiente</button>
+          <a class="storybook-finish" href="#actividad/${encodeURIComponent(edition.id || storybook.id)}" data-story-finish ${rightIndex === storybook.pages.length - 1 ? "" : "hidden"}>Jugar</a>
         </div>
 
         <div class="storybook-layout">
@@ -1316,6 +1466,9 @@ function getRouteFromHash() {
   if (hash.startsWith("libro/")) {
     return { view: "reader", id: hash.slice("libro/".length) };
   }
+  if (hash.startsWith("actividad/")) {
+    return { view: "activity", id: hash.slice("actividad/".length) };
+  }
   return { view: "library" };
 }
 
@@ -1323,8 +1476,8 @@ function getEditionById(id) {
   return state.editions.find((edition) => edition.id === id) || null;
 }
 
-function storyPageStorageKey(id) {
-  return `${STORAGE_KEYS.storyPagePrefix}${id || "default"}`;
+function getStoryActivity(id) {
+  return STORY_ACTIVITIES[id] || DEFAULT_STORY_ACTIVITY;
 }
 
 function firstContentItem(book) {

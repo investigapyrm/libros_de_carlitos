@@ -1,4 +1,4 @@
-const APP_VERSION = "v0.7.2";
+const APP_VERSION = "v0.7.3";
 const APP_BUILD_DATE = "2026-06-29";
 const GAS_ENDPOINT = "";
 const LOCAL_DATA_URL = "data/book.json";
@@ -67,6 +67,7 @@ const state = {
   selectedStoryPage: 0,
   pageFlip: null,
   pageFlipLoading: null,
+  storyTurnTimer: null,
   viewScale: normalizeViewScale(readStorage(STORAGE_KEYS.viewScale, "normal")),
 };
 
@@ -554,7 +555,11 @@ function selectMission(mission, targetId) {
 
 function selectStoryPage(index, syncFlip = true) {
   if (!state.storybook) return;
+  const currentPage = clampStoryIndex(state.selectedStoryPage);
   const nextPage = clampStoryIndex(index);
+  if (nextPage === currentPage) return;
+
+  animateStoryPageTurn(nextPage > currentPage ? "next" : "prev");
   state.selectedStoryPage = nextPage;
   writeStorage(storyPageStorageKey(state.activeEditionId || state.storybook.id), String(nextPage));
   updateStorybookUI();
@@ -566,6 +571,25 @@ function selectStoryPage(index, syncFlip = true) {
       // The fallback reader already updated the visible page.
     }
   }
+}
+
+function animateStoryPageTurn(direction = "next") {
+  const stage = document.querySelector(".storybook-stage");
+  if (!stage || prefersReducedMotion()) return;
+
+  const className = direction === "prev" ? "is-turning-prev" : "is-turning-next";
+  stage.classList.remove("is-turning-next", "is-turning-prev");
+
+  if (state.storyTurnTimer) {
+    window.clearTimeout(state.storyTurnTimer);
+  }
+
+  void stage.offsetWidth;
+  stage.classList.add(className);
+  state.storyTurnTimer = window.setTimeout(() => {
+    stage.classList.remove("is-turning-next", "is-turning-prev");
+    state.storyTurnTimer = null;
+  }, isSinglePageStoryMode() ? 820 : 940);
 }
 
 function initStorybook() {
@@ -644,6 +668,15 @@ function loadPageFlipScript() {
 }
 
 function destroyPageFlip() {
+  const stage = document.querySelector(".storybook-stage");
+  if (stage) {
+    stage.classList.remove("is-turning-next", "is-turning-prev");
+  }
+  if (state.storyTurnTimer) {
+    window.clearTimeout(state.storyTurnTimer);
+    state.storyTurnTimer = null;
+  }
+
   if (state.pageFlip && typeof state.pageFlip.destroy === "function") {
     try {
       state.pageFlip.destroy();

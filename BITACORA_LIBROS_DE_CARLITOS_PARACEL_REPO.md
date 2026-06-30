@@ -1003,3 +1003,90 @@
 
 * Mantener controles moviles fuera del area activa de lectura.
 * Probar siempre escritorio, celular simulado y celular real cuando hay gestos tactiles.
+
+## 2026-06-30 05:15
+
+### Proyecto
+
+* Nombre: Libros de Carlitos
+* Cliente o institucion: PARACEL / Proyecto Carlitos
+* Ruta local: `C:\Users\Diego\OneDrive - PARACEL S.A\MONITOREO_IMPACTO_SOCIAL_PARACEL\PROYECTO_CARLITOS\libros_de_carlitos`
+* Repositorio: `https://github.com/investigapyrm/libros_de_carlitos.git`
+* URL publica: `https://investigapyrm.github.io/libros_de_carlitos/`
+* Rama publicada: `main`
+* Responsable: Codex
+* Version: `v0.7.3`
+
+### Objetivo de la intervencion
+
+* Recuperar una sensacion visible de pasado de paginas en el libro digital.
+* Evitar que la experiencia dependa exclusivamente de la animacion de la libreria externa PageFlip.
+
+### Diagnostico inicial
+
+* La version `v0.7.2` cargaba PageFlip tambien en celular, pero el fallback visual seguia siendo un cambio seco de pagina si la libreria no animaba de forma perceptible.
+* El usuario reporto que se habia perdido el efecto de pasado de paginas ya logrado.
+
+### Acciones realizadas
+
+* Se agrego una animacion nativa de hoja sobre `.storybook-stage` para avanzar y retroceder.
+* Se disparan clases `is-turning-next` e `is-turning-prev` en cada cambio real de pagina.
+* La animacion funciona como mejora visual propia, complementaria a PageFlip.
+* Se adapto el ancho de la hoja animada para escritorio con doble pagina y celular con pagina unica.
+* Se agregaron `cursor: grab` y `touch-action: none` cuando PageFlip esta activo.
+* Se actualizo version/cache a `v0.7.3`.
+
+### Archivos modificados
+
+* `app.js`
+* `styles.css`
+* `index.html`
+* `BITACORA_LIBROS_DE_CARLITOS_PARACEL_REPO.md`
+
+### Comandos o scripts ejecutados
+
+* `node --check app.js`
+* `node -e "for (const f of ['data/book.json','data/editions.json','data/story-dia-nino.json','data/story-residuos-oportunidad.json']) { JSON.parse(require('fs').readFileSync(f,'utf8')); } console.log('JSON OK')"`
+* `git diff --check`
+* `python -m http.server 8793 --bind 127.0.0.1`
+* `npx playwright screenshot --viewport-size="390,844" --wait-for-timeout=3500 "http://127.0.0.1:8793/?v=0.7.3-mobile#libro/cuento-dia-nino-2026" "tmp_mobile_flip_v073.png"`
+* `npx playwright screenshot --wait-for-timeout=3500 "http://127.0.0.1:8793/?v=0.7.3-desktop#libro/cuento-dia-nino-2026" "tmp_desktop_flip_v073.png"`
+
+### Resultados verificados
+
+* La validacion sintactica JavaScript paso correctamente.
+* Los JSON del libro y catalogo parsean correctamente.
+* `git diff --check` no reporto errores.
+* Las capturas local movil y desktop muestran el lector en pantalla completa sin solapamiento de controles.
+* La prueba estatica confirma que `selectStoryPage()` llama a `animateStoryPageTurn()` y que existen las animaciones CSS `storyPageTurnNext`, `storyPageTurnPrev`, `storyPageShadowNext` y `storyPageShadowPrev`.
+
+### Pruebas realizadas
+
+* Validacion sintactica JavaScript.
+* Validacion JSON.
+* Revision de diff.
+* Captura Playwright CLI en vista movil.
+* Captura Playwright CLI en vista escritorio.
+* Verificacion estatica de disparo de clases de animacion.
+
+### Errores o incidentes
+
+* `require('playwright')` no esta disponible como dependencia local del repo; se uso la CLI `npx playwright screenshot` para capturas.
+
+### Soluciones aplicadas
+
+* Animacion nativa de paso de hoja independiente del CDN.
+* Limpieza de temporizador y clases de animacion al reconstruir el lector.
+* Cache-busting `v0.7.3`.
+
+### Pendientes
+
+* Validar tactilmente en un celular real que el gesto de arrastre de PageFlip sea comodo.
+
+### Riesgos
+
+* La animacion nativa garantiza percepcion visual del cambio, pero no reemplaza la prueba fisica del gesto tactil real.
+
+### Recomendaciones
+
+* Para libros digitales publicos, no depender solo de una libreria externa para una interaccion central. Mantener un efecto local de respaldo cuando el gesto o CDN puedan variar por navegador.
